@@ -19,6 +19,11 @@ module.exports = function(sequelize, DataTypes) {
       password: {
         type: DataTypes.STRING,
         allowNull: false
+      },
+      // Every user needs a budget
+      budget: {
+        type: DataTypes.DECIMAL,
+        allowNull: false
       }
     },
     {
