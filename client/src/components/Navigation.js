@@ -10,8 +10,8 @@ function Navigation(props) {
       <AppBar position="static">
         <Toolbar>
           <Button component={Link} to="/home" color="inherit">Home</Button>
-          <Button component={Link} to="/requirements" color="inherit">Requirements</Button>
-          <Button component={Link} to="/forum" color="inherit">Forum</Button>
+          <Button component={Link} to="/wishlist" color="inherit">Wish List</Button>
+          <Button component={Link} to="/wishlistdetail" color="inherit">Wish List Stats</Button>
 
           {user.email ?
             <>
