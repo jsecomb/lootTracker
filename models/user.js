@@ -15,6 +15,10 @@ module.exports = function(sequelize, DataTypes) {
           isEmail: true
         }
       },
+      username: {
+        type: DataTypes.STRING,
+        allowNull: false
+      },
       // The password cannot be null
       password: {
         type: DataTypes.STRING,
@@ -57,8 +61,8 @@ module.exports = function(sequelize, DataTypes) {
 
   User.associate = function(models) {
     // Associating User with Posts
-    // When an User is deleted, also delete any associated Posts
-    User.hasMany(models.Post, {
+    // When an User is deleted, also delete any associated Wishlists
+    User.hasMany(models.Wishlist, {
       onDelete: "cascade"
     });
   };

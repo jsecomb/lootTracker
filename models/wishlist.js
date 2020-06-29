@@ -15,7 +15,9 @@ module.exports = function(sequelize, DataTypes) {
       }
     });
 
-    Wishlist.hasMany(models.WishlistItem, {});
+    Wishlist.hasMany(models.WishlistItem, {
+      onDelete: "cascade"
+    });
   };
 
   return Wishlist;
