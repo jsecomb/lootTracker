@@ -11,7 +11,7 @@ function Navigation(props) {
         <Toolbar>
           <Button component={Link} to="/home" color="inherit">Home</Button>
           <Button component={Link} to="/wishlist" color="inherit">Wish List</Button>
-          <Button component={Link} to="/wishlistdetail" color="inherit">Wish List Stats</Button>
+          <Button component={Link} to="/wishlistdetails" color="inherit">Wish List Stats</Button>
 
           {user.email ?
             <>
