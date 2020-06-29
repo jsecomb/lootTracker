@@ -19,13 +19,7 @@ module.exports = function(sequelize, DataTypes) {
       password: {
         type: DataTypes.STRING,
         allowNull: false
-      },
-      // username cannot be null and must be unique
-    username: {
-      type: DataTypes.STRING,
-      allowNull: false,
-      unique: true  
-    }
+      }
     },
     {
       // This forces any default 'User' to exclude the password when we query them;
