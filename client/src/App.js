@@ -5,7 +5,7 @@ import {
   Route,
   Redirect
 } from "react-router-dom";
-import { Home, Requirements, Forum } from "./pages";
+import { Home, WishList, WishListDetail } from "./pages";
 import Auth from "./pages/Auth"
 import { Navigation, Error } from "./components";
 import Container from '@material-ui/core/Container';
@@ -19,6 +19,7 @@ function App() {
   function loginUser(email, password) {
     const data = {
       email: email,
+      username: username,
       password: password
     }
     API.Auth.login(data).then(res => {
@@ -30,6 +31,7 @@ function App() {
   function signupUser(email, password) {
     const data = {
       email: email,
+      username: username,
       password: password
     }
     API.Auth.signup(data).then(res => {
@@ -65,11 +67,11 @@ function App() {
                 <Route exact path={["/", "/home"]}>
                   <Home />
                 </Route>
-                <Route exact path={["/requirements"]}>
-                  <Requirements />
+                <Route exact user={user} path={["/wishlist"]}>
+                  <WishList user={user}/>
                 </Route>
-                <PrivateRoute exact user={user} path={["/forum"]}>
-                  <Forum user={user} />
+                <PrivateRoute exact user={user} path={["/wishlistdetails"]}>
+                  <WishListDetails user={user} />
                 </PrivateRoute>
                 <Route exact path={["/login", "/signup"]}>
                   <Auth

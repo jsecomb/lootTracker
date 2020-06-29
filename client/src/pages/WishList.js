@@ -10,9 +10,9 @@ import Container from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 import Paper from '@material-ui/core/Paper';
 
-function Requirements() {
+function WishList() {
 
-    const requirements = [
+    const wishlist = [
         "Must use ReactJS in some way (even if minimal)",
         "Must use a Node and Express Web Server",
         "Must be backed by a MySQL or MongoDB Database with a Sequelize or Mongoose ORM",
@@ -42,14 +42,14 @@ function Requirements() {
                                 <TableHead >
                                     <TableRow>
                                         <TableCell >#</TableCell >
-                                        <TableCell >Requirement</TableCell >
+                                        <TableCell >WishList</TableCell >
                                     </TableRow>
                                 </TableHead >
                                 <TableBody>
-                                    {requirements.map((requirement, idx) => (
+                                    {wishlist.map((wishlist, idx) => (
                                         <TableRow key={idx}>
                                             <TableCell >{idx + 1}</TableCell >
-                                            <TableCell >{requirement}</TableCell >
+                                            <TableCell >{wishlist}</TableCell >
                                         </TableRow>
                                     ))}
                                 </TableBody>
@@ -62,4 +62,4 @@ function Requirements() {
     )
 }
 
-export default Requirements;
+export default WishList;
