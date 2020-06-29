@@ -3,7 +3,7 @@ import Grid from '@material-ui/core/Grid';
 import API from "../utils/API";
 import { PostTable, PostForm } from "../components";
 
-function WishList(props) {
+function WishListDetails(props) {
     const initialFormState = { title: "", body: "" };
     const [posts, setPosts] = useState([]);
     const [formObject, setFormObject] = useState(initialFormState)
@@ -57,4 +57,4 @@ function WishList(props) {
 }
 
 
-export default WishListDetail;
+export default WishListDetails;
