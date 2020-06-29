@@ -6,7 +6,7 @@ module.exports = function(sequelize, DataTypes) {
   const User = sequelize.define(
     "User",
     {
-      // The email cannot be null, and must be a proper email before creation
+       // The email cannot be null, and must be a proper email before creation
       email: {
         type: DataTypes.STRING,
         allowNull: false,
@@ -19,7 +19,13 @@ module.exports = function(sequelize, DataTypes) {
       password: {
         type: DataTypes.STRING,
         allowNull: false
-      }
+      },
+      // username cannot be null and must be unique
+    username: {
+      type: DataTypes.STRING,
+      allowNull: false,
+      unique: true  
+    }
     },
     {
       // This forces any default 'User' to exclude the password when we query them;
