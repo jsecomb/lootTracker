@@ -16,7 +16,7 @@ function App() {
   const [user, setUser] = useState({});
   const [error, setError] = useState("")
 
-  function loginUser(email, password, username) {
+  function loginUser(email, username, password) {
     const data = {
       email: email,
       username: username,
@@ -28,7 +28,7 @@ function App() {
     })
   }
 
-  function signupUser(email, password, username) {
+  function signupUser(email, username, password) {
     const data = {
       email: email,
       username: username,
@@ -67,9 +67,9 @@ function App() {
                 <Route exact path={["/", "/home"]}>
                   <Home />
                 </Route>
-                <Route exact user={user} path={["/wishlist"]}>
+                <PrivateRoute exact user={user} path={["/wishlist"]}>
                   <WishList user={user}/>
-                </Route>
+                </PrivateRoute>
                 <PrivateRoute exact user={user} path={["/wishlistdetails"]}>
                   <WishListDetails user={user} />
                 </PrivateRoute>

@@ -1,5 +1,6 @@
 import axios from "axios";
 
+/* Routes to MySql2 Database
 /**
  * Private function to get all of an entity
  * @param {String} entity API Path/Entity 
@@ -45,7 +46,17 @@ function _update(id, entity, data){
     return axios.post(`/api/${entity}/${id}`, data);
 }
 
+/* Routes to external CDN --- need to confirm when we access page from appgit 
+export default {
+    searchTerms: function(query) {
+      return axios.get(
+        "https://store.steampowered.com/api/appdetails?appids=" +
+          query
+      );
+    }
+  };*/
 
+//** authorization routes for login and signup and routes for models */
 export default {
     Auth: {
         login: function(data){
@@ -59,23 +70,6 @@ export default {
         },
         user_data: function(){
             return axios.get("/auth/user_data");
-        }
-    },
-    Post: {
-        getAll: function () {
-            return _getAll("posts");
-        },
-        getById: function (id) {
-            return _getOne("posts", id);
-        },
-        delete: function (id) {
-            return _delete("posts", id);
-        },
-        create: function(data){
-            return _create("posts", data);
-        },
-        update: function(id, data){
-            return _update("posts", id, data);
         }
     },
     User: {
@@ -93,6 +87,57 @@ export default {
         },
         update: function(id, data){
             return _update("users", id, data);
+        }
+    },
+    Wishlist:{
+        getAll: function () {
+            return _getAll("wishlists");
+        },
+        getById: function (id) {
+            return _getOne("wishlists", id);
+        },
+        delete: function (id) {
+            return _delete("wishlists", id);
+        },
+        create: function(data){
+            return _create("wishlists", data);
+        },
+        update: function(id, data){
+            return _update("wishlists", id, data);
+        }
+    },
+    WishlistItem: {
+        getAll: function () {
+            return _getAll("wishlistitems");
+        },
+        getById: function (id) {
+            return _getOne("wishlistitems", id);
+        },
+        delete: function (id) {
+            return _delete("wishlistitems", id);
+        },
+        create: function(data){
+            return _create("wishlistitems", data);
+        },
+        update: function(id, data){
+            return _update("wishlistitems", id, data);
+        }
+    },
+    Game: {
+        getAll: function () {
+            return _getAll("games");
+        },
+        getById: function (id) {
+            return _getOne("games", id);
+        },
+        delete: function (id) {
+            return _delete("games", id);
+        },
+        create: function(data){
+            return _create("games", data);
+        },
+        update: function(id, data){
+            return _update("games", id, data);
         }
     }
 }
