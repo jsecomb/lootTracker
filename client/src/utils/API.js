@@ -46,7 +46,7 @@ function _update(id, entity, data){
     return axios.post(`/api/${entity}/${id}`, data);
 }
 
-/* Routes to external CDN 
+/* Routes to external CDN --- need to confirm when we access page from appgit 
 export default {
     searchTerms: function(query) {
       return axios.get(
