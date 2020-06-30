@@ -6,7 +6,7 @@ const isAuthenticated = require("../../config/middleware/isAuthenticated");
  * Post - Read All
  */
 router.get("/", isAuthenticated, function (req, res) {
-  db.Post.findAll({include: db.User})
+  db.Wishlist.findAll()
     .then(dbModel => res.json(dbModel))
     .catch(err => res.status(422).json(err));
 });
@@ -15,7 +15,7 @@ router.get("/", isAuthenticated, function (req, res) {
  * Post - Read One
  */
 router.get("/:id", isAuthenticated, function (req, res) {
-  db.Post.findById(req.params.id)
+  db.Wishlist.findById(req.params.id)
     .then(dbModel => res.json(dbModel))
     .catch(err => res.status(422).json(err));
 });
@@ -28,8 +28,7 @@ router.post("/", isAuthenticated,  function (req, res) {
   if(req.user === null || req.user.id === null){
     res.status(401).json("NOT AUTHORIZED");
   }
-  db.Post.create({
-    UserId: req.user.id,
+  db.Wishlist.create({
     ...req.body
   })
     .then(dbModel => res.json(dbModel))
@@ -40,7 +39,7 @@ router.post("/", isAuthenticated,  function (req, res) {
  * Post - Update
  */
 router.put("/:id", isAuthenticated, function (req, res) {
-  db.Post.update(req.body, { where: { id: req.params.id } })
+  db.Wishlist.update(req.body, { where: { id: req.params.id } })
     .then(dbModel => res.json(dbModel))
     .catch(err => res.status(422).json(err));
 });
@@ -49,7 +48,7 @@ router.put("/:id", isAuthenticated, function (req, res) {
  * Post - Delete
  */
 router.delete("/:id", isAuthenticated, function (req, res) {
-  db.Post.destroy({ where: { id: req.params.id } })
+  db.Wishlist.destroy({ where: { id: req.params.id } })
     .then(dbModel => res.json(dbModel))
     .catch(err => res.status(422).json(err));
 });
