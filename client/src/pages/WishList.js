@@ -9,8 +9,13 @@ import Grid from '@material-ui/core/Grid';
 import Container from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 import Paper from '@material-ui/core/Paper';
+import GameTable from "../components/GameTable";
+import BudgetProgressBar from "../components/BudgetProgressBar";
+
 
 function WishList() {
+
+    let remaining = 50;
 
     const wishlist = [
         "Must use ReactJS in some way (even if minimal)",
@@ -45,14 +50,16 @@ function WishList() {
                                         <TableCell >WishList</TableCell >
                                     </TableRow>
                                 </TableHead >
-                                <TableBody>
+                                {/* <TableBody>
                                     {wishlist.map((wishlist, idx) => (
                                         <TableRow key={idx}>
                                             <TableCell >{idx + 1}</TableCell >
                                             <TableCell >{wishlist}</TableCell >
                                         </TableRow>
                                     ))}
-                                </TableBody>
+                                </TableBody> */}
+                                <BudgetProgressBar remaining={remaining}/>
+                                <GameTable/>
                             </Table>
                         </Grid>
                     </Grid>
