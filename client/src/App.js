@@ -67,9 +67,9 @@ function App() {
                 <Route exact path={["/", "/home"]}>
                   <Home />
                 </Route>
-                <Route exact user={user} path={["/wishlist"]}>
+                <PrivateRoute exact user={user} path={["/wishlist"]}>
                   <WishList user={user}/>
-                </Route>
+                </PrivateRoute>
                 <PrivateRoute exact user={user} path={["/wishlistdetails"]}>
                   <WishListDetails user={user} />
                 </PrivateRoute>
