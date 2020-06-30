@@ -1,5 +1,6 @@
 import axios from "axios";
 
+/* Routes to MySql2 Database
 /**
  * Private function to get all of an entity
  * @param {String} entity API Path/Entity 
@@ -45,7 +46,17 @@ function _update(id, entity, data){
     return axios.post(`/api/${entity}/${id}`, data);
 }
 
+/* Routes to external CDN 
+export default {
+    searchTerms: function(query) {
+      return axios.get(
+        "https://store.steampowered.com/api/appdetails?appids=" +
+          query
+      );
+    }
+  };*/
 
+//** authorization routes for login and signup */
 export default {
     Auth: {
         login: function(data){
