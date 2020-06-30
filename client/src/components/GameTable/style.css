@@ -1,0 +1,16 @@
+#tableHeader{
+    color:white;
+    font-weight: 600;
+    font-size: 20px;
+}
+
+#tableCell{
+    color:white;
+    font-size: 15px;
+}
+
+#removeBtn{
+    color:navy;
+    background-color:yellowgreen;
+    box-shadow: 3px 3px 3px black;
+}
