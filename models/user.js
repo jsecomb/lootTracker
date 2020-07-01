@@ -17,18 +17,14 @@ module.exports = function(sequelize, DataTypes) {
       },
       username: {
         type: DataTypes.STRING,
-        allowNull: false
+        allowNull: true
       },
       // The password cannot be null
       password: {
         type: DataTypes.STRING,
         allowNull: false
       },
-      // Every user needs a budget
-      budget: {
-        type: DataTypes.DECIMAL,
-        allowNull: false
-      }
+      
     },
     {
       // This forces any default 'User' to exclude the password when we query them;

@@ -1,9 +1,5 @@
 module.exports = function(sequelize, DataTypes) {
     var WishlistItem = sequelize.define("WishlistItem", {
-      totalCost: {
-        type: DataTypes.DECIMAL,
-        allowNull: false
-      },
       purchaseDate: {
         type: DataTypes.DATE
       }
