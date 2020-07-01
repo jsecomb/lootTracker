@@ -19,9 +19,10 @@ module.exports = function(sequelize, DataTypes) {
   
     Game.associate = function(models) {
       Game.belongsToMany(models.WishlistItem, {
+        through: 'WishlistGames'
       });
     };
   
-    return Wishlist;
+    return Game;
   };
   
