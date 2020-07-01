@@ -3,6 +3,10 @@ module.exports = function(sequelize, DataTypes) {
     totalCost: {
       type: DataTypes.DECIMAL,
       allowNull: false
+    },
+    budget: {
+      type: DataTypes.DECIMAL,
+      allowNull: false
     }
   });
 
