@@ -11,9 +11,11 @@ function Home() {
                         <Grid item xs={12}>
 
                             <Typography variant="h2" align="center" gutterBottom>
-                                Hello World
+                                LootTracker                    
                             </Typography>
-
+                            <Typography variat= "h3" align='center gutterBottom>
+                            Use a Wish List and a budget amount to optimize your gaming dollars.
+                            </Typography>
                         </Grid>
                     </Grid>
                 
