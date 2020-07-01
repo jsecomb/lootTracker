@@ -11,6 +11,7 @@ import Typography from '@material-ui/core/Typography';
 import Paper from '@material-ui/core/Paper';
 import GameTable from "../components/GameTable";
 import BudgetProgressBar from "../components/BudgetProgressBar";
+import AddGame from "../components/AddGame";
 
 
 function WishList() {
@@ -37,19 +38,9 @@ function WishList() {
                 <Container>
                     <Grid container spacing={3}>
                         <Grid item xs={12}>
-                            <Typography variant="h4" align="center" gutterBottom>
-                                The following are our requirements:
-                        </Typography>
                         </Grid>
-
                         <Grid item xs={12}>
-                            <Table>
-                                <TableHead >
-                                    <TableRow>
-                                        <TableCell >#</TableCell >
-                                        <TableCell >WishList</TableCell >
-                                    </TableRow>
-                                </TableHead >
+                            <Table>                                
                                 {/* <TableBody>
                                     {wishlist.map((wishlist, idx) => (
                                         <TableRow key={idx}>
@@ -58,6 +49,7 @@ function WishList() {
                                         </TableRow>
                                     ))}
                                 </TableBody> */}
+                                <AddGame/>
                                 <BudgetProgressBar remaining={remaining}/>
                                 <GameTable/>
                             </Table>
