@@ -40,19 +40,8 @@ function WishList() {
                         <Grid item xs={12}>
                         </Grid>
                         <Grid item xs={12}>
-                            <Table>                                
-                                {/* <TableBody>
-                                    {wishlist.map((wishlist, idx) => (
-                                        <TableRow key={idx}>
-                                            <TableCell >{idx + 1}</TableCell >
-                                            <TableCell >{wishlist}</TableCell >
-                                        </TableRow>
-                                    ))}
-                                </TableBody> */}
-                                <AddGame/>
-                                <BudgetProgressBar remaining={remaining}/>
-                                <GameTable/>
-                            </Table>
+                            <AddGame/>
+                            <GameTable/>
                         </Grid>
                     </Grid>
                 </Container>
