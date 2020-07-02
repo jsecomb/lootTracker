@@ -16,7 +16,8 @@ const useStyles = makeStyles((theme) => ({
 
 export default function AddGame() {
 
-    const [gameString, setGameString] = useState("")
+    const [gameString, setGameString] = useState("");
+    const [gameReturns, setGameReturns] = useState([])
 
     function handleInputChange(event){
         setGameString(event.target.value)
@@ -34,12 +35,13 @@ export default function AddGame() {
             "useQueryString":true
             },"params":{
             "limit":"60",
-            "title":"batman",
+            "title": gameString,
             "exact":"0"
             }
             })
             .then((response)=>{
               console.log(response)
+              setGameReturns(response)
             })
             .catch((error)=>{
               console.log(error)
