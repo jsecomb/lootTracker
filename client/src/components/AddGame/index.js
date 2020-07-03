@@ -63,9 +63,6 @@ export default function AddGame() {
     ).then(function (response) {
       alert("you have added a game")
     });
-    API.Wishlist.create(
-      
-    )
   }
 
   return (
