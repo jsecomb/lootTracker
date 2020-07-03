@@ -31,6 +31,7 @@ router.post("/", isAuthenticated,  function (req, res) {
   db.Wishlist.create({
     ...req.body,
     UserId: req.user.id
+
   })
     .then(dbModel => res.json(dbModel))
     .catch(err => res.status(422).json(err));

@@ -2,10 +2,12 @@ import React from 'react';
 import "./style.css";
 import { useState } from 'react';
 import axios from 'axios'
+import API from "../../utils/API"
 
 export default function AddGame() {
 
   const [gameString, setGameString] = useState("");
+  const [gameResults, setGameResults] = useState([]);
   let searchResults = [];
 
   function handleInputChange(event) {
@@ -40,34 +42,11 @@ export default function AddGame() {
 
       .then((response) => {
         searchResults = response.data
-        renderResults(searchResults);
+        setGameResults(response.data);
       })
       .catch((error) => {
         console.log(error)
       })
-  }
-
-  function renderResults(searchResults) {
-    searchResults.forEach(game => {
-      let resultRow = document.createElement("tr");
-
-      resultRow.innerHTML = 
-      `<td><img src=${game.thumb}></img><td>
-      <td>${game.title}<td>
-      <td>SteamID: ${game.steamAppID}<td>
-      <td>Rating: ${game.steamRatingPercent}%<td>
-      <td>Price: ${game.normalPrice}<td>
-      <td>${game.releaseDate}<td>
-      <td><button id="addGame">Add to wishlist</button>`
-
-      document.getElementById("results").append(resultRow)
-
-      document.body.addEventListener('click', function (event) {
-        if(event.target.id == 'addGame' ) {
-          postGame(game)
-        };
-      });
-    })
   }
 
   function postGame(game) {
@@ -79,10 +58,14 @@ export default function AddGame() {
       releaseDate: game.releaseDate,
       linkOrId: game.steamAppID
     }
-    //POST ROUTE HERE
-    // .then(function (response) {
-    //   alert("you have added a game")
-    // });
+    API.Game.create(
+      newGameInfo
+    ).then(function (response) {
+      alert("you have added a game")
+    });
+    API.Wishlist.create(
+      
+    )
   }
 
   return (
@@ -94,8 +77,21 @@ export default function AddGame() {
       </div>
       <br/>
       <div>
+        {gameResults.length>0 &&
         <table id="results">
+          {gameResults.map(game => (<tr>
+            <td><img src={game.thumb}></img></td>
+            <td>{game.title}</td>
+            <td>SteamID: {game.steamAppID}</td>
+            <td>Rating: {game.steamRatingPercent}%</td>
+            <td>Price: {game.normalPrice}</td>
+            <td>{game.releaseDate}</td>
+            <td><button id="addGame" onClick={() => postGame(game)}>Add to wishlist</button></td>
+          </tr>
+          ))}
         </table>
+        }
+        
       </div>
     </>
 
