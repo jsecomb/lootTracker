@@ -11,7 +11,6 @@ router.get("/", isAuthenticated, function (req, res) {
     .catch(err => res.status(422).json(err));
 });
 
-//http://localhost:3000/games/findGame/277430
 router.get("/findGame/:gameId", isAuthenticated, function (req, res) {
   console.log(req.query.q)
   db.Game.findAll({where: {linkOrId: req.params.gameId}})
