@@ -2,7 +2,7 @@ module.exports = function(sequelize, DataTypes) {
   var Wishlist = sequelize.define("Wishlist", {
     totalCost: {
       type: DataTypes.DECIMAL,
-      allowNull: false
+      defaultValue: 0.00
     },
     budget: {
       type: DataTypes.DECIMAL,
