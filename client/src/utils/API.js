@@ -5,8 +5,8 @@ import axios from "axios";
  * Private function to get all of an entity
  * @param {String} entity API Path/Entity 
  */
-function _getAll(entity){
-    return axios.get(`/api/${entity}/`);
+function _getAll(entity, query=""){
+    return axios.get(`/api/${entity}/?${query}`);
 }
 
 /**
@@ -63,8 +63,8 @@ export default {
         }
     },
     User: {
-        getAll: function () {
-            return _getAll("users");
+        getAll: function (query = "") {
+            return _getAll("users", query);
         },
         getById: function (id) {
             return _getOne("users", id);
@@ -80,8 +80,8 @@ export default {
         }
     },
     Wishlist:{
-        getAll: function () {
-            return _getAll("wishlists");
+        getAll: function (query = "") {
+            return _getAll("wishlists", query);
         },
         getById: function (id) {
             return _getOne("wishlists", id);
@@ -97,8 +97,8 @@ export default {
         }
     },
     WishlistItem: {
-        getAll: function () {
-            return _getAll("wishlistitems");
+        getAll: function (query = "") {
+            return _getAll("wishlistitems", query);
         },
         getById: function (id) {
             return _getOne("wishlistitems", id);
@@ -114,8 +114,11 @@ export default {
         }
     },
     Game: {
-        getAll: function () {
-            return _getAll("games");
+        getAll: function (query = "") {
+            return _getAll("games", query);
+        },
+        getAllByName: function (query) {
+            return axios.get(`/api/games/findGame/${query}`);
         },
         getById: function (id) {
             return _getOne("games", id);

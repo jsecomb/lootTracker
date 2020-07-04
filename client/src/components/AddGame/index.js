@@ -8,7 +8,6 @@ export default function AddGame() {
 
   const [gameString, setGameString] = useState("");
   const [gameResults, setGameResults] = useState([]);
-  let searchResults = [];
 
   function handleInputChange(event) {
     setGameString(event.target.value)
@@ -41,7 +40,6 @@ export default function AddGame() {
     // })
 
       .then((response) => {
-        searchResults = response.data
         setGameResults(response.data);
       })
       .catch((error) => {
@@ -58,10 +56,22 @@ export default function AddGame() {
       releaseDate: game.releaseDate,
       linkOrId: game.steamAppID
     }
-    API.Game.create(
-      newGameInfo
-    ).then(function (response) {
-      alert("you have added a game")
+
+    API.Game.getAllByName(game.steamAppID)
+    .then(function (response) {
+      if(response.data.length === 0){
+        API.Game.create(
+          newGameInfo
+        ).then(function (response) {
+          alert("you have added a game to the game db")
+        });
+      }
+    })
+    
+    API.WishlistItem.create(
+      {purchaseDate: Date.now}
+      ).then(function (response) {
+      alert("you have added a game to your wishlist")
     });
   }
 
