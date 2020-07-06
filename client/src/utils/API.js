@@ -83,6 +83,9 @@ export default {
         getAll: function (query = "") {
             return _getAll("wishlists", query);
         },
+        getAllByUserId: function (query) {
+            return axios.get(`/api/wishlists/findWishlist/${query}`);
+        },
         getById: function (id) {
             return _getOne("wishlists", id);
         },
