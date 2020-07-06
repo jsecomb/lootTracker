@@ -4,7 +4,7 @@ import { useState } from 'react';
 import axios from 'axios'
 import API from "../../utils/API"
 
-export default function AddGame() {
+export default function AddGame(props) {
 
   const [gameString, setGameString] = useState("");
   const [gameResults, setGameResults] = useState([]);
@@ -62,17 +62,34 @@ export default function AddGame() {
       if(response.data.length === 0){
         API.Game.create(
           newGameInfo
-        ).then(function (response) {
+        ).then(function (gameData) {
+          console.log(gameData)
+          API.Wishlist.getAllByUserId(props.user.id).then(function (wishlistData) {
+            console.log(wishlistData)
+            API.WishlistItem.create(
+              {purchaseDate: Date.now(),
+              GameId: gameData.data.id,
+              WishlistId: wishlistData.data[0].id}
+              ).then(function (response) {
+              alert("you have added a game to your wishlist")
+            });
+          })  
           alert("you have added a game to the game db")
         });
       }
+      else {
+        API.Wishlist.getAllByUserId(props.user.id).then(function (wishlistData) {
+          console.log(wishlistData)
+          API.WishlistItem.create(
+            {purchaseDate: Date.now(),
+            GameId: response.data[0].id,
+            WishlistId: wishlistData.data[0].id}
+            ).then(function (response) {
+            alert("you have added a game to your wishlist")
+          });
+        })  
+      }
     })
-    
-    API.WishlistItem.create(
-      {purchaseDate: Date.now}
-      ).then(function (response) {
-      alert("you have added a game to your wishlist")
-    });
   }
 
   return (

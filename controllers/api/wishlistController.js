@@ -13,6 +13,13 @@ router.get("/", isAuthenticated, function (req, res) {
     .catch(err => res.status(422).json(err));
 });
 
+router.get("/findWishlist/:UserId", isAuthenticated, function (req, res) {
+  console.log(req.query.q)
+  db.Wishlist.findAll({where: {UserId: req.params.UserId}})
+    .then(dbModel => res.json(dbModel))
+    .catch(err => res.status(422).json(err));
+});
+
 /**
  * Post - Read One
  */

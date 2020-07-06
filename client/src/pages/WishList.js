@@ -41,7 +41,7 @@ function WishList(props) {
                         <Grid item xs={12}>
                         </Grid>
                         <Grid item xs={12}>
-                            <AddGame/>
+                            <AddGame user={props.user}/>
                             <GameTable/>
                             <AddWishlist/>
                         </Grid>
