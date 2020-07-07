@@ -14,7 +14,6 @@ router.get("/", isAuthenticated, function (req, res) {
 });
 
 router.get("/findWishlist/:UserId", isAuthenticated, function (req, res) {
-  console.log(req.query.q)
   db.Wishlist.findAll({where: {UserId: req.params.UserId}})
     .then(dbModel => res.json(dbModel))
     .catch(err => res.status(422).json(err));

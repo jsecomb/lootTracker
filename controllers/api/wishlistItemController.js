@@ -24,6 +24,12 @@ router.get("/:id", isAuthenticated, function (req, res) {
     .catch(err => res.status(422).json(err));
 });
 
+router.get("/findWishlistItem/:WishlistId", isAuthenticated, function (req, res) {
+  db.WishlistItem.findAll({where: {WishlistId: req.params.WishlistId}})
+    .then(dbModel => res.json(dbModel))
+    .catch(err => res.status(422).json(err));
+});
+
 /** 
  * Post - Create
  * Notice how we are also taking in the User Id! Important!

@@ -12,7 +12,6 @@ router.get("/", isAuthenticated, function (req, res) {
 });
 
 router.get("/findGame/:gameId", isAuthenticated, function (req, res) {
-  console.log(req.query.q)
   db.Game.findAll({where: {linkOrId: req.params.gameId}})
     .then(dbModel => res.json(dbModel))
     .catch(err => res.status(422).json(err));
