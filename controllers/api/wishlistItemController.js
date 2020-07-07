@@ -6,7 +6,9 @@ const isAuthenticated = require("../../config/middleware/isAuthenticated");
  * Post - Read All
  */
 router.get("/", isAuthenticated, function (req, res) {
-  db.WishlistItem.findAll()
+  db.WishlistItem.findAll({
+    include: [db.Game]
+  })
     .then(dbModel => res.json(dbModel))
     .catch(err => res.status(422).json(err));
 });
@@ -15,7 +17,15 @@ router.get("/", isAuthenticated, function (req, res) {
  * Post - Read One
  */
 router.get("/:id", isAuthenticated, function (req, res) {
-  db.WishlistItem.findById(req.params.id)
+  db.WishlistItem.findById(req.params.id, {
+    include: [db.Game]
+  })
+    .then(dbModel => res.json(dbModel))
+    .catch(err => res.status(422).json(err));
+});
+
+router.get("/findWishlistItem/:WishlistId", isAuthenticated, function (req, res) {
+  db.WishlistItem.findAll({where: {WishlistId: req.params.WishlistId}})
     .then(dbModel => res.json(dbModel))
     .catch(err => res.status(422).json(err));
 });

@@ -12,9 +12,10 @@ import Paper from '@material-ui/core/Paper';
 import GameTable from "../components/GameTable";
 import BudgetProgressBar from "../components/BudgetProgressBar";
 import AddGame from "../components/AddGame";
+import AddWishlist from "../components/AddWishlist";
 
 
-function WishList() {
+function WishList(props) {
 
     let remaining = 50;
 
@@ -40,19 +41,9 @@ function WishList() {
                         <Grid item xs={12}>
                         </Grid>
                         <Grid item xs={12}>
-                            <Table>                                
-                                {/* <TableBody>
-                                    {wishlist.map((wishlist, idx) => (
-                                        <TableRow key={idx}>
-                                            <TableCell >{idx + 1}</TableCell >
-                                            <TableCell >{wishlist}</TableCell >
-                                        </TableRow>
-                                    ))}
-                                </TableBody> */}
-                                <AddGame/>
-                                <BudgetProgressBar remaining={remaining}/>
-                                <GameTable/>
-                            </Table>
+                            <AddGame user={props.user}/>
+                            <GameTable user={props.user}/>
+                            <AddWishlist/>
                         </Grid>
                     </Grid>
                 </Container>

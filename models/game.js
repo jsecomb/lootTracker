@@ -14,12 +14,17 @@ module.exports = function(sequelize, DataTypes) {
       linkOrId: {
         type: DataTypes.STRING,
         allowNull: false
+      },
+      imgLink: {
+        type: DataTypes.STRING
+      },
+      rating: {
+        type: DataTypes.DECIMAL
       }
     });
   
     Game.associate = function(models) {
-      Game.belongsToMany(models.WishlistItem, {
-        through: 'WishlistGames'
+      Game.hasMany(models.WishlistItem, {
       });
     };
   

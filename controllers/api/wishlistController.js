@@ -6,7 +6,15 @@ const isAuthenticated = require("../../config/middleware/isAuthenticated");
  * Post - Read All
  */
 router.get("/", isAuthenticated, function (req, res) {
-  db.Wishlist.findAll()
+  db.Wishlist.findAll({
+    include: {all: true, nested: true}
+  })
+    .then(dbModel => res.json(dbModel))
+    .catch(err => res.status(422).json(err));
+});
+
+router.get("/findWishlist/:UserId", isAuthenticated, function (req, res) {
+  db.Wishlist.findAll({where: {UserId: req.params.UserId}})
     .then(dbModel => res.json(dbModel))
     .catch(err => res.status(422).json(err));
 });
@@ -15,7 +23,9 @@ router.get("/", isAuthenticated, function (req, res) {
  * Post - Read One
  */
 router.get("/:id", isAuthenticated, function (req, res) {
-  db.Wishlist.findById(req.params.id)
+  db.Wishlist.findById(req.params.id, {
+    include: {all: true, nested: true}
+  })
     .then(dbModel => res.json(dbModel))
     .catch(err => res.status(422).json(err));
 });
@@ -29,7 +39,9 @@ router.post("/", isAuthenticated,  function (req, res) {
     res.status(401).json("NOT AUTHORIZED");
   }
   db.Wishlist.create({
-    ...req.body
+    ...req.body,
+    UserId: req.user.id
+
   })
     .then(dbModel => res.json(dbModel))
     .catch(err => res.status(422).json(err));

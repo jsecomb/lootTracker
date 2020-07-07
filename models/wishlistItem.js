@@ -14,7 +14,11 @@ module.exports = function(sequelize, DataTypes) {
         }
       });
   
-      WishlistItem.hasOne(models.Game, {});
+      WishlistItem.belongsTo(models.Game, {
+        foreignKey: {
+          allowNull: false
+        }
+      });
     };
   
     return WishlistItem;
