@@ -1,4 +1,5 @@
 import React from 'react';
+import API from "../../utils/API";
 import "./style.css";
 import { makeStyles } from '@material-ui/core/styles';
 import Table from '@material-ui/core/Table';
@@ -24,6 +25,20 @@ function createData(img, name, price, releaseDate) {
   return { img, name, price, releaseDate };
 }
 
+const wishlistData = []
+
+function getWishlistItems(userProfile) {
+  API.Wishlist.getAllByUserId(userProfile.user.id).then(function (wishlists) {
+    let wishListIds = wishlists.data.map(wishlist => wishlist.id)
+    console.log(wishListIds)
+    wishListIds.forEach(listId => {
+      API.WishlistItem.getAllByWishlistId(listId).then(function (wishlistItems) {
+      wishlistData.push(wishlistItems)
+      })
+    })
+  })
+}
+
 const rows = [
   createData("https://i.imgur.com/7w8L1Ugt.jpg","Halo 1", 50, moment().format("MMM Do YYYY")),
   createData("https://i.imgur.com/7w8L1Ugt.jpg","Halo 2", 60, moment().format("MMM Do YYYY")),
@@ -32,7 +47,12 @@ const rows = [
   createData("https://i.imgur.com/7w8L1Ugt.jpg","Halo 5", 20, moment().format("MMM Do YYYY"))
 ];
 
-export default function GameTable() {
+export default function GameTable(props) {
+
+  getWishlistItems(props);
+
+  console.log(wishlistData)
+
   const classes = useStyles();
 
   return (

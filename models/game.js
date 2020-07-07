@@ -14,6 +14,12 @@ module.exports = function(sequelize, DataTypes) {
       linkOrId: {
         type: DataTypes.STRING,
         allowNull: false
+      },
+      imgLink: {
+        type: DataTypes.STRING
+      },
+      rating: {
+        type: DataTypes.DECIMAL
       }
     });
   

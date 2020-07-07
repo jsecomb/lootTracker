@@ -54,7 +54,9 @@ export default function AddGame(props) {
       title: game.title,
       price: game.normalPrice,
       releaseDate: game.releaseDate,
-      linkOrId: game.steamAppID
+      linkOrId: game.steamAppID,
+      imgLink: game.thumb,
+      rating: game.steamRatingPercent
     }
 
     API.Game.getAllByName(game.steamAppID)
@@ -63,9 +65,7 @@ export default function AddGame(props) {
         API.Game.create(
           newGameInfo
         ).then(function (gameData) {
-          console.log(gameData)
           API.Wishlist.getAllByUserId(props.user.id).then(function (wishlistData) {
-            console.log(wishlistData)
             API.WishlistItem.create(
               {purchaseDate: Date.now(),
               GameId: gameData.data.id,
@@ -79,7 +79,6 @@ export default function AddGame(props) {
       }
       else {
         API.Wishlist.getAllByUserId(props.user.id).then(function (wishlistData) {
-          console.log(wishlistData)
           API.WishlistItem.create(
             {purchaseDate: Date.now(),
             GameId: response.data[0].id,
