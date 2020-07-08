@@ -10,7 +10,6 @@ function Home() {
                     <HeroCard>
                     </HeroCard>                
                 </Container>
-    
         </>
     )
 }
