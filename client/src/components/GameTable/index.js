@@ -34,39 +34,44 @@ export default function GameTable(props) {
       let wishListIds = wishlists.data.map(wishlist => wishlist.id)
       wishListIds.forEach(listId => {
         API.WishlistItem.getAllByWishlistId(listId).then(function (wishlistItems) {
-          console.log(wishlistItems)
-          createTableRows(wishlistItems)
+          createTableRows(wishlistItems.data)
         })
       })
     })
   }
    
-  function createTableRows (wishlistItems) {
-    wishlistItems.data.forEach(item => {
-      API.Game.getById(item.GameId).then(function (gameData){
-        gameData = gameData.data
-        let gameRowData = {
-          name: gameData.title,
-          price: gameData.price,
-          rating: gameData.rating,
-          releaseDate: timeConverter(gameData.releaseDate).substring(0,10),
-          imgLink: gameData.imgLink,
-          purchaseDate: item.purchaseDate.substring(0,10),
-          gameId: item.GameId,
-          wishlistId: item.id
-        }
-        setWishlistRows([...wishlistRows, gameRowData])
-      })
+  function createTableRows(wishlistItems) {
+    let wishlistData = [];
+    wishlistItems.map(item => {
+      let gameData = item.Game
+      let gameRowData = {
+        name: gameData.title,
+        price: gameData.price,
+        rating: gameData.rating,
+        releaseDate: timeConverter(gameData.releaseDate).substring(0, 11),
+        imgLink: gameData.imgLink,
+        purchaseDate: item.purchaseDate.substring(0, 10),
+        gameId: item.GameId,
+        wishlistId: item.id
+      }
+      wishlistData.push(gameRowData);
     })
+    setWishlistRows(wishlistData)
   }
 
   function removeWishlistItem (item) {
     API.WishlistItem.delete(item.wishlistId).then(function (response) {
       alert(`you have removed ${item.name}`)
+      getWishlistItems(props)
     })
   }
 
   const classes = useStyles()
+
+  useEffect(()=> {
+    getWishlistItems(props);
+    props.setReload(false);
+  },[props.reload])
 
   return (
     <TableContainer component={Paper}>

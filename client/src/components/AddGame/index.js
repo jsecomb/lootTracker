@@ -48,6 +48,7 @@ export default function AddGame(props) {
   }
 
   function postGame(game) {
+    setGameResults([]);
     console.log(`you are adding ${game.title}`)
     let newGameInfo =
     {
@@ -71,6 +72,7 @@ export default function AddGame(props) {
               GameId: gameData.data.id,
               WishlistId: wishlistData.data[0].id}
               ).then(function (response) {
+              props.setReload(true)
               alert("you have added a game to your wishlist")
             });
           })  
@@ -84,6 +86,7 @@ export default function AddGame(props) {
             GameId: response.data[0].id,
             WishlistId: wishlistData.data[0].id}
             ).then(function (response) {
+            props.setReload(true)
             alert("you have added a game to your wishlist")
           });
         })  
