@@ -7,13 +7,9 @@ import {
 } from "react-router-dom";
 import { Home, WishList, WishListDetails } from "./pages";
 import Auth from "./pages/Auth"
-import { Navigation } from "./components";
-import { Error } from "./components";
+import { Navigation, Error } from "./components";
 import Container from '@material-ui/core/Container';
 import Grid from '@material-ui/core/Grid';
-import { createStyles, withStyles } from "@material-ui/core"
-import { MuiThemeProvider } from '@material-ui/core/styles';
-import theme from "./utils/theme";
 import API from './utils/API';
 
 function App() {
@@ -55,9 +51,8 @@ function App() {
 
   return (
     <>
-     <MuiThemeProvider theme={theme}>
       <Router>
-        <Container >
+        <Container>
           <Grid container spacing={3}>
             <Grid item xs={12}>
               <Navigation user={user} logoutUser={logoutUser} />
@@ -88,7 +83,6 @@ function App() {
           </Grid>
         </Container>
       </Router>
-      </MuiThemeProvider>
     </>
   );
 }
