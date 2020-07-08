@@ -18,10 +18,10 @@ router.get("/findGame/:gameId", isAuthenticated, function (req, res) {
 });
   
 /**
- * Post - Read One
+ * Get - Read One
  */
 router.get("/:id", isAuthenticated, function (req, res) {
-  db.Game.findById(req.params.id)
+  db.Game.findByPk(req.params.id)
     .then(dbModel => res.json(dbModel))
     .catch(err => res.status(422).json(err));
 });

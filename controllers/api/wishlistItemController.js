@@ -25,7 +25,7 @@ router.get("/:id", isAuthenticated, function (req, res) {
 });
 
 router.get("/findWishlistItem/:WishlistId", isAuthenticated, function (req, res) {
-  db.WishlistItem.findAll({where: {WishlistId: req.params.WishlistId}})
+  db.WishlistItem.findAll({where: {WishlistId: req.params.WishlistId}, include: [db.Game]})
     .then(dbModel => res.json(dbModel))
     .catch(err => res.status(422).json(err));
 });
