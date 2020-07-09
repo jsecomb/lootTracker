@@ -3,10 +3,8 @@ import { makeStyles } from '@material-ui/core/styles';
 import { FormControl, InputLabel, Input, FormHelperText, Button } from '@material-ui/core';
 import "./style.css";
 import { useState } from 'react';
-import axios from 'axios';
-import API from "../../utils/API";
-//import { MuiThemeProvider } from '@material-ui/core/styles';
-//import theme from "../../utils/theme"
+import axios from 'axios'
+import API from "../../utils/API"
 
 export default function AddWishlist() {
 

@@ -3,8 +3,6 @@ import "./style.css";
 import { useState } from 'react';
 import axios from 'axios'
 import API from "../../utils/API"
-//import { MuiThemeProvider } from '@material-ui/core/styles';
-//import theme from "../../utils/theme"
 
 export default function AddGame(props) {
 
