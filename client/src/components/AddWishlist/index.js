@@ -25,7 +25,7 @@ export default function AddWishlist() {
   return (
     <div>
       <form>
-        <label for="budget">Enter your total budget</label><br/>
+        <label htmlFor="budget">Enter your total budget</label><br/>
         <input type="text" id="budget" name="budget" onChange={handleInputChange}></input><br/>
         <input type="submit" value="Submit" onClick={handleFormSubmit}></input>
       </form>

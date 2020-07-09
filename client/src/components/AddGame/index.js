@@ -42,7 +42,15 @@ export default function AddGame(props) {
     // })
 
       .then((response) => {
-        setGameResults(response.data);
+        let gamesList = response.data.sort(function(a,b){return a.steamAppID - b.steamAppID});
+        let filteredGamesList = [];
+        for(let i=0; i<gamesList.length-1; i++){
+          if (gamesList[i].steamAppID !== gamesList[i+1].steamAppID){
+              filteredGamesList.push(gamesList[i])
+          }
+        }
+        filteredGamesList = filteredGamesList.filter(game => game.steamAppID)
+        setGameResults(filteredGamesList);
       })
       .catch((error) => {
         console.log(error)
@@ -50,6 +58,7 @@ export default function AddGame(props) {
   }
 
   function postGame(game) {
+    setGameResults([]);
     console.log(`you are adding ${game.title}`)
     let newGameInfo =
     {
@@ -73,6 +82,7 @@ export default function AddGame(props) {
               GameId: gameData.data.id,
               WishlistId: wishlistData.data[0].id}
               ).then(function (response) {
+              props.setReload(true)
               alert("you have added a game to your wishlist")
             });
           })  
@@ -86,11 +96,25 @@ export default function AddGame(props) {
             GameId: response.data[0].id,
             WishlistId: wishlistData.data[0].id}
             ).then(function (response) {
+            props.setReload(true)
             alert("you have added a game to your wishlist")
           });
         })  
       }
     })
+  }
+
+  function timeConverter(UNIX_timestamp){
+    var a = new Date(UNIX_timestamp * 1000);
+    var months = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+    var year = a.getFullYear();
+    var month = months[a.getMonth()];
+    var date = a.getDate();
+    var hour = a.getHours();
+    var min = a.getMinutes();
+    var sec = a.getSeconds();
+    var time = date + ' ' + month + ' ' + year + ' ' + hour + ':' + min + ':' + sec ;
+    return time;
   }
 
   return (
@@ -107,10 +131,9 @@ export default function AddGame(props) {
           {gameResults.map(game => (<tr>
             <td><img src={game.thumb}></img></td>
             <td>{game.title}</td>
-            <td>SteamID: {game.steamAppID}</td>
             <td>Rating: {game.steamRatingPercent}%</td>
             <td>Price: {game.normalPrice}</td>
-            <td>{game.releaseDate}</td>
+            <td>{timeConverter(game.releaseDate).substring(0,11)}</td>
             <td><button id="addGame" onClick={() => postGame(game)}>Add to wishlist</button></td>
           </tr>
           ))}
