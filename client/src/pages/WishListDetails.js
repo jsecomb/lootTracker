@@ -2,6 +2,8 @@ import React, { useEffect, useState } from "react";
 import Grid from '@material-ui/core/Grid';
 import API from "../utils/API";
 import { PostTable, PostForm } from "../components";
+//import { MuiThemeProvider } from '@material-ui/core/styles';
+//import theme from "./utils/theme"
 
 function WishListDetails(props) {
     const initialFormState = { title: "", body: "" };
