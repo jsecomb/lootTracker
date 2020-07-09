@@ -8,7 +8,6 @@
 .vscode
 
 #config
-/config/config.json
 ../client/config/config.json
 
 # testing
