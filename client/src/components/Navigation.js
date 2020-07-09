@@ -1,31 +1,39 @@
 import React from "react";
 import { Button, AppBar, Toolbar } from '@material-ui/core';
 import { Link } from "react-router-dom";
+import CssBaseline from '@material-ui/core/CssBaseline';
+import { makeStyles } from '@material-ui/core/styles';
+import { MuiThemeProvider } from '@material-ui/core/styles';
+import theme from "../theme";
 
 function Navigation(props) {
-  const { user, logoutUser } = props;
 
+  const { user, logoutUser } = props;
   return (
     <>
-      <AppBar position="static">
-        <Toolbar>
-          <Button component={Link} to="/home" color="inherit">Home</Button>
-          <Button component={Link} to="/wishlist" color="inherit">Wish List</Button>
-          <Button component={Link} to="/wishlistdetail" color="inherit">Wish List Stats</Button>
+      <MuiThemeProvider theme={theme}>
+        <CssBaseline>
+          <AppBar position="static" style={{ backgroundColor: theme.palette.primary.dark}}> 
+            <Toolbar>
+              <Button component={Link} to="/home" >Home</Button>
+              <Button component={Link} to="/wishlist" >Wish List</Button>
+              <Button component={Link} to="/wishlistdetail" >Wish List Stats</Button>
 
-          {user.email ?
-            <>
-              <Button color="inherit">Logged in as: {user.email}</Button>
-              <Button component={Link} to="/home" onClick={logoutUser} color="inherit">Logout</Button>
-            </>
-            :
-            <>
-              <Button component={Link} to="/login" color="inherit">Login</Button>
-              <Button component={Link} to="/signup" color="inherit">Signup</Button>
-            </>
-          }
-        </Toolbar>
-      </AppBar>
+              {user.email ?
+                <>
+                  <Button >Logged in as: {user.email}</Button>
+                  <Button component={Link} to="/home" onClick={logoutUser} >Logout</Button>
+                </>
+                :
+                <>
+                  <Button component={Link} to="/login" >Login</Button>
+                  <Button component={Link} to="/signup" >Signup</Button>
+                </>
+              }
+            </Toolbar>
+          </AppBar>
+        </CssBaseline>
+      </MuiThemeProvider>
     </>
   )
 }

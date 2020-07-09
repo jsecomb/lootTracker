@@ -13,6 +13,8 @@ import GameTable from "../components/GameTable";
 import BudgetProgressBar from "../components/BudgetProgressBar";
 import AddGame from "../components/AddGame";
 import AddWishlist from "../components/AddWishlist";
+//import { MuiThemeProvider } from '@material-ui/core/styles';
+//import theme from "./utils/theme";
 
 
 function WishList(props) {
