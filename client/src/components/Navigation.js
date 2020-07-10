@@ -17,7 +17,7 @@ function Navigation(props) {
             <Toolbar>
               <Button component={Link} to="/home" >Home</Button>
               <Button component={Link} to="/wishlist" >Wish List</Button>
-              <Button component={Link} to="/wishlistdetail" >Wish List Stats</Button>
+              <Button component={Link} to="/wishlistdetails" >Wish List Stats</Button>
 
               {user.email ?
                 <>

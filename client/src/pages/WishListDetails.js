@@ -1,58 +1,73 @@
 import React, { useEffect, useState } from "react";
 import Grid from '@material-ui/core/Grid';
 import API from "../utils/API";
-import { PostTable, PostForm } from "../components";
+import { Doughnut } from "react-chartjs-2";
 //import { MuiThemeProvider } from '@material-ui/core/styles';
 //import theme from "./utils/theme"
 
 function WishListDetails(props) {
-    const initialFormState = { title: "", body: "" };
-    const [posts, setPosts] = useState([]);
-    const [formObject, setFormObject] = useState(initialFormState)
-
+    const initialDataState = {
+        labels: ['Amount Spent', 'Amount Remaining'],
+        datasets: [
+            {
+                label: 'Total Budget Usage',
+                backgroundColor: [
+                    '#ff0505',
+                    '#17e600'
+                ],
+                data:[475, 25] 
+            }
+        ]
+    };
+    const [wishlist, setWishlist] = useState({});
+    const [doughnutData, setDoughnutData] = useState(initialDataState);
 
     useEffect(() => {
-        loadPosts();
+        loadWishlist();
     }, [])
 
-    const loadPosts = () => {
-        API.Post.getAll().then(res => {
-            setPosts(res.data);
-        })
-    }
-
-    const handleInputChange = (event) => {
-        event.preventDefault();
-        const { name, value } = event.target;
-        setFormObject({ ...formObject, [name]: value });
-    }
-
-    const handleFormSubmit = (event) => {
-        event.preventDefault();
-        const data = {
-            title: formObject.title,
-            body: formObject.body
-        }
-        API.Post.create(data).then(res => {
-            setFormObject(initialFormState);
-            loadPosts();
+    const loadWishlist = () => {
+        API.Wishlist.getAllByUserId(props.user.id).then(res => {
+            setWishlist(res.data);
+            console.log(res.data);
+            let amountSpent = 0;
+            res.data[0].WishlistItems.map(item => {
+                amountSpent += parseInt(item.Game.price)
+            });
+            console.log(amountSpent);
+            const amountRemaining = parseInt(res.data[0].budget) - amountSpent;
+            setDoughnutData({
+                labels: ['Amount Spent', 'Amount Remaining'],
+                datasets: [
+                    {
+                        label: 'Total Budget Usage',
+                        backgroundColor: [
+                            '#ff0505',
+                            '#17e600'
+                        ],
+                        data:[amountSpent, amountRemaining] 
+                    }
+                ]
+            })
         })
     }
 
     return (
         <>
-            <Grid container spacing={3}>
-                <Grid item xs={12}>
-                    <PostForm
-                        formObject={formObject}
-                        handleFormSubmit={handleFormSubmit}
-                        handleInputChange={handleInputChange}
+            <Doughnut 
+                        data={doughnutData}
+                        options={{
+                            title:{
+                                display: true,
+                                text: 'Total Budget Usage',
+                                fontSize: 20
+                            },
+                            legend:{
+                                display: true,
+                                position: 'right'
+                            }
+                        }}
                     />
-                </Grid>
-                <Grid item xs={12}>
-                    <PostTable posts={posts} />
-                </Grid>
-            </Grid>
         </>
     )
 
