@@ -27,6 +27,8 @@ export default function GameTable(props) {
     }
   });
 
+  const classes = useStyles()
+
   useEffect(()=> {
     getWishlistItems(props)
   },[])
@@ -68,8 +70,6 @@ export default function GameTable(props) {
     })
   }
 
-  const classes = useStyles()
-
   useEffect(()=> {
     getWishlistItems(props);
     props.setReload(false);
@@ -77,6 +77,7 @@ export default function GameTable(props) {
 
   return (
     <TableContainer component={Paper}>
+      {wishlistRows.length>0 &&
       <Table className={classes.table} aria-label="simple table">
         <TableHead>
           <TableRow>
@@ -89,7 +90,6 @@ export default function GameTable(props) {
             <TableCell id="tableHeader" align="left">Remove</TableCell>
           </TableRow>
         </TableHead>
-        {wishlistRows.length>0 &&
         <TableBody>
           {
             wishlistRows.map((row) => (
@@ -109,8 +109,8 @@ export default function GameTable(props) {
             ))
           }
         </TableBody>
-        }
       </Table>
+      }
     </TableContainer>
   );
 }

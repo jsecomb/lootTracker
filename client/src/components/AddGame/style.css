@@ -1,3 +1,25 @@
-#inputGame{
-    background-color: yellow;
+#tableHeader{
+    color:white;
+    font-weight: 600;
+    font-size: 20px;
 }
+
+#tableCell{
+    color:white;
+    font-size: 15px;
+}
+
+#addBtn, #getGame, #clearSearch{
+    color:navy;
+    background-color:yellowgreen;
+    box-shadow: 3px 3px 3px black;
+}
+
+#searchInput, #getGame, #clearSearch{
+    margin: 10px
+}
+
+#searchForm, #resultsTable {
+    padding-bottom: 20px;;
+}
+
