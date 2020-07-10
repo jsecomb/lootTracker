@@ -13,6 +13,7 @@ import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
+import Swal from 'sweetalert2'
 //import { MuiThemeProvider } from '@material-ui/core/styles';
 //import theme from "../../utils/theme"
 
@@ -21,11 +22,14 @@ export default function AddGame(props) {
   const [gameString, setGameString] = useState("");
   const [gameResults, setGameResults] = useState([]);
 
+  const Swal = require('sweetalert2')
+
   const useStyles = makeStyles({
     table: {
       minWidth: 500,
       maxWidth: 800,
-      backgroundColor: "#164968"
+      backgroundColor: "#424242",
+      textAlign: "center"
     }
   });
 
@@ -65,7 +69,6 @@ export default function AddGame(props) {
 
   function postGame(game) {
     setGameResults([]);
-    console.log(`you are adding ${game.title}`)
     let newGameInfo =
     {
       title: game.title,
@@ -87,12 +90,8 @@ export default function AddGame(props) {
               {purchaseDate: Date.now(),
               GameId: gameData.data.id,
               WishlistId: wishlistData.data[0].id}
-              ).then(function (response) {
-              props.setReload(true)
-              alert("you have added a game to your wishlist")
-            });
+            ).then(wishlistItemSuccess(game.title));
           })  
-          alert("you have added a game to the game db")
         });
       }
       else {
@@ -101,12 +100,20 @@ export default function AddGame(props) {
             {purchaseDate: Date.now(),
             GameId: response.data[0].id,
             WishlistId: wishlistData.data[0].id}
-            ).then(function (response) {
-            props.setReload(true)
-            alert("you have added a game to your wishlist")
-          });
+          ).then(wishlistItemSuccess(game.title));
         })  
       }
+    })
+  }
+
+  function wishlistItemSuccess(title) {
+    props.setReload(true)
+    Swal.fire({
+      title: `You have added ${title} to your wishlist.`,
+      width: 600,
+      confirmButtonText: 'Aye!',
+      confirmButtonColor: '#C46000',
+      padding: '3em'
     })
   }
 
@@ -125,14 +132,16 @@ export default function AddGame(props) {
 
   return (
     <>
-      <form className={classes.root} noValidate autoComplete="off" id="searchForm">
-        <TextField type="text" id="searchInput" label="Search Games" onChange={handleInputChange}/>
-        <Button variant="contained" id="getGame" onClick={getGame}>Submit</Button>
-        <Button variant="contained" id="clearSearch" onClick={() => setGameResults([])}>Clear Search</Button>
-      </form>
+      <div id="searchInputContainer">
+        <form className={classes.root} noValidate autoComplete="off" id="searchForm">
+          <TextField type="text" id="searchInput" label="Search Games" onChange={handleInputChange} />
+          <Button variant="contained" id="getGame" onClick={getGame}>Submit</Button>
+          <Button variant="contained" id="clearSearch" onClick={() => setGameResults([])}>Clear Search</Button>
+        </form>
+      </div>
       <TableContainer id="resultsTable" component={Paper}>
         {gameResults.length > 0 &&
-        <Table className={classes.table} aria-label="simple table">
+        <Table className={classes.table} style={{margin: "auto"}} aria-label="simple table">
           <TableHead>
             <TableRow>
               <TableCell></TableCell>
@@ -151,8 +160,8 @@ export default function AddGame(props) {
                       <img src={game.thumb}></img>
                     </TableCell>
                     <TableCell id="tableCell" align="left">{game.title}</TableCell>
-                    <TableCell id="tableCell" align="left">{game.steamRatingPercent}%</TableCell>
                     <TableCell id="tableCell" align="left">{game.normalPrice}</TableCell>
+                    <TableCell id="tableCell" align="left">{game.steamRatingPercent}%</TableCell>
                     <TableCell id="tableCell" align="left">{timeConverter(game.releaseDate).substring(0, 11)}</TableCell>
                     <TableCell id="tableCell" align="left">
                       <Button id="addBtn" variant="contained" onClick={() => postGame(game)}>Add</Button>
