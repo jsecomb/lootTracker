@@ -28,7 +28,8 @@ export default function AddGame(props) {
     table: {
       minWidth: 500,
       maxWidth: 800,
-      backgroundColor: "#164968"
+      backgroundColor: "#424242",
+      textAlign: "center"
     }
   });
 
@@ -131,14 +132,16 @@ export default function AddGame(props) {
 
   return (
     <>
-      <form className={classes.root} noValidate autoComplete="off" id="searchForm">
-        <TextField type="text" id="searchInput" label="Search Games" onChange={handleInputChange}/>
-        <Button variant="contained" id="getGame" onClick={getGame}>Submit</Button>
-        <Button variant="contained" id="clearSearch" onClick={() => setGameResults([])}>Clear Search</Button>
-      </form>
+      <div id="searchInputContainer">
+        <form className={classes.root} noValidate autoComplete="off" id="searchForm">
+          <TextField type="text" id="searchInput" label="Search Games" onChange={handleInputChange} />
+          <Button variant="contained" id="getGame" onClick={getGame}>Submit</Button>
+          <Button variant="contained" id="clearSearch" onClick={() => setGameResults([])}>Clear Search</Button>
+        </form>
+      </div>
       <TableContainer id="resultsTable" component={Paper}>
         {gameResults.length > 0 &&
-        <Table className={classes.table} aria-label="simple table">
+        <Table className={classes.table} style={{margin: "auto"}} aria-label="simple table">
           <TableHead>
             <TableRow>
               <TableCell></TableCell>

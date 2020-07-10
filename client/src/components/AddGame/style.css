@@ -10,8 +10,8 @@
 }
 
 #addBtn, #getGame, #clearSearch{
-    color:navy;
-    background-color:yellowgreen;
+    color:white;
+    background-color:#C46000;
     box-shadow: 3px 3px 3px black;
 }
 
@@ -21,5 +21,12 @@
 
 #searchForm, #resultsTable {
     padding-bottom: 20px;;
+}
+
+#searchInputContainer {
+    display: block;
+    text-align: center;
+    margin: auto;
+    padding: 20px;
 }
 
