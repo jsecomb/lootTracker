@@ -44,9 +44,11 @@ export default function AddGame(props) {
       .then((response) => {
         let gamesList = response.data.sort(function(a,b){return a.steamAppID - b.steamAppID});
         let filteredGamesList = [];
+        let steamIds = []
         for(let i=0; i<gamesList.length-1; i++){
-          if (gamesList[i].steamAppID !== gamesList[i+1].steamAppID){
+          if (!steamIds.includes(gamesList[i].steamAppID)){
               filteredGamesList.push(gamesList[i])
+              steamIds.push(gamesList[i].steamAppID)
           }
         }
         filteredGamesList = filteredGamesList.filter(game => game.steamAppID)
@@ -123,6 +125,7 @@ export default function AddGame(props) {
       <div>
         <input type="text" onChange={handleInputChange}></input>
         <button id="getGame" onClick={getGame}>Submit</button>
+        <button id="clearSearch" onClick={() => setGameResults([])}>Clear Search</button>
       </div>
       <br/>
       <div>
