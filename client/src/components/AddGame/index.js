@@ -13,6 +13,7 @@ import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
+import Swal from 'sweetalert2'
 //import { MuiThemeProvider } from '@material-ui/core/styles';
 //import theme from "../../utils/theme"
 
@@ -20,6 +21,8 @@ export default function AddGame(props) {
 
   const [gameString, setGameString] = useState("");
   const [gameResults, setGameResults] = useState([]);
+
+  const Swal = require('sweetalert2')
 
   const useStyles = makeStyles({
     table: {
@@ -65,7 +68,6 @@ export default function AddGame(props) {
 
   function postGame(game) {
     setGameResults([]);
-    console.log(`you are adding ${game.title}`)
     let newGameInfo =
     {
       title: game.title,
@@ -87,12 +89,8 @@ export default function AddGame(props) {
               {purchaseDate: Date.now(),
               GameId: gameData.data.id,
               WishlistId: wishlistData.data[0].id}
-              ).then(function (response) {
-              props.setReload(true)
-              alert("you have added a game to your wishlist")
-            });
+            ).then(wishlistItemSuccess(game.title));
           })  
-          alert("you have added a game to the game db")
         });
       }
       else {
@@ -101,12 +99,20 @@ export default function AddGame(props) {
             {purchaseDate: Date.now(),
             GameId: response.data[0].id,
             WishlistId: wishlistData.data[0].id}
-            ).then(function (response) {
-            props.setReload(true)
-            alert("you have added a game to your wishlist")
-          });
+          ).then(wishlistItemSuccess(game.title));
         })  
       }
+    })
+  }
+
+  function wishlistItemSuccess(title) {
+    props.setReload(true)
+    Swal.fire({
+      title: `You have added ${title} to your wishlist.`,
+      width: 600,
+      confirmButtonText: 'Aye!',
+      confirmButtonColor: '#C46000',
+      padding: '3em'
     })
   }
 
@@ -151,8 +157,8 @@ export default function AddGame(props) {
                       <img src={game.thumb}></img>
                     </TableCell>
                     <TableCell id="tableCell" align="left">{game.title}</TableCell>
-                    <TableCell id="tableCell" align="left">{game.steamRatingPercent}%</TableCell>
                     <TableCell id="tableCell" align="left">{game.normalPrice}</TableCell>
+                    <TableCell id="tableCell" align="left">{game.steamRatingPercent}%</TableCell>
                     <TableCell id="tableCell" align="left">{timeConverter(game.releaseDate).substring(0, 11)}</TableCell>
                     <TableCell id="tableCell" align="left">
                       <Button id="addBtn" variant="contained" onClick={() => postGame(game)}>Add</Button>
