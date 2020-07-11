@@ -6,10 +6,10 @@ import CardActionArea from '@material-ui/core/CardActionArea';
 import CardMedia from '@material-ui/core/CardMedia';
 import CardContent from '@material-ui/core/CardContent';
 import Typography from '@material-ui/core/Typography';
-import { Grid, Button, Link, Container, Paper } from '@material-ui/core';
+import { Grid, Button, Link, Container } from '@material-ui/core';
 import { MuiThemeProvider } from '@material-ui/core/styles';
 import theme from "../../theme"
-import img from './Logo-940.png';
+import img from './logo.png';
 
 
 
