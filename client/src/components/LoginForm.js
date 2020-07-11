@@ -6,9 +6,9 @@ function LoginForm(props) {
 
     return (
         <>
-            <Paper>
-                <Container maxWidth="sm">
-                    <form>
+            <Paper >
+                <Container maxWidth="sm" style={{display:"block", margin:"auto", textAlign:"center"}}>
+                    <form style={{margin:"auto"}}>
                         <Grid container spacing={3}>
                             <Grid item xs={12}>
                                 <Typography variant="h4" gutterBottom>

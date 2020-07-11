@@ -10,6 +10,7 @@ import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
 import Button from '@material-ui/core/Button';
+import Swal from 'sweetalert2'
 //import { MuiThemeProvider } from '@material-ui/core/styles';
 //import theme from "../../../../theme";
 
@@ -19,11 +20,13 @@ export default function GameTable(props) {
 
   const [wishlistRows, setWishlistRows] = useState([]);
 
+  const Swal = require('sweetalert2')
+
   const useStyles = makeStyles({
     table: {
       minWidth: 500,
       maxWidth: 800,
-      backgroundColor: "#164968"
+      backgroundColor: "#424242"
     }
   });
 
@@ -65,7 +68,13 @@ export default function GameTable(props) {
 
   function removeWishlistItem (item) {
     API.WishlistItem.delete(item.wishlistId).then(function (response) {
-      alert(`you have removed ${item.name}`)
+      Swal.fire({
+        title: `You have removed ${item.name} from your wishlist.`,
+        width: 600,
+        confirmButtonText: 'Aye!',
+        confirmButtonColor: '#C46000',
+        padding: '3em'
+      })
       getWishlistItems(props)
     })
   }
@@ -78,7 +87,7 @@ export default function GameTable(props) {
   return (
     <TableContainer component={Paper}>
       {wishlistRows.length>0 &&
-      <Table className={classes.table} aria-label="simple table">
+      <Table className={classes.table} style={{margin: "auto"}} aria-label="simple table">
         <TableHead>
           <TableRow>
             <TableCell></TableCell>

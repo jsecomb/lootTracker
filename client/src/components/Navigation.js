@@ -13,8 +13,8 @@ function Navigation(props) {
     <>
       <MuiThemeProvider theme={theme}>
         <CssBaseline>
-          <AppBar position="static" style={{ backgroundColor: theme.palette.primary.dark}}> 
-            <Toolbar>
+          <AppBar position="static" style={{ backgroundColor: theme.palette.primary.dark, marginTop: "20px"}}> 
+            <Toolbar style={{margin:"auto"}}>
               <Button component={Link} to="/home" >Home</Button>
               <Button component={Link} to="/wishlist" >Wish List</Button>
               <Button component={Link} to="/wishlistdetails" >Wish List Stats</Button>
