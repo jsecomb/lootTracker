@@ -3,16 +3,14 @@ import { Container } from "@material-ui/core";
 import { HeroCard } from "../components/HeroCard";
 
 function Home() {
-
-    return (
-        <>
+        return (
+            <>
                 <Container>
-                    <HeroCard>
-                    </HeroCard>                
+                        <HeroCard>
+                        </ HeroCard>
                 </Container>
-    
-        </>
-    )
-}
+            </>
+        )
+    };
 
 export default Home;

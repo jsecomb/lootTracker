@@ -1,4 +1,4 @@
-#tableHeader{
+/* #tableHeader{
     color:white;
     font-weight: 600;
     font-size: 20px;
@@ -10,7 +10,7 @@
 }
 
 #removeBtn{
-    color:navy;
-    background-color:yellowgreen;
+    color: primary-constrastText;
+    background-color: primary;
     box-shadow: 3px 3px 3px black;
-}
+} */
