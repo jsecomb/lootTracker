@@ -9,9 +9,10 @@ import Swal from 'sweetalert2'
 //import { MuiThemeProvider } from '@material-ui/core/styles';
 //import theme from "../../utils/theme"
 
-export default function AddWishlist() {
+export default function AddWishlist(props) {
 
   const [formObject, setFormObject] = useState({})
+  const [wishlist, setWishlist] = useState([])
 
   const Swal = require('sweetalert2')
 
@@ -20,9 +21,23 @@ export default function AddWishlist() {
     setFormObject({ ...formObject, [name]: value })
   }
 
-  function handleFormSubmit(event) {
+  function checkWishlistStatus(event) {
     event.preventDefault();
-    console.log(formObject);
+    API.User.getById(props.user.id).then(function (userData) {
+      console.log(userData)
+      if(userData.data.Wishlists){
+        console.log("updating budget")
+        console.log(userData.data.Wishlists)
+        modifyBudget(userData.data.Wishlists)
+      }
+      else{
+        console.log("creating wishlits")
+        createWishlist()
+      }
+    })
+  }
+
+  function createWishlist() {
     API.Wishlist.create(formObject);
     Swal.fire({
       title: `You have created a wishlist with a budget of $${formObject.budget}.`,
@@ -32,12 +47,26 @@ export default function AddWishlist() {
       padding: '3em'
     })
   }
+
+  function modifyBudget(data) {
+    API.Wishlist.update(data[0].id, formObject).then(function (response) {
+      Swal.fire({
+        title: `You have updated your budget to $${formObject.budget}.`,
+        width: 600,
+        confirmButtonText: 'Aye!',
+        confirmButtonColor: '#C46000',
+        padding: '3em'
+      })
+    console.log(response)
+    })
+  }
+
   return (
     <div style={{display:"block", margin:"auto", textAlign:"center"}}>
       <form>
         <label htmlFor="budget">Enter your total budget</label><br/>
         <input type="text" id="budget" name="budget" onChange={handleInputChange}></input><br/>
-        <input type="submit" value="Submit" onClick={handleFormSubmit}></input>
+        <input type="submit" value="Submit" onClick={checkWishlistStatus}></input>
       </form>
     </div>
   )

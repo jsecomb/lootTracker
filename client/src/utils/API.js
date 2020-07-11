@@ -42,8 +42,8 @@ function _create(entity, data){
  * @param {Integer} id Id of the entity
  * @param {Object} data data to update an entity by
  */
-function _update(id, entity, data){
-    return axios.post(`/api/${entity}/${id}`, data);
+function _update(entity, id, data){
+    return axios.put(`/api/${entity}/${id}`, data);
 }
 
 //** authorization routes for login and signup and routes for models */

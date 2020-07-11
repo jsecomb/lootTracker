@@ -38,12 +38,10 @@ export default function GameTable(props) {
   
   function getWishlistItems(userProfile) {
     API.Wishlist.getAllByUserId(userProfile.user.id).then(function (wishlists) {
-      let wishListIds = wishlists.data.map(wishlist => wishlist.id)
-      wishListIds.forEach(listId => {
-        API.WishlistItem.getAllByWishlistId(listId).then(function (wishlistItems) {
+      let wishListId = wishlists.data[0].id
+        API.WishlistItem.getAllByWishlistId(wishListId).then(function (wishlistItems) {
           createTableRows(wishlistItems.data)
         })
-      })
     })
   }
    

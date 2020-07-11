@@ -23,7 +23,7 @@ function WishList(props) {
                         <Grid item xs={12}>
                             <AddGame user={props.user} setReload={setReload}/>
                             <GameTable user={props.user} reload={reload} setReload={setReload}/>
-                            <AddWishlist/>
+                            <AddWishlist user={props.user}/>
                         </Grid>
                     </Grid>
                 </Container>
