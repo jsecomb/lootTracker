@@ -54,7 +54,7 @@ module.exports = function(sequelize, DataTypes) {
   User.associate = function(models) {
     // Associating User with Posts
     // When an User is deleted, also delete any associated Wishlists
-    User.hasMany(models.Wishlist, {
+    User.hasOne(models.Wishlist, {
       onDelete: "cascade"
     });
   };
