@@ -6,8 +6,6 @@ import { useState, useEffect } from 'react';
 import axios from 'axios';
 import API from "../../utils/API";
 import Swal from 'sweetalert2';
-//import { MuiThemeProvider } from '@material-ui/core/styles';
-//import theme from "../../utils/theme"
 
 export default function AddWishlist(props) {
 
@@ -47,6 +45,7 @@ export default function AddWishlist(props) {
   function checkWishlistStatus(event) {
     event.preventDefault();
     API.User.getById(props.user.id).then(function (userData) {
+
       if(userData.data.Wishlist){
         modifyBudget(userData.data.Wishlist)
       }

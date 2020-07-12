@@ -2,8 +2,6 @@ import React, { useEffect, useState } from "react";
 import Grid from '@material-ui/core/Grid';
 import API from "../utils/API";
 import { Doughnut } from "react-chartjs-2";
-//import { MuiThemeProvider } from '@material-ui/core/styles';
-//import theme from "./utils/theme"
 
 function WishListDetails(props) {
     const initialDataState = {

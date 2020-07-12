@@ -4,10 +4,8 @@ import "./style.css";
 import { makeStyles } from '@material-ui/core/styles';
 import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Button, Paper } from '@material-ui/core';
 import Swal from 'sweetalert2'
-//import { MuiThemeProvider } from '@material-ui/core/styles';
-//import theme from "../../../../theme";
 
-var moment = require('moment'); 
+var moment = require('moment');
 
 export default function GameTable(props) {
 
@@ -17,7 +15,7 @@ export default function GameTable(props) {
 
   const useStyles = makeStyles({
     table: {
-      minWidth: 500,
+      minWidth: 320,
       maxWidth: 800,
       backgroundColor: "#424242"
     }
@@ -25,19 +23,19 @@ export default function GameTable(props) {
 
   const classes = useStyles()
 
-  useEffect(()=> {
+  useEffect(() => {
     getWishlistItems(props)
-  },[])
-  
+  }, [])
+
   function getWishlistItems(userProfile) {
     API.Wishlist.getAllByUserId(userProfile.user.id).then(function (wishlists) {
       let wishListId = wishlists.data[0].id
-        API.WishlistItem.getAllByWishlistId(wishListId).then(function (wishlistItems) {
-          createTableRows(wishlistItems.data)
-        })
+      API.WishlistItem.getAllByWishlistId(wishListId).then(function (wishlistItems) {
+        createTableRows(wishlistItems.data)
+      })
     })
   }
-   
+
   function createTableRows(wishlistItems) {
     let wishlistData = [];
     wishlistItems.map(item => {
@@ -57,7 +55,7 @@ export default function GameTable(props) {
     setWishlistRows(wishlistData)
   }
 
-  function removeWishlistItem (item) {
+  function removeWishlistItem(item) {
     API.WishlistItem.delete(item.wishlistId).then(function (response) {
       Swal.fire({
         title: `You have removed ${item.name} from your wishlist.`,
@@ -70,10 +68,11 @@ export default function GameTable(props) {
     })
   }
 
-  useEffect(()=> {
+  useEffect(() => {
     getWishlistItems(props);
     props.setReload(false);
-  },[props.reload])
+  }, [props.reload])
+
 
   return (
     <>
@@ -118,16 +117,16 @@ export default function GameTable(props) {
   );
 }
 
-function timeConverter(UNIX_timestamp){
+function timeConverter(UNIX_timestamp) {
   var a = new Date(UNIX_timestamp * 1000);
-  var months = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+  var months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
   var year = a.getFullYear();
   var month = months[a.getMonth()];
   var date = a.getDate();
   var hour = a.getHours();
   var min = a.getMinutes();
   var sec = a.getSeconds();
-  var time = date + ' ' + month + ' ' + year + ' ' + hour + ':' + min + ':' + sec ;
+  var time = date + ' ' + month + ' ' + year + ' ' + hour + ':' + min + ':' + sec;
   return time;
 }
 

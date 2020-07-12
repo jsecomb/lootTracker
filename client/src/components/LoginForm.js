@@ -7,8 +7,8 @@ function LoginForm(props) {
     return (
         <>
             <Paper >
-                <Container maxWidth="sm" style={{display:"block", margin:"auto", textAlign:"center"}}>
-                    <form style={{margin:"auto"}}>
+                <Container maxWidth="sm">
+                    <form>
                         <Grid container spacing={3}>
                             <Grid item xs={12}>
                                 <Typography variant="h4" gutterBottom>
@@ -24,6 +24,7 @@ function LoginForm(props) {
                                     as="input"
                                     type="email"
                                     placeholder="Enter your Email"
+                                    variant="outlined"
                                 />
                             </Grid>
                             <Grid item xs={12}>
@@ -35,6 +36,7 @@ function LoginForm(props) {
                                     as="input"
                                     type="password"
                                     placeholder="Enter your password"
+                                    variant="outlined"
                                 />
                             </Grid>
                             <Grid item xs={12}>

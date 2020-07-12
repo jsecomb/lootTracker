@@ -1,63 +1,58 @@
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import Box from '@material-ui/core/Box';
 import Card from '@material-ui/core/Card';
 import CardActionArea from '@material-ui/core/CardActionArea';
 import CardMedia from '@material-ui/core/CardMedia';
 import CardContent from '@material-ui/core/CardContent';
 import Typography from '@material-ui/core/Typography';
 import { Grid, Button, Link, Container } from '@material-ui/core';
-import { MuiThemeProvider } from '@material-ui/core/styles';
-import theme from "../../theme"
+import CssBaseline from '@material-ui/core/CssBaseline';
 import img from './logo.png';
+import Box from '@material-ui/core/Box';
 
 
 
-const useStyles = makeStyles(() => ({
+const useStyles = makeStyles({
     root: {
-        position: 'relative',
+        borderRadius: "borderRadius",
         backgroundColor: 'white',
-    },
-    cta1: {
-        //alignItems: 'center',
         textAlign: 'center',
-        // letterSpacing: '3px',
-        // fontWeight: 200,
-        // fontSize: 12,
+        maxWidth: 768,
+        minWidth: 320,
+        marginBottom: '10%',
     },
-}));
+});
 
 export const HeroCard = React.memo(function HeroCard() {
     const styles = useStyles();
     return (
         <React.Fragment>
-            <MuiThemeProvider theme={theme}>                
-                    <Container disableGutters={true} className={styles.root} padding-left={0} padding-right={0}>
-                        <Box position={'relative'} width={'100%'} height={'100%'}>
-                            <CardMedia
-                                width={'100%'}
-                                component="img"
-                                image={img}
-                            />
-                        </Box>
-                        <div className={styles.root}>
-                            <Grid container spacing={8}>
-                                <Grid container item xs={12} spacing={3} className={styles.cta1} >
-                                    <Grid item xs></Grid>
-                                    <Grid item xs={8}>
-                                        <Button color="secondary" variant="contained" component={Link} to="./login">
-                                            Login
+            <CssBaseline />
+            <Container className={styles.root}>
+                <Box className={styles.root}>
+
+                    <CardMedia
+                        width={'100%'}
+                        component="img"
+                        image={img}
+                    />
+
+                    <Grid container className={styles.root}>
+                        <Grid container item xs={12} className={styles.root}>
+                            <Grid item xs></Grid>
+                            <Grid item xs={8}>
+                                <Button color="primary" variant="contained" component={Link} to="/login">
+                                    Login
                                         </Button>&nbsp;&nbsp;&nbsp;
-                                        <Button color="secondary" variant="contained" component={Link} to="./signup">
-                                            Signup
+                                        <Button color="primary" variant="contained" component={Link} to="/signup">
+                                    Signup
                                         </Button>
-                                    </Grid>
-                                    <Grid item xs></Grid>
-                                </Grid>
-                            </Grid>        
-                            </div>
-                    </Container>                
-            </MuiThemeProvider>
+                            </Grid>
+                            <Grid item xs></Grid>
+                        </Grid>
+                    </Grid>
+                </Box>
+            </Container>
         </React.Fragment>
     );
 });
