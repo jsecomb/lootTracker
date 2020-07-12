@@ -12,8 +12,8 @@ import Container from '@material-ui/core/Container';
 import Grid from '@material-ui/core/Grid';
 import { MuiThemeProvider } from '@material-ui/core/styles';
 import theme from "./theme";
-import API from './utils/API';
 import CssBaseline from '@material-ui/core/CssBaseline';
+import API from './utils/API';
 
 function App() {
   const [user, setUser] = useState({});
@@ -54,41 +54,41 @@ function App() {
 
   return (
     <>
-     <MuiThemeProvider theme={theme}>
-     <CssBaseline>
-      <Router>
-        <Container>
-          <Grid container spacing={3}>
-            <Grid item xs={12}>
-              <Navigation user={user} logoutUser={logoutUser} />
-            </Grid>
-            <Grid item xs={12}>
-              {error && <Error error={error} clearError={clearError} />}
-            </Grid>
-            <Grid item xs={12}>
-              <Switch>
-                <Route exact path={["/", "/home"]}>
-                  <Home />
-                </Route>
-                <PrivateRoute exact user={user} path={["/wishlist"]}>
-                  <WishList user={user}/>
-                </PrivateRoute>
-                <PrivateRoute exact user={user} path={["/wishlistdetails"]}>
-                  <WishListDetails user={user} />
-                </PrivateRoute>
-                <Route exact path={["/login", "/signup"]}>
-                  <Auth
-                    user={user}
-                    loginUser={loginUser}
-                    signupUser={signupUser}
-                  />
-                </Route>
-              </Switch>
-            </Grid>
-          </Grid>
-        </Container>
-      </Router>
-      </CssBaseline>
+      <MuiThemeProvider theme={theme}>
+        <CssBaseline>
+          <Router>
+            <Container>
+              <Grid container spacing={3}>
+                <Grid item xs={12}>
+                  <Navigation user={user} logoutUser={logoutUser} />
+                </Grid>
+                <Grid item xs={12}>
+                  {error && <Error error={error} clearError={clearError} />}
+                </Grid>
+                <Grid item xs={12}>
+                  <Switch>
+                    <Route exact path={["/", "/home"]}>
+                      <Home />
+                    </Route>
+                    <PrivateRoute exact user={user} path={["/wishlist"]}>
+                      <WishList user={user} />
+                    </PrivateRoute>
+                    <PrivateRoute exact user={user} path={["/wishlistdetails"]}>
+                      <WishListDetails user={user} />
+                    </PrivateRoute>
+                    <Route exact path={["/login", "/signup"]}>
+                      <Auth
+                        user={user}
+                        loginUser={loginUser}
+                        signupUser={signupUser}
+                      />
+                    </Route>
+                  </Switch>
+                </Grid>
+              </Grid>
+            </Container>
+          </Router>
+        </CssBaseline>
       </MuiThemeProvider>
     </>
   );

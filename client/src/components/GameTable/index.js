@@ -11,10 +11,8 @@ import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
 import Button from '@material-ui/core/Button';
 import Swal from 'sweetalert2'
-//import { MuiThemeProvider } from '@material-ui/core/styles';
-//import theme from "../../../../theme";
 
-var moment = require('moment'); 
+var moment = require('moment');
 
 export default function GameTable(props) {
 
@@ -24,7 +22,7 @@ export default function GameTable(props) {
 
   const useStyles = makeStyles({
     table: {
-      minWidth: 500,
+      minWidth: 320,
       maxWidth: 800,
       backgroundColor: "#424242"
     }
@@ -32,19 +30,19 @@ export default function GameTable(props) {
 
   const classes = useStyles()
 
-  useEffect(()=> {
+  useEffect(() => {
     getWishlistItems(props)
-  },[])
-  
+  }, [])
+
   function getWishlistItems(userProfile) {
     API.Wishlist.getAllByUserId(userProfile.user.id).then(function (wishlists) {
       let wishListId = wishlists.data[0].id
-        API.WishlistItem.getAllByWishlistId(wishListId).then(function (wishlistItems) {
-          createTableRows(wishlistItems.data)
-        })
+      API.WishlistItem.getAllByWishlistId(wishListId).then(function (wishlistItems) {
+        createTableRows(wishlistItems.data)
+      })
     })
   }
-   
+
   function createTableRows(wishlistItems) {
     let wishlistData = [];
     wishlistItems.map(item => {
@@ -64,7 +62,7 @@ export default function GameTable(props) {
     setWishlistRows(wishlistData)
   }
 
-  function removeWishlistItem (item) {
+  function removeWishlistItem(item) {
     API.WishlistItem.delete(item.wishlistId).then(function (response) {
       Swal.fire({
         title: `You have removed ${item.name} from your wishlist.`,
@@ -77,61 +75,61 @@ export default function GameTable(props) {
     })
   }
 
-  useEffect(()=> {
+  useEffect(() => {
     getWishlistItems(props);
     props.setReload(false);
-  },[props.reload])
+  }, [props.reload])
 
-  return (
-    <TableContainer component={Paper}>
-      {wishlistRows.length>0 &&
-      <Table className={classes.table} style={{margin: "auto"}} aria-label="simple table">
-        <TableHead>
-          <TableRow>
-            <TableCell></TableCell>
-            <TableCell id="tableHeader" align="left">Game</TableCell>
-            <TableCell id="tableHeader" align="left">Price</TableCell>
-            <TableCell id="tableHeader" align="left">Rating</TableCell>
-            <TableCell id="tableHeader" align="left">Release Date</TableCell>
-            <TableCell id="tableHeader" align="left">Purchase Date</TableCell>
-            <TableCell id="tableHeader" align="left">Remove</TableCell>
-          </TableRow>
-        </TableHead>
-        <TableBody>
-          {
-            wishlistRows.map((row) => (
-              <TableRow key={row.name}>
-                <TableCell component="th" scope="row" align="left">
-                  <img src={row.imgLink} alt={row.name}></img>
-                </TableCell>
-                <TableCell id="tableCell" align="left">{row.name}</TableCell>
-                <TableCell id="tableCell" align="left">${row.price}</TableCell>
-                <TableCell id="tableCell" align="left">{row.rating}%</TableCell>
-                <TableCell id="tableCell" align="left">{row.releaseDate}</TableCell>
-                <TableCell id="tableCell" align="left">{row.purchaseDate}</TableCell>
-                <TableCell id="tableCell" align="left">
-                  <Button id="removeBtn" variant="contained" onClick={() => removeWishlistItem(row)}>Remove</Button>
-                </TableCell>
+  return (    
+      <TableContainer component={Paper}>
+        {wishlistRows.length > 0 &&
+          <Table className={classes.table} style={{ margin: "auto" }} aria-label="simple table">
+            <TableHead>
+              <TableRow>
+                <TableCell></TableCell>
+                <TableCell id="tableHeader" align="left">Game</TableCell>
+                <TableCell id="tableHeader" align="left">Price</TableCell>
+                <TableCell id="tableHeader" align="left">Rating</TableCell>
+                <TableCell id="tableHeader" align="left">Release Date</TableCell>
+                <TableCell id="tableHeader" align="left">Purchase Date</TableCell>
+                <TableCell id="tableHeader" align="left">Remove</TableCell>
               </TableRow>
-            ))
-          }
-        </TableBody>
-      </Table>
-      }
-    </TableContainer>
+            </TableHead>
+            <TableBody>
+              {
+                wishlistRows.map((row) => (
+                  <TableRow key={row.name}>
+                    <TableCell component="th" scope="row" align="left">
+                      <img src={row.imgLink} alt={row.name}></img>
+                    </TableCell>
+                    <TableCell id="tableCell" align="left">{row.name}</TableCell>
+                    <TableCell id="tableCell" align="left">${row.price}</TableCell>
+                    <TableCell id="tableCell" align="left">{row.rating}%</TableCell>
+                    <TableCell id="tableCell" align="left">{row.releaseDate}</TableCell>
+                    <TableCell id="tableCell" align="left">{row.purchaseDate}</TableCell>
+                    <TableCell id="tableCell" align="left">
+                      <Button id="removeBtn" variant="contained" onClick={() => removeWishlistItem(row)}>Remove</Button>
+                    </TableCell>
+                  </TableRow>
+                ))
+              }
+            </TableBody>
+          </Table>
+        }
+      </TableContainer>
   );
 }
 
-function timeConverter(UNIX_timestamp){
+function timeConverter(UNIX_timestamp) {
   var a = new Date(UNIX_timestamp * 1000);
-  var months = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+  var months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
   var year = a.getFullYear();
   var month = months[a.getMonth()];
   var date = a.getDate();
   var hour = a.getHours();
   var min = a.getMinutes();
   var sec = a.getSeconds();
-  var time = date + ' ' + month + ' ' + year + ' ' + hour + ':' + min + ':' + sec ;
+  var time = date + ' ' + month + ' ' + year + ' ' + hour + ':' + min + ':' + sec;
   return time;
 }
 

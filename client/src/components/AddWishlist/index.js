@@ -5,9 +5,7 @@ import "./style.css";
 import { useState } from 'react';
 import axios from 'axios';
 import API from "../../utils/API";
-import Swal from 'sweetalert2'
-//import { MuiThemeProvider } from '@material-ui/core/styles';
-//import theme from "../../utils/theme"
+import Swal from 'sweetalert2';
 
 export default function AddWishlist(props) {
 
@@ -25,12 +23,12 @@ export default function AddWishlist(props) {
     event.preventDefault();
     API.User.getById(props.user.id).then(function (userData) {
       console.log(userData)
-      if(userData.data.Wishlists){
+      if (userData.data.Wishlists) {
         console.log("updating budget")
         console.log(userData.data.Wishlists)
         modifyBudget(userData.data.Wishlists)
       }
-      else{
+      else {
         console.log("creating wishlits")
         createWishlist()
       }
@@ -57,18 +55,18 @@ export default function AddWishlist(props) {
         confirmButtonColor: '#C46000',
         padding: '3em'
       })
-    console.log(response)
+      console.log(response)
     })
   }
 
   return (
-    <div style={{display:"block", margin:"auto", textAlign:"center"}}>
-      <form>
-        <label htmlFor="budget">Enter your total budget</label><br/>
-        <input type="text" id="budget" name="budget" onChange={handleInputChange}></input><br/>
-        <input type="submit" value="Submit" onClick={checkWishlistStatus}></input>
-      </form>
-    </div>
+      <div style={{ display: "block", margin: "auto", textAlign: "center" }}>
+        <form>
+          <label htmlFor="budget">Enter your total budget</label><br />
+          <input type="text" id="budget" name="budget" onChange={handleInputChange}></input><br />
+          <input type="submit" value="Submit" onClick={checkWishlistStatus}></input>
+        </form>
+      </div>
   )
 
 }

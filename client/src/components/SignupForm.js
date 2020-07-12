@@ -24,6 +24,7 @@ function SignupForm(props) {
                                     as="input"
                                     type="email"
                                     placeholder="Enter your Email"
+                                    variant="outlined"
                                     helperText="This will be public!"
                                 />
                             </Grid>
@@ -36,6 +37,7 @@ function SignupForm(props) {
                                     as="input"
                                     type="password"
                                     placeholder="Enter your password"
+                                    variant="outlined"
                                     helperText="This will be your password (we won't share it with anyone!)"
                                 />
                             </Grid>

@@ -1,47 +1,23 @@
 import axios from "axios";
 
-/* Routes to MySql2 Database
-/**
- * Private function to get all of an entity
- * @param {String} entity API Path/Entity 
- */
+/* Routes to MySql2 Database */
+
 function _getAll(entity, query=""){
     return axios.get(`/api/${entity}/?${query}`);
 }
 
-/**
- * Private function to get a single entity by id
- * @param {String} entity API Path/Entity 
- * @param {Integer} id Id to find by
- */
 function _getOne(entity, id){
     return axios.get(`/api/${entity}/${id}`);
 }
 
-/**
- * Private function to delete a single entity by id
- * @param {String} entity API Path/Entity 
- * @param {Integer} id Id to delete
- */
 function _delete(entity, id){
     return axios.delete(`/api/${entity}/${id}`);
 }
 
-/**
- * Private function to create a single entity
- * @param {String} entity entity API Path/Entity 
- * @param {Object} data data to create an entity by
- */
 function _create(entity, data){
     return axios.post(`/api/${entity}/`, data);
 }
 
-/**
- * Private function to update a single entity
- * @param {String} entity entity API Path/Entity 
- * @param {Integer} id Id of the entity
- * @param {Object} data data to update an entity by
- */
 function _update(entity, id, data){
     return axios.put(`/api/${entity}/${id}`, data);
 }
