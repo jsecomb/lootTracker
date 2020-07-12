@@ -2,14 +2,7 @@ import React, { useState, useEffect } from 'react';
 import API from "../../utils/API";
 import "./style.css";
 import { makeStyles } from '@material-ui/core/styles';
-import Table from '@material-ui/core/Table';
-import TableBody from '@material-ui/core/TableBody';
-import TableCell from '@material-ui/core/TableCell';
-import TableContainer from '@material-ui/core/TableContainer';
-import TableHead from '@material-ui/core/TableHead';
-import TableRow from '@material-ui/core/TableRow';
-import Paper from '@material-ui/core/Paper';
-import Button from '@material-ui/core/Button';
+import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Button, Paper } from '@material-ui/core';
 import Swal from 'sweetalert2'
 //import { MuiThemeProvider } from '@material-ui/core/styles';
 //import theme from "../../../../theme";
@@ -83,8 +76,10 @@ export default function GameTable(props) {
   },[props.reload])
 
   return (
-    <TableContainer component={Paper}>
-      {wishlistRows.length>0 &&
+    <>
+    <h1 style={{textAlign: "center"}}>{props.user.email}'s Wishlist</h1>
+    {wishlistRows.length>0 &&
+    <TableContainer id="gameTable" component={Paper}>
       <Table className={classes.table} style={{margin: "auto"}} aria-label="simple table">
         <TableHead>
           <TableRow>
@@ -117,8 +112,9 @@ export default function GameTable(props) {
           }
         </TableBody>
       </Table>
-      }
     </TableContainer>
+    }
+  </>
   );
 }
 
