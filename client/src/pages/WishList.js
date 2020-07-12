@@ -1,8 +1,10 @@
 import React, {useState} from "react";
+import { makeStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
 import Container from '@material-ui/core/Grid';
 import Paper from '@material-ui/core/Paper';
 import GameTable from "../components/GameTable";
+import BudgetStats from "../components/BudgetStats";
 import AddGame from "../components/AddGame";
 import AddWishlist from "../components/AddWishlist";
 //import { MuiThemeProvider } from '@material-ui/core/styles';
@@ -13,20 +15,36 @@ function WishList(props) {
     
     const [reload, setReload] = useState(false);
 
+    const useStyles = makeStyles({
+        table: {
+          minWidth: 500,
+          maxWidth: 800,
+          backgroundColor: "#424242"
+        }
+      });
+    
+    const classes = useStyles()
+
     return (
         <>
-            <Paper>
-                <Container>
-                    <Grid container spacing={3}>
-                        <Grid item xs={12}>
-                        </Grid>
-                        <Grid item xs={12}>
-                            <AddGame user={props.user} setReload={setReload}/>
-                            <GameTable user={props.user} reload={reload} setReload={setReload}/>
-                            <AddWishlist user={props.user}/>
-                        </Grid>
-                    </Grid>
-                </Container>
+            
+            <Grid container spacing={6} style={{marginBottom: "25px"}}>
+                <Grid item xs={12} sm={6}>
+                    <Paper className={classes.paper}>
+                        <BudgetStats user={props.user}/>
+                    </Paper>
+                </Grid>
+                <Grid item xs={12} sm={6}>
+                    <Paper className={classes.paper}>
+                        <AddWishlist user={props.user}/>
+                    </Paper>
+                </Grid>
+            </Grid>
+            <Paper style={{marginBottom: "50px"}}>
+                <AddGame user={props.user} setReload={setReload}/>
+            </Paper>
+            <Paper style={{marginBottom: "25px"}}>
+                <GameTable user={props.user} reload={reload} setReload={setReload}/>    
             </Paper>
         </>
     )

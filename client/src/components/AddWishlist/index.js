@@ -1,37 +1,56 @@
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import { FormControl, InputLabel, Input, FormHelperText, Button } from '@material-ui/core';
+import { FormControl, InputLabel, Input, FormHelperText, Button, TextField } from '@material-ui/core';
 import "./style.css";
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import axios from 'axios';
 import API from "../../utils/API";
-import Swal from 'sweetalert2'
+import Swal from 'sweetalert2';
 //import { MuiThemeProvider } from '@material-ui/core/styles';
 //import theme from "../../utils/theme"
 
 export default function AddWishlist(props) {
 
   const [formObject, setFormObject] = useState({})
-  const [wishlist, setWishlist] = useState([])
+  const [wishlistStatus, setWishlistStatus] = useState("Set Wishlist Budget ($)")
 
   const Swal = require('sweetalert2')
+
+  const useStyles = makeStyles({
+    table: {
+      minWidth: 500,
+      maxWidth: 800,
+      backgroundColor: "#424242"
+    }
+  });
+
+  const classes = useStyles()
+
+  useEffect(()=> {
+    getWishlistStatus()
+  },[])
 
   function handleInputChange(event) {
     const { name, value } = event.target;
     setFormObject({ ...formObject, [name]: value })
   }
 
+  function getWishlistStatus() {
+    API.User.getById(props.user.id).then(function (userData) {
+      console.log(userData)
+      if (userData.data.Wishlist) {
+        setWishlistStatus("Change Wishlist Budget ($)")
+      }
+    })
+  }
+
   function checkWishlistStatus(event) {
     event.preventDefault();
     API.User.getById(props.user.id).then(function (userData) {
-      console.log(userData)
-      if(userData.data.Wishlists){
-        console.log("updating budget")
-        console.log(userData.data.Wishlists)
-        modifyBudget(userData.data.Wishlists)
+      if(userData.data.Wishlist){
+        modifyBudget(userData.data.Wishlist)
       }
       else{
-        console.log("creating wishlits")
         createWishlist()
       }
     })
@@ -39,6 +58,7 @@ export default function AddWishlist(props) {
 
   function createWishlist() {
     API.Wishlist.create(formObject);
+    setWishlistStatus("Update Budget")
     Swal.fire({
       title: `You have created a wishlist with a budget of $${formObject.budget}.`,
       width: 600,
@@ -49,7 +69,7 @@ export default function AddWishlist(props) {
   }
 
   function modifyBudget(data) {
-    API.Wishlist.update(data[0].id, formObject).then(function (response) {
+    API.Wishlist.update(data.id, formObject).then(function (response) {
       Swal.fire({
         title: `You have updated your budget to $${formObject.budget}.`,
         width: 600,
@@ -57,16 +77,14 @@ export default function AddWishlist(props) {
         confirmButtonColor: '#C46000',
         padding: '3em'
       })
-    console.log(response)
     })
   }
 
   return (
     <div style={{display:"block", margin:"auto", textAlign:"center"}}>
-      <form>
-        <label htmlFor="budget">Enter your total budget</label><br/>
-        <input type="text" id="budget" name="budget" onChange={handleInputChange}></input><br/>
-        <input type="submit" value="Submit" onClick={checkWishlistStatus}></input>
+      <form className={classes.root} noValidate autoComplete="off" id="searchForm">
+        <TextField type="text" id="budgetInput" label={wishlistStatus} name="budget" onChange={handleInputChange}/>
+        <Button variant="contained" id="budgetSubmit" value="Submit" onClick={checkWishlistStatus}>Submit</Button>
       </form>
     </div>
   )
