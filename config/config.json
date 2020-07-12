@@ -1,7 +1,8 @@
 {
   "development": {
     "username": "root",
-    "password": "2020Thrive!",
+
+    "password": null,
     "database": "project_3_local",
     "host": "127.0.0.1",
     "port": "3306",

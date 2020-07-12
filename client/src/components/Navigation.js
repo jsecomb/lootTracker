@@ -10,11 +10,11 @@ function Navigation(props) {
   return (
     <>
       <MuiThemeProvider theme={theme}>
-        <AppBar position="static" style={{ backgroundColor: theme.palette.primary.dark, marginTop: "20px" }}>
-          <Toolbar style={{ margin: "auto" }}>
-            <Button component={Link} to="/home" >Home</Button>
-            <Button component={Link} to="/wishlist" >Wish List</Button>
-            <Button component={Link} to="/wishlistdetails" >Wish List Stats</Button>
+          <AppBar position="static" style={{ backgroundColor: theme.palette.primary.dark, marginTop: "40px"}}> 
+            <Toolbar style={{margin:"auto"}}>
+              <Button component={Link} to="/home" >Home</Button>
+              <Button component={Link} to="/wishlist" >Wish List</Button>
+              <Button component={Link} to="/wishlistdetails" >Wish List Stats</Button>
 
             {user.email ?
               <>

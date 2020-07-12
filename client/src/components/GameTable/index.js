@@ -2,14 +2,7 @@ import React, { useState, useEffect } from 'react';
 import API from "../../utils/API";
 import "./style.css";
 import { makeStyles } from '@material-ui/core/styles';
-import Table from '@material-ui/core/Table';
-import TableBody from '@material-ui/core/TableBody';
-import TableCell from '@material-ui/core/TableCell';
-import TableContainer from '@material-ui/core/TableContainer';
-import TableHead from '@material-ui/core/TableHead';
-import TableRow from '@material-ui/core/TableRow';
-import Paper from '@material-ui/core/Paper';
-import Button from '@material-ui/core/Button';
+import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Button, Paper } from '@material-ui/core';
 import Swal from 'sweetalert2'
 
 var moment = require('moment');
@@ -80,43 +73,47 @@ export default function GameTable(props) {
     props.setReload(false);
   }, [props.reload])
 
-  return (    
-      <TableContainer component={Paper}>
-        {wishlistRows.length > 0 &&
-          <Table className={classes.table} style={{ margin: "auto" }} aria-label="simple table">
-            <TableHead>
-              <TableRow>
-                <TableCell></TableCell>
-                <TableCell id="tableHeader" align="left">Game</TableCell>
-                <TableCell id="tableHeader" align="left">Price</TableCell>
-                <TableCell id="tableHeader" align="left">Rating</TableCell>
-                <TableCell id="tableHeader" align="left">Release Date</TableCell>
-                <TableCell id="tableHeader" align="left">Purchase Date</TableCell>
-                <TableCell id="tableHeader" align="left">Remove</TableCell>
+
+  return (
+    <>
+    <h1 style={{textAlign: "center"}}>{props.user.email}'s Wishlist</h1>
+    {wishlistRows.length>0 &&
+    <TableContainer id="gameTable" component={Paper}>
+      <Table className={classes.table} style={{margin: "auto"}} aria-label="simple table">
+        <TableHead>
+          <TableRow>
+            <TableCell></TableCell>
+            <TableCell id="tableHeader" align="left">Game</TableCell>
+            <TableCell id="tableHeader" align="left">Price</TableCell>
+            <TableCell id="tableHeader" align="left">Rating</TableCell>
+            <TableCell id="tableHeader" align="left">Release Date</TableCell>
+            <TableCell id="tableHeader" align="left">Purchase Date</TableCell>
+            <TableCell id="tableHeader" align="left">Remove</TableCell>
+          </TableRow>
+        </TableHead>
+        <TableBody>
+          {
+            wishlistRows.map((row) => (
+              <TableRow key={row.name}>
+                <TableCell component="th" scope="row" align="left">
+                  <img src={row.imgLink} alt={row.name}></img>
+                </TableCell>
+                <TableCell id="tableCell" align="left">{row.name}</TableCell>
+                <TableCell id="tableCell" align="left">${row.price}</TableCell>
+                <TableCell id="tableCell" align="left">{row.rating}%</TableCell>
+                <TableCell id="tableCell" align="left">{row.releaseDate}</TableCell>
+                <TableCell id="tableCell" align="left">{row.purchaseDate}</TableCell>
+                <TableCell id="tableCell" align="left">
+                  <Button id="removeBtn" variant="contained" onClick={() => removeWishlistItem(row)}>Remove</Button>
+                </TableCell>
               </TableRow>
-            </TableHead>
-            <TableBody>
-              {
-                wishlistRows.map((row) => (
-                  <TableRow key={row.name}>
-                    <TableCell component="th" scope="row" align="left">
-                      <img src={row.imgLink} alt={row.name}></img>
-                    </TableCell>
-                    <TableCell id="tableCell" align="left">{row.name}</TableCell>
-                    <TableCell id="tableCell" align="left">${row.price}</TableCell>
-                    <TableCell id="tableCell" align="left">{row.rating}%</TableCell>
-                    <TableCell id="tableCell" align="left">{row.releaseDate}</TableCell>
-                    <TableCell id="tableCell" align="left">{row.purchaseDate}</TableCell>
-                    <TableCell id="tableCell" align="left">
-                      <Button id="removeBtn" variant="contained" onClick={() => removeWishlistItem(row)}>Remove</Button>
-                    </TableCell>
-                  </TableRow>
-                ))
-              }
-            </TableBody>
-          </Table>
-        }
-      </TableContainer>
+            ))
+          }
+        </TableBody>
+      </Table>
+    </TableContainer>
+    }
+  </>
   );
 }
 

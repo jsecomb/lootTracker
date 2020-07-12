@@ -134,47 +134,48 @@ export default function AddGame(props) {
 
   return (
     <>
-        <div id="searchInputContainer">
-          <form className={classes.root} noValidate autoComplete="off" id="searchForm">
-            <TextField type="text" id="searchInput" label="Search Games" onChange={handleInputChange} />
-            <Button variant="contained" id="getGame" onClick={getGame}>Submit</Button>
-            <Button variant="contained" id="clearSearch" onClick={() => setGameResults([])}>Clear Search</Button>
-          </form>
-        </div>
-        <TableContainer id="resultsTable" component={Paper}>
-          {gameResults.length > 0 &&
-            <Table className={classes.table} style={{ margin: "auto" }} aria-label="simple table">
-              <TableHead>
-                <TableRow>
-                  <TableCell></TableCell>
-                  <TableCell id="tableHeader" align="left">Game</TableCell>
-                  <TableCell id="tableHeader" align="left">Price</TableCell>
-                  <TableCell id="tableHeader" align="left">Rating</TableCell>
-                  <TableCell id="tableHeader" align="left">Release Date</TableCell>
-                  <TableCell id="tableHeader" align="left">Add to Wishlist</TableCell>
-                </TableRow>
-              </TableHead>
-              <TableBody>
-                {
-                  gameResults.map((game) => (
-                    <TableRow key={game.name}>
-                      <TableCell component="th" scope="row" align="left">
-                        <img src={game.thumb}></img>
-                      </TableCell>
-                      <TableCell id="tableCell" align="left">{game.title}</TableCell>
-                      <TableCell id="tableCell" align="left">{game.normalPrice}</TableCell>
-                      <TableCell id="tableCell" align="left">{game.steamRatingPercent}%</TableCell>
-                      <TableCell id="tableCell" align="left">{timeConverter(game.releaseDate).substring(0, 11)}</TableCell>
-                      <TableCell id="tableCell" align="left">
-                        <Button id="addBtn" variant="contained" onClick={() => postGame(game)}>Add</Button>
-                      </TableCell>
-                    </TableRow>
-                  ))
-                }
-              </TableBody>
-            </Table>
-          }
-        </TableContainer>
+      <h1 style={{textAlign: "center"}}>Search Games</h1>
+      <div id="searchInputContainer">
+        <form className={classes.root} noValidate autoComplete="off" id="searchForm">
+          <TextField type="text" id="searchInput" label="Search" onChange={handleInputChange} />
+          <Button variant="contained" id="getGame" onClick={getGame}>Submit</Button>
+          <Button variant="contained" id="clearSearch" onClick={() => setGameResults([])}>Clear Search</Button>
+        </form>
+      </div>
+      {gameResults.length > 0 &&
+      <TableContainer id="resultsTable" component={Paper}>
+        <Table className={classes.table} style={{margin: "auto"}} aria-label="simple table">
+          <TableHead>
+            <TableRow>
+              <TableCell></TableCell>
+              <TableCell id="tableHeader" align="left">Game</TableCell>
+              <TableCell id="tableHeader" align="left">Price</TableCell>
+              <TableCell id="tableHeader" align="left">Rating</TableCell>
+              <TableCell id="tableHeader" align="left">Release Date</TableCell>
+              <TableCell id="tableHeader" align="left">Add to Wishlist</TableCell>
+            </TableRow>
+          </TableHead>
+            <TableBody>
+              {
+                gameResults.map((game) => (
+                  <TableRow key={game.name}>
+                    <TableCell component="th" scope="row" align="left">
+                      <img src={game.thumb}></img>
+                    </TableCell>
+                    <TableCell id="tableCell" align="left">{game.title}</TableCell>
+                    <TableCell id="tableCell" align="left">{game.normalPrice}</TableCell>
+                    <TableCell id="tableCell" align="left">{game.steamRatingPercent}%</TableCell>
+                    <TableCell id="tableCell" align="left">{timeConverter(game.releaseDate).substring(0, 11)}</TableCell>
+                    <TableCell id="tableCell" align="left">
+                      <Button id="addBtn" variant="contained" onClick={() => postGame(game)}>Add</Button>
+                    </TableCell>
+                  </TableRow>
+                ))
+              }
+            </TableBody>
+        </Table>
+      </TableContainer>
+      }
     </>
   );
 }
