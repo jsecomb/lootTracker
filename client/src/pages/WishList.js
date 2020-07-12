@@ -28,7 +28,7 @@ function WishList(props) {
     return (
         <>
             
-            <Grid container spacing={3} style={{marginBottom: "25px"}}>
+            <Grid container spacing={6} style={{marginBottom: "25px"}}>
                 <Grid item xs={12} sm={6}>
                     <Paper className={classes.paper}>
                         <BudgetStats user={props.user}/>
@@ -40,7 +40,7 @@ function WishList(props) {
                     </Paper>
                 </Grid>
             </Grid>
-            <Paper style={{marginBottom: "40px"}}>
+            <Paper style={{marginBottom: "50px"}}>
                 <AddGame user={props.user} setReload={setReload}/>
             </Paper>
             <Paper style={{marginBottom: "25px"}}>

@@ -3,7 +3,6 @@ import { makeStyles } from '@material-ui/core/styles';
 import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Button, Paper } from '@material-ui/core';
 import "./style.css";
 import { useState, useEffect } from 'react';
-import axios from 'axios';
 import API from "../../utils/API";
 
 export default function AddWishlist(props) {
