@@ -1,11 +1,9 @@
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import { FormControl, InputLabel, Input, FormHelperText, Button, TextField } from '@material-ui/core';
+import { Button, TextField } from '@material-ui/core';
 import "./style.css";
 import { useState, useEffect } from 'react';
-import axios from 'axios';
 import API from "../../utils/API";
-import Swal from 'sweetalert2';
 
 export default function AddWishlist(props) {
 
@@ -35,7 +33,6 @@ export default function AddWishlist(props) {
 
   function getWishlistStatus() {
     API.User.getById(props.user.id).then(function (userData) {
-      console.log(userData)
       if (userData.data.Wishlist) {
         setWishlistStatus("Change Wishlist Budget ($)")
       }
@@ -45,7 +42,6 @@ export default function AddWishlist(props) {
   function checkWishlistStatus(event) {
     event.preventDefault();
     API.User.getById(props.user.id).then(function (userData) {
-
       if(userData.data.Wishlist){
         modifyBudget(userData.data.Wishlist)
       }

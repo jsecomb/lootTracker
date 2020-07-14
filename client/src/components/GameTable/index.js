@@ -3,9 +3,6 @@ import API from "../../utils/API";
 import "./style.css";
 import { makeStyles } from '@material-ui/core/styles';
 import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Button, Paper } from '@material-ui/core';
-import Swal from 'sweetalert2'
-
-var moment = require('moment');
 
 export default function GameTable(props) {
 
