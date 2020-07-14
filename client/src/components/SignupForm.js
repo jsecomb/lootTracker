@@ -38,7 +38,6 @@ function SignupForm(props) {
                                     type="password"
                                     placeholder="Enter your password"
                                     variant="outlined"
-                                    helperText="This will be your password (we won't share it with anyone!)"
                                 />
                             </Grid>
                             <Grid item xs={12}>

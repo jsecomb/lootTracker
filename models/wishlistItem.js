@@ -1,7 +1,8 @@
 module.exports = function(sequelize, DataTypes) {
     var WishlistItem = sequelize.define("WishlistItem", {
       purchaseDate: {
-        type: DataTypes.DATE
+        type: DataTypes.STRING,
+        default: 'null'
       }
     });
   

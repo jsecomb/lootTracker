@@ -9,7 +9,7 @@
     font-size: 15px;
 }
 
-#removeBtn{
+#removeBtn, #purchaseBtn {
     color:white;
     background-color:#C46000;
     box-shadow: 3px 3px 3px black;

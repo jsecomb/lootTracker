@@ -110,7 +110,6 @@ export default function AddGame(props) {
             API.Wishlist.getAllByUserId(props.user.id).then(function (wishlistData) {
               API.WishlistItem.create(
                 {
-                  purchaseDate: Date.now(),
                   GameId: gameData.data.id,
                   WishlistId: wishlistData.data[0].id
                 }
@@ -122,7 +121,6 @@ export default function AddGame(props) {
           API.Wishlist.getAllByUserId(props.user.id).then(function (wishlistData) {
             API.WishlistItem.create(
               {
-                purchaseDate: Date.now(),
                 GameId: response.data[0].id,
                 WishlistId: wishlistData.data[0].id
               }
@@ -172,11 +170,11 @@ export default function AddGame(props) {
           <TableHead>
             <TableRow>
               <TableCell></TableCell>
-              <TableCell id="tableHeader" align="left">Game</TableCell>
-              <TableCell id="tableHeader" align="left">Price</TableCell>
-              <TableCell id="tableHeader" align="left">Rating</TableCell>
-              <TableCell id="tableHeader" align="left">Release Date</TableCell>
-              <TableCell id="tableHeader" align="left">Add to Wishlist</TableCell>
+              <TableCell id="tableHeader" key="cell1" align="left">Game</TableCell>
+              <TableCell id="tableHeader" key="cell2" align="left">Price</TableCell>
+              <TableCell id="tableHeader" key="cell3" align="left">Rating</TableCell>
+              <TableCell id="tableHeader" key="cell4" align="left">Release Date</TableCell>
+              <TableCell id="tableHeader" key="cell5" align="left">Add to Wishlist</TableCell>
             </TableRow>
           </TableHead>
             <TableBody>
@@ -186,12 +184,12 @@ export default function AddGame(props) {
                     <TableCell component="th" scope="row" align="left">
                       <img src={game.thumb} alt={game.title}></img>
                     </TableCell>
-                    <TableCell id="tableCell" align="left">{game.title}</TableCell>
-                    <TableCell id="tableCell" align="left">{game.normalPrice}</TableCell>
-                    <TableCell id="tableCell" align="left">{game.steamRatingPercent}%</TableCell>
-                    <TableCell id="tableCell" align="left">{timeConverter(game.releaseDate).substring(0, 11)}</TableCell>
-                    <TableCell id="tableCell" align="left">
-                      <Button id="addBtn" variant="contained" onClick={() => getWishlistStatus(game)}>Add</Button>
+                    <TableCell id="tableCell" key="title" align="left">{game.title}</TableCell>
+                    <TableCell id="tableCell" key="price" align="left">{game.normalPrice}</TableCell>
+                    <TableCell id="tableCell" key="percent" align="left">{game.steamRatingPercent}%</TableCell>
+                    <TableCell id="tableCell" key="release-date" align="left">{timeConverter(game.releaseDate).substring(0, 11)}</TableCell>
+                    <TableCell id="tableCell" key="post-game"   align="left">
+                      <Button id="addBtn" variant="contained" onClick={() => postGame(game)}>Add</Button
                     </TableCell>
                   </TableRow>
                 ))
