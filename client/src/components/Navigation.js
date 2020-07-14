@@ -14,7 +14,7 @@ function Navigation(props) {
             <Toolbar style={{margin:"auto"}}>
               <Button component={Link} to="/home" >Home</Button>
               <Button component={Link} to="/wishlist" >Wish List</Button>
-              <Button component={Link} to="/wishlistdetails" >Wish List Stats</Button>
+              <Button component={Link} to="/wishlistdetails" >Stats</Button>
 
             {user.email ?
               <>
