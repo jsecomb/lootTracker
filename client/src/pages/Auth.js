@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import Grid from '@material-ui/core/Grid';
 import { useLocation, Redirect } from "react-router-dom";
 import SignupForm from "../components/SignupForm";
 import LoginForm from "../components/LoginForm";
@@ -34,7 +33,7 @@ function Auth(props) {
     return (
         <>
             {user.email ?
-                <Redirect to="/home" />
+                <Redirect to="/wishlist" />
                 :
                 location.pathname === "/login" ?
                     <>

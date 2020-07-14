@@ -13,7 +13,6 @@ import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
-import Swal from 'sweetalert2';
 
 export default function AddGame(props) {
 
@@ -63,6 +62,31 @@ export default function AddGame(props) {
       .catch((error) => {
         console.log(error)
       })
+  }
+
+  function getWishlistStatus(game) {
+    API.User.getById(props.user.id).then(function (userData) {
+      if (userData.data.Wishlist) {
+        postGame(game)
+      }
+      else {
+        (async () => {
+          const { value: spend } = await Swal.fire({
+            title: 'Enter your total gaming budget',
+            input: 'number',
+            inputPlaceholder: 'Budget ($)',
+            confirmButtonText: 'Aye!',
+            confirmButtonColor: '#C46000'
+          })
+          if (spend) {
+            API.Wishlist.create({budget: spend}).then(() => {
+              Swal.fire(`Your gaming budget is $${spend}`)
+              postGame(game)
+            })
+          }
+        })()
+      }
+    })
   }
 
   function postGame(game) {
@@ -134,7 +158,7 @@ export default function AddGame(props) {
     <>
       <h1 style={{textAlign: "center"}}>Search Games</h1>
       <div id="searchInputContainer">
-        <form className={classes.root} noValidate autoComplete="off" id="searchForm">
+        <form className={classes.root} noValidate autoComplete="off" id="gameSearchForm">
           <TextField type="text" id="searchInput" label="Search" onChange={handleInputChange} />
           <Button variant="contained" id="getGame" onClick={getGame}>Submit</Button>
           <Button variant="contained" id="clearSearch" onClick={() => setGameResults([])}>Clear Search</Button>
@@ -156,16 +180,16 @@ export default function AddGame(props) {
             <TableBody>
               {
                 gameResults.map((game) => (
-                  <TableRow key={game.name}>
+                  <TableRow key={(Math.random() * Math.floor(10000))}>
                     <TableCell component="th" scope="row" align="left">
-                      <img src={game.thumb}></img>
+                      <img src={game.thumb} alt={game.title}></img>
                     </TableCell>
                     <TableCell id="tableCell" key="title" align="left">{game.title}</TableCell>
                     <TableCell id="tableCell" key="price" align="left">{game.normalPrice}</TableCell>
                     <TableCell id="tableCell" key="percent" align="left">{game.steamRatingPercent}%</TableCell>
                     <TableCell id="tableCell" key="release-date" align="left">{timeConverter(game.releaseDate).substring(0, 11)}</TableCell>
                     <TableCell id="tableCell" key="post-game"   align="left">
-                      <Button id="addBtn" variant="contained" onClick={() => postGame(game)}>Add</Button>
+                      <Button id="addBtn" variant="contained" onClick={() => postGame(game)}>Add</Button
                     </TableCell>
                   </TableRow>
                 ))
