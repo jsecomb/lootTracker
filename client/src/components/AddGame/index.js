@@ -103,31 +103,53 @@ export default function AddGame(props) {
 
     API.Game.getAllByName(game.steamAppID)
       .then(function (response) {
-        if (response.data.length === 0) {
+        if (response.data.length === 0) { //if Game is not already in games DB we will add it before creating a wishlistItem.
           API.Game.create(
             newGameInfo
           ).then(function (gameData) {
-            API.Wishlist.getAllByUserId(props.user.id).then(function (wishlistData) {
-              API.WishlistItem.create(
-                {
-                  GameId: gameData.data.id,
-                  WishlistId: wishlistData.data[0].id
-                }
-              ).then(wishlistItemSuccess(game.title));
+            API.Wishlist.getAllByUserId(props.user.id).then(function (wishlistData) { //get user's wishlist
+              if ((parseFloat(wishlistData.data[0].totalCost) + parseFloat(game.normalPrice)) <= parseFloat(wishlistData.data[0].budget)) { //adding new wishlistItem must not exceed budget
+                API.WishlistItem.create(
+                  {
+                    purchaseDate: Date.now(),
+                    GameId: gameData.data.id, //gameId taken from newly added game
+                    WishlistId: wishlistData.data[0].id
+                  }
+                ).then(() => {
+                  updateTotalCost(wishlistData.data[0].id, parseFloat(wishlistData.data[0].totalCost), parseFloat(game.normalPrice)) //update totalCost in wishlist model
+                  wishlistItemSuccess(game.title) //success message
+                });
+              }
+              else { //if adding new wishlistItem would cause user to go over budget, wishlistItemFailure is called
+                wishlistItemFailure(game.title) //failure message
+              }
             })
           });
         }
-        else {
+        else { //if game is already in games DB we go straight to adding game as a wishlistItem associated with user's wishlist.
           API.Wishlist.getAllByUserId(props.user.id).then(function (wishlistData) {
-            API.WishlistItem.create(
-              {
-                GameId: response.data[0].id,
-                WishlistId: wishlistData.data[0].id
-              }
-            ).then(wishlistItemSuccess(game.title));
+            if ((parseFloat(wishlistData.data[0].totalCost) + parseFloat(game.normalPrice)) <= parseFloat(wishlistData.data[0].budget)) { //check to make sure budget wouldn't be exceeded
+              API.WishlistItem.create(
+                {
+                  purchaseDate: Date.now(),
+                  GameId: response.data[0].id, //gameId taken from existing game in gamesDB
+                  WishlistId: wishlistData.data[0].id
+                }
+              ).then(() => {
+                updateTotalCost(wishlistData.data[0].id, parseFloat(wishlistData.data[0].totalCost), parseFloat(game.normalPrice))
+                wishlistItemSuccess(game.title) //success message
+              })
+            }
+            else {
+              wishlistItemFailure(game.title) //failure message
+            }
           })
         }
       })
+  }
+
+  function updateTotalCost(wishlistId, currentTotalCost, gamePrice) {
+    API.Wishlist.update(wishlistId, {totalCost: currentTotalCost + gamePrice})
   }
 
   function wishlistItemSuccess(title) {
@@ -136,6 +158,16 @@ export default function AddGame(props) {
       title: `You have added ${title} to your wishlist.`,
       width: 600,
       confirmButtonText: 'Aye!',
+      confirmButtonColor: '#C46000',
+      padding: '3em'
+    })
+  }
+
+  function wishlistItemFailure(title) {
+    Swal.fire({
+      title: `You cannot add ${title} until you increase your budget or remove games from your wishlist.`,
+      width: 600,
+      confirmButtonText: 'Aghh!',
       confirmButtonColor: '#C46000',
       padding: '3em'
     })
@@ -189,7 +221,7 @@ export default function AddGame(props) {
                     <TableCell id="tableCell" key="percent" align="left">{game.steamRatingPercent}%</TableCell>
                     <TableCell id="tableCell" key="release-date" align="left">{timeConverter(game.releaseDate).substring(0, 11)}</TableCell>
                     <TableCell id="tableCell" key="post-game"   align="left">
-                      <Button id="addBtn" variant="contained" onClick={() => postGame(game)}>Add</Button
+                      <Button id="addBtn" variant="contained" onClick={() => getWishlistStatus(game)}>Add</Button>
                     </TableCell>
                   </TableRow>
                 ))

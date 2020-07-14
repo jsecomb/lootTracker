@@ -5,8 +5,6 @@ import { makeStyles } from '@material-ui/core/styles';
 import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Button, Paper } from '@material-ui/core'
 import { format } from "date-fns";
 
-var moment = require('moment');
-
 export default function GameTable(props) {
 
   const [wishlistRows, setWishlistRows] = useState([]);
@@ -56,23 +54,24 @@ export default function GameTable(props) {
   }
 
   function removeWishlistItem(item) {
-    console.log(item)
-    API.WishlistItem.delete(item.wishlistId).then(
-      Swal.fire({
-        title: `You have removed ${item.name} from your wishlist.`,
-        width: 600,
-        confirmButtonText: 'Aye!',
-        confirmButtonColor: '#C46000',
-        padding: '3em'
-      })
-    )
-    getWishlistItems(props)
+    API.WishlistItem.delete(item.wishlistId).then(function (response) {
+      updateTotalCost(item.wishlistId, parseFloat(item.price))
+      getWishlistItems(props)
+    })
   }
 
   useEffect(() => {
     getWishlistItems(props);
     props.setReload(false);
   }, [props.reload])
+
+  function updateTotalCost(wishlistId, gamePrice) {
+    console.log(wishlistId)
+    API.Wishlist.getAllByUserId(props.user.id).then(function (wishlists) {
+      let currentTotalCost = parseFloat(wishlists.data[0].totalCost)
+      API.Wishlist.update(wishlistId, {totalCost: currentTotalCost - gamePrice})
+    })
+  }
 
   function createPurchaseDate(item) {
     console.log(item);
