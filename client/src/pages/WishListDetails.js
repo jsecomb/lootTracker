@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from "react";
 import API from "../utils/API";
 import { Doughnut, Line } from "react-chartjs-2";
+import { Grid, Paper } from '@material-ui/core';
+import { makeStyles } from '@material-ui/core/styles';
 
 function WishListDetails(props) {
     const initialDataState = {
@@ -16,9 +18,11 @@ function WishListDetails(props) {
             }
         ]
     };
+
     const [wishlist, setWishlist] = useState({});
     const [doughnutData, setDoughnutData] = useState(initialDataState);
     const [lineData, setLineData] = useState({});
+    const [lineMax, setLineMax] = useState(0);
 
     useEffect(() => {
         loadWishlist();
@@ -51,6 +55,12 @@ function WishListDetails(props) {
                 lineXSet.push(date.toLocaleDateString('en-US'));
                 lineYSet.push(item.Game.price);
             });
+
+            let max = lineYSet.reduce(function(a, b) {
+                return Math.max(a, b);
+            })
+            setLineMax(max)
+
             console.log(lineYSet)
             setLineData({
                 labels: lineXSet,
@@ -80,49 +90,64 @@ function WishListDetails(props) {
         })
     }
 
+    const useStyles = makeStyles({
+        table: {
+          minWidth: 500,
+          maxWidth: 800,
+          backgroundColor: "#424242"
+        }
+      });
+    
+    const classes = useStyles()
+
     return (
         <>
-            <Doughnut
-                data={doughnutData}
-                options={{
-                    title: {
-                        display: true,
-                        text: 'Total Budget Usage',
-                        fontSize: 20
-                    },
-                    legend: {
-                        display: true,
-                        position: 'right'
-                    }
-                }}
-            />
-            <Line 
-                data={lineData}
-                options={{
-                    title: {
-                        display: true,
-                        text: 'Spending Over Time',
-                        fontSize: 20
-                    },
-                    scales: {
-                        yAxes: [
-                          {
-                            ticks: {
-                              suggestedMin: 0,
-                              suggestedMax: 120
+        <Grid container spacing={6} style={{marginBottom: "25px"}}>
+            <Grid item xs={12} sm={6}>
+                <Doughnut
+                    data={doughnutData}
+                    options={{
+                        title: {
+                            display: true,
+                            text: 'Total Budget Usage',
+                            fontSize: 20
+                        },
+                        legend: {
+                            display: true,
+                            position: 'right'
+                        }
+                    }}
+                />     
+            </Grid>
+            <Grid item xs={12} sm={6}>
+                <Line 
+                    data={lineData}
+                    options={{
+                        title: {
+                            display: true,
+                            text: 'Spending Over Time',
+                            fontSize: 20
+                        },
+                        scales: {
+                            yAxes: [
+                            {
+                                ticks: {
+                                suggestedMin: 0,
+                                suggestedMax: [lineMax]
+                                }
                             }
-                          }
-                        ]
-                    },
-                    legend: {
-                        display: true,
-                        position: 'right'
-                    }
-                }}
-            />
+                            ]
+                        },
+                        legend: {
+                            display: true,
+                            position: 'right'
+                        }
+                    }}
+                />   
+            </Grid>
+        </Grid>
         </>
     )
-
 }
 
 

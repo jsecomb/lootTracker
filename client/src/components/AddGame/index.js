@@ -189,7 +189,7 @@ export default function AddGame(props) {
                     <TableCell id="tableCell" key="percent" align="left">{game.steamRatingPercent}%</TableCell>
                     <TableCell id="tableCell" key="release-date" align="left">{timeConverter(game.releaseDate).substring(0, 11)}</TableCell>
                     <TableCell id="tableCell" key="post-game"   align="left">
-                      <Button id="addBtn" variant="contained" onClick={() => postGame(game)}>Add</Button
+                      <Button id="addBtn" variant="contained" onClick={() => getWishlistStatus(game)}>Add</Button>
                     </TableCell>
                   </TableRow>
                 ))

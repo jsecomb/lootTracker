@@ -25,8 +25,7 @@ function WishList(props) {
     const classes = useStyles()
 
     return (
-        <>
-            
+        <> 
             <Grid container spacing={6} style={{marginBottom: "25px"}}>
                 <Grid item xs={12} sm={6}>
                     <Paper className={classes.paper}>

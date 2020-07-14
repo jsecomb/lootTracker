@@ -25,17 +25,12 @@ export default function AddWishlist(props) {
     },[])
 
     function getBudgetStats() {
-        API.Wishlist.getAllByUserId(props.user.id).then(res => {
-          if (res.data) {
-            setCurrentBudget(res.data[0].budget)
-            let amountSpent = 0;
-            res.data[0].WishlistItems.map(item => {
-              amountSpent += parseInt(item.Game.price)
-            })
-            setCurrentSpend(amountSpent)
-          }
-
-        })
+      API.Wishlist.getAllByUserId(props.user.id).then(res => {
+        if (res.data) {
+          setCurrentBudget(res.data[0].budget)
+          setCurrentSpend(res.data[0].totalCost)
+        }
+      })
     }
 
     return (
@@ -43,16 +38,16 @@ export default function AddWishlist(props) {
       <Table className={classes.table} style={{margin: "auto"}} aria-label="simple table">
         <TableHead>
           <TableRow>
-              <TableCell id="tableHeader" align="left">Total Budget</TableCell>
-              <TableCell id="tableHeader" align="left">Budget Spent</TableCell>
-              <TableCell id="tableHeader" align="left">Budget Remaining</TableCell>
+              <TableCell id="tableHeader" align="center">Total Budget</TableCell>
+              <TableCell id="tableHeader" align="center">Budget Spent</TableCell>
+              <TableCell id="tableHeader" align="center">Budget Remaining</TableCell>
           </TableRow>
         </TableHead>
         <TableBody>
             <TableRow>
-                <TableCell id="tableCell" align="left">${currentBudget}</TableCell>
-                <TableCell id="tableCell" align="left" style={{color: "red"}}>${currentSpend}</TableCell>
-                <TableCell id="tableCell" align="left" style={{color: "green"}}>${parseInt(currentBudget)-parseInt(currentSpend)}</TableCell>
+                <TableCell id="tableCell" align="center">${currentBudget}</TableCell>
+                <TableCell id="tableCell" align="center" style={{color: "red"}}>${currentSpend}</TableCell>
+                <TableCell id="tableCell" align="center" style={{color: "green"}}>${parseInt(currentBudget)-parseInt(currentSpend)}</TableCell>
             </TableRow>
         </TableBody>
       </Table>

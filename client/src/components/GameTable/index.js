@@ -56,7 +56,6 @@ export default function GameTable(props) {
   }
 
   function removeWishlistItem(item) {
-    console.log(item)
     API.WishlistItem.delete(item.wishlistId).then(
       Swal.fire({
         title: `You have removed ${item.name} from your wishlist.`,
@@ -74,17 +73,36 @@ export default function GameTable(props) {
     props.setReload(false);
   }, [props.reload])
 
+  function updateTotalCost(gamePrice) {
+    API.Wishlist.getAllByUserId(props.user.id).then(function (wishlists) {
+      let currentTotalCost = parseFloat(wishlists.data[0].totalCost)
+      let wishlistId = wishlists.data[0].id
+      API.Wishlist.update(wishlistId, {totalCost: currentTotalCost + gamePrice})
+    })
+  }
+
+  function verifySufficientFunds(game) {
+    API.Wishlist.getAllByUserId(props.user.id).then(function (wishlistData) {
+      if ((parseFloat(wishlistData.data[0].totalCost) + parseFloat(game.price)) <= parseFloat(wishlistData.data[0].budget)) { //checks if buying game would cause user to go over budget
+        createPurchaseDate(game)
+      }
+      else {
+        Swal.fire({
+          title: `You must increase your budget to buy ${game.name} from your wishlist.`,
+          width: 600,
+          confirmButtonText: 'Aye!',
+          confirmButtonColor: '#C46000',
+          padding: '3em',
+        })
+      }
+    })
+  }
+
   function createPurchaseDate(item) {
     console.log(item);
-    var d = new Date();
-    var formDate = format(d, "dd MMMM yyyy");
-    var purchaseDate = formDate.toString();
-
-    console.log(d)
-    console.log(formDate);
-    console.log(purchaseDate)
-    console.log(item.wishlistId)
-
+    let date = new Date();
+    let purchaseDate = date.toString().substring(3,15)
+    console.log(purchaseDate)   
 
     API.WishlistItem.update(item.wishlistId, { purchaseDate: purchaseDate }).then(res => {
       if (purchaseDate !== null) {
@@ -96,6 +114,7 @@ export default function GameTable(props) {
           padding: '3em',
         })
       }
+      updateTotalCost(parseFloat(item.price))
       getWishlistItems(props)
     });
   }
@@ -103,6 +122,9 @@ export default function GameTable(props) {
   return (
     <>
       <h1 style={{ textAlign: "center" }}>{props.user.email}'s Wishlist</h1>
+      {wishlistRows.length==0 &&
+      <h3 style={{textAlign: "center"}}>No games on your wishlist yet. Set a budget and add a game!</h3>
+      }
       {wishlistRows.length > 0 &&
         <TableContainer id="gameTable" component={Paper}>
           <Table className={classes.table} style={{ margin: "auto" }} aria-label="simple table">
@@ -128,7 +150,7 @@ export default function GameTable(props) {
                   <TableCell id="tableCell" align="left">{row.rating}%</TableCell>
                   <TableCell id="tableCell" align="left">{row.releaseDate}</TableCell>
                   <TableCell id="tableCell" align="left">{row.purchaseDate ? row.purchaseDate :
-                    <Button id="purchaseBtn" variant="contained" onClick={() => createPurchaseDate(row)}>Purchase</Button>}
+                    <Button id="purchaseBtn" variant="contained" onClick={() => verifySufficientFunds(row)}>Purchase</Button>}
                   </TableCell>
                   <TableCell id="tableCell" align="left">
                     <Button id="removeBtn" variant="contained" onClick={() => removeWishlistItem(row)}>Remove</Button>
