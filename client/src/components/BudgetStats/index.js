@@ -20,9 +20,9 @@ export default function AddWishlist(props) {
     
     const classes = useStyles()
 
-    useEffect(()=> {
-      getBudgetStats()
-    },[])
+    useEffect(() => {
+      getBudgetStats();
+    }, [])
 
     function getBudgetStats() {
       API.Wishlist.getAllByUserId(props.user.id).then(res => {
@@ -32,6 +32,11 @@ export default function AddWishlist(props) {
         }
       })
     }
+
+    useEffect(() => {
+      getBudgetStats();
+      props.setReload(false);
+    }, [props.reload])
 
     return (
     <TableContainer id="gameTable" component={Paper}>
