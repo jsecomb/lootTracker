@@ -54,13 +54,7 @@ export default function GameTable(props) {
 
   function removeWishlistItem(item) {
     API.WishlistItem.delete(item.wishlistId).then(function (response) {
-      Swal.fire({
-        title: `You have removed ${item.name} from your wishlist.`,
-        width: 600,
-        confirmButtonText: 'Aye!',
-        confirmButtonColor: '#C46000',
-        padding: '3em'
-      })
+      updateTotalCost(item.wishlistId, parseFloat(item.price))
       getWishlistItems(props)
     })
   }
@@ -70,10 +64,20 @@ export default function GameTable(props) {
     props.setReload(false);
   }, [props.reload])
 
+  function updateTotalCost(wishlistId, gamePrice) {
+    console.log(wishlistId)
+    API.Wishlist.getAllByUserId(props.user.id).then(function (wishlists) {
+      let currentTotalCost = parseFloat(wishlists.data[0].totalCost)
+      API.Wishlist.update(wishlistId, {totalCost: currentTotalCost - gamePrice})
+    })
+  }
 
   return (
     <>
     <h1 style={{textAlign: "center"}}>{props.user.email}'s Wishlist</h1>
+    {wishlistRows.length==0 &&
+    <h3 style={{textAlign: "center"}}>No games on your wishlist yet. Set a budget and add a game!</h3>
+    }
     {wishlistRows.length>0 &&
     <TableContainer id="gameTable" component={Paper}>
       <Table className={classes.table} style={{margin: "auto"}} aria-label="simple table">

@@ -34,7 +34,6 @@ export default function AddWishlist(props) {
             })
             setCurrentSpend(amountSpent)
           }
-
         })
     }
 

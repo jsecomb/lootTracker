@@ -42,7 +42,16 @@ export default function AddWishlist(props) {
   function checkWishlistStatus(event) {
     event.preventDefault();
     API.User.getById(props.user.id).then(function (userData) {
-      if(userData.data.Wishlist){
+      if(isNaN(formObject.budget)){
+        Swal.fire({
+          title: `You must enter a number matey.`,
+          width: 600,
+          confirmButtonText: 'Aye!',
+          confirmButtonColor: '#C46000',
+          padding: '3em'
+        })
+      }
+      else if(userData.data.Wishlist){
         modifyBudget(userData.data.Wishlist)
       }
       else{
