@@ -20,7 +20,7 @@ const styles = {
     paddingRight: 0,
     justifyContent: 'center',
     justifyItems: 'center',
-    alignContent:'space-between',
+    alignContent: 'space-between',
   },
   cover: {
     width: 200,
@@ -31,10 +31,10 @@ const styles = {
 export const BeneCard = withStyles(styles)(({ classes }) => {
   return (
     <Container className={classes.root}>
-    <Grid container item>
-      
-        <Grid item xs={12} sm={4} component={Card} className={classes.card}>
-          <CardContent>
+      <Grid container item className={classes.root}>
+
+        <Grid item xs={12} sm={4} component={Card}>
+          <CardContent className={classes.root}>
             <CardMedia
               className={classes.cover}
               image={img}
@@ -47,46 +47,42 @@ export const BeneCard = withStyles(styles)(({ classes }) => {
               blahblahblah
             </Typography>
           </CardContent>
-        </Grid> 
-
-    
-  
-        <Grid item xs={12} sm={4} component={Card} className={classes.card}>
-            <CardContent>
-              <CardMedia
-                className={classes.cover}
-                image={img}
-                title="loottracker"
-              />
-              <Typography component="h5" variant="h5">
-                Track your budget
-            </Typography>
-              <Typography variant="subtitle1" color="textSecondary">
-                blahblahblah
-            </Typography>
-            </CardContent>
         </Grid>
-      
 
-          <Grid item xs={12} sm={4} component={Card} className={classes.card}>
-            <CardContent>
-              <CardMedia
-                className={classes.cover}
-                image={img}
-                title="loottracker"
-              />
-              <Typography component="h5" variant="h5">
-                Track your budget
+        <Grid item xs={12} sm={4} component={Card}>
+          <CardContent className={classes.root}>
+            <CardMedia
+              className={classes.cover}
+              image={img}
+              title="loottracker"
+            />
+            <Typography component="h5" variant="h5">
+              Track your budget
             </Typography>
-              <Typography variant="subtitle1" color="textSecondary">
-                blahblahblah
+            <Typography variant="subtitle1" color="textSecondary" >
+              blahblahblah
             </Typography>
-            </CardContent>
-          </Grid>
-        
-    </Grid >
+          </CardContent>
+        </Grid>
+
+        <Grid item xs={12} sm={4} component={Card}>
+          <CardContent className={classes.root}>
+            <CardMedia
+              className={classes.cover}
+              image={img}
+              title="loottracker"
+            />
+            <Typography component="h5" variant="h5">
+              Track your budget
+            </Typography>
+            <Typography variant="subtitle1" color="textSecondary">
+              blahblahblah
+            </Typography>
+          </CardContent>
+        </Grid>
+      </Grid >
     </Container>
-      )
+  )
 });
 
 export default BeneCard;
