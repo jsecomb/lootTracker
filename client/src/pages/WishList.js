@@ -29,12 +29,12 @@ function WishList(props) {
             <Grid container spacing={6} style={{marginBottom: "25px"}}>
                 <Grid item xs={12} sm={6}>
                     <Paper className={classes.paper}>
-                        <BudgetStats user={props.user}/>
+                        <BudgetStats user={props.user} reload={reload} setReload={setReload}/>
                     </Paper>
                 </Grid>
                 <Grid item xs={12} sm={6}>
                     <Paper className={classes.paper}>
-                        <AddWishlist user={props.user}/>
+                        <AddWishlist user={props.user} setReload={setReload}/>
                     </Paper>
                 </Grid>
             </Grid>

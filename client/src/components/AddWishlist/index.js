@@ -61,6 +61,7 @@ export default function AddWishlist(props) {
   }
 
   function createWishlist() {
+    props.setReload(true)
     API.Wishlist.create(formObject);
     setWishlistStatus("Update Budget")
     Swal.fire({
@@ -73,6 +74,7 @@ export default function AddWishlist(props) {
   }
 
   function modifyBudget(data) {
+    props.setReload(true)
     API.Wishlist.update(data.id, formObject).then(function (response) {
       Swal.fire({
         title: `You have updated your budget to $${formObject.budget}.`,

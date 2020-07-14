@@ -79,6 +79,7 @@ export default function GameTable(props) {
       let wishlistId = wishlists.data[0].id
       API.Wishlist.update(wishlistId, {totalCost: currentTotalCost + gamePrice})
     })
+    props.setReload(true)
   }
 
   function verifySufficientFunds(game) {
@@ -134,8 +135,8 @@ export default function GameTable(props) {
                 <TableCell id="tableHeader" align="left">Game</TableCell>
                 <TableCell id="tableHeader" align="left">Price</TableCell>
                 <TableCell id="tableHeader" align="left">Rating</TableCell>
-                <TableCell id="tableHeader" align="left">Release Date</TableCell>
-                <TableCell id="tableHeader" align="left">Purchase Date</TableCell>
+                <TableCell id="tableHeader" align="left">Release</TableCell>
+                <TableCell id="tableHeader" align="left">Purchase</TableCell>
                 <TableCell id="tableHeader" align="left">Remove</TableCell>
               </TableRow>
             </TableHead>
@@ -148,8 +149,8 @@ export default function GameTable(props) {
                   <TableCell id="tableCell" align="left">{row.name}</TableCell>
                   <TableCell id="tableCell" align="left">${row.price}</TableCell>
                   <TableCell id="tableCell" align="left">{row.rating}%</TableCell>
-                  <TableCell id="tableCell" align="left">{row.releaseDate}</TableCell>
-                  <TableCell id="tableCell" align="left">{row.purchaseDate ? row.purchaseDate :
+                  <TableCell id="tableCell" align="left">{row.releaseDate.substring(2,11)}</TableCell>
+                  <TableCell id="tableCell" align="left">{row.purchaseDate ? `purchased on: ${row.purchaseDate}` :
                     <Button id="purchaseBtn" variant="contained" onClick={() => verifySufficientFunds(row)}>Purchase</Button>}
                   </TableCell>
                   <TableCell id="tableCell" align="left">
