@@ -100,10 +100,8 @@ export default function GameTable(props) {
   }
 
   function createPurchaseDate(item) {
-    console.log(item);
     let date = new Date();
-    let purchaseDate = date.toString().substring(3,15)
-    console.log(purchaseDate)   
+    let purchaseDate = date.toString().substring(3,15) 
 
     API.WishlistItem.update(item.wishlistId, { purchaseDate: purchaseDate }).then(res => {
       if (purchaseDate !== null) {
@@ -153,9 +151,10 @@ export default function GameTable(props) {
                   <TableCell id="tableCell" align="left">{row.purchaseDate ? `purchased on: ${row.purchaseDate}` :
                     <Button id="purchaseBtn" variant="contained" onClick={() => verifySufficientFunds(row)}>Purchase</Button>}
                   </TableCell>
-                  <TableCell id="tableCell" align="left">
+                  {!row.purchaseDate ? <TableCell id="tableCell" align="left">
                     <Button id="removeBtn" variant="contained" onClick={() => removeWishlistItem(row)}>Remove</Button>
                   </TableCell>
+                  : <div></div>}
                 </TableRow>
               ))
               }
