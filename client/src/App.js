@@ -1,11 +1,11 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   BrowserRouter as Router,
   Switch,
   Route,
   Redirect
 } from "react-router-dom";
-import { Home, WishList, WishListDetails } from "./pages";
+import { Home, WishList, WishListDetails, ExtensionPage } from "./pages";
 import Auth from "./pages/Auth"
 import { Navigation, Error } from "./components";
 import Container from '@material-ui/core/Container';
@@ -25,7 +25,10 @@ function App() {
       password: password
     }
     API.Auth.login(data).then(res => {
-      setUser(res.data)
+      window.localStorage.setItem('user', JSON.stringify(res.data))
+      let userData = JSON.parse(window.localStorage.getItem('user'));
+      console.log(userData);
+      setUser(userData);
 
     })
   }
@@ -76,6 +79,9 @@ function App() {
                     <PrivateRoute exact user={user} path={["/wishlistdetails"]}>
                       <WishListDetails user={user} />
                     </PrivateRoute>
+                    <Route exact user={JSON.parse(window.localStorage.getItem('user'))} path={["/addGame/*"]}>
+                      <ExtensionPage user={JSON.parse(window.localStorage.getItem('user'))} />
+                    </Route>
                     <Route exact path={["/login", "/signup"]}>
                       <Auth
                         user={user}

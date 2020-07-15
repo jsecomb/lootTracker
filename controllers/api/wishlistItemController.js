@@ -34,10 +34,7 @@ router.get("/findWishlistItem/:WishlistId", isAuthenticated, function (req, res)
  * Post - Create
  * Notice how we are also taking in the User Id! Important!
  */
-router.post("/", isAuthenticated,  function (req, res) {
-  if(req.user === null || req.user.id === null){
-    res.status(401).json("NOT AUTHORIZED");
-  }
+router.post("/",  function (req, res) {
   db.WishlistItem.create({
     ...req.body
   })
