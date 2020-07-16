@@ -1,18 +1,15 @@
 #tableHeader{
-    color:white;
-    font-weight: 600;
+    font-weight: 800;
     font-size: 20px;
 }
 
 #tableCell{
-    color:white;
     font-size: 15px;
 }
 
-#addBtn, #getGame, #clearSearch{
-    color:white;
+#addBtn, #getGame, #clearSearch{   
     background-color:#C46000;
-    box-shadow: 3px 3px 3px black;
+    box-shadow: 1px 1px 1px black;
 }
 
 #searchInput, #getGame, #clearSearch{

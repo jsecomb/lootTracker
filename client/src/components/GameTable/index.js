@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import API from "../../utils/API";
 import "./style.css";
 import { makeStyles } from '@material-ui/core/styles';
-import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Button, Paper } from '@material-ui/core'
+import { Grid, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Button, Paper } from '@material-ui/core'
 import { format } from "date-fns";
 
 var moment = require('moment');
@@ -12,16 +12,6 @@ export default function GameTable(props) {
   const [wishlistRows, setWishlistRows] = useState([]);
 
   const Swal = require('sweetalert2')
-
-  const useStyles = makeStyles({
-    table: {
-      minWidth: 320,
-      maxWidth: 800,
-      backgroundColor: "#424242"
-    }
-  });
-
-  const classes = useStyles()
 
   useEffect(() => {
     getWishlistItems(props)
@@ -118,15 +108,28 @@ export default function GameTable(props) {
     });
   }
 
+  const useStyles = makeStyles(theme => ({
+    root: {
+      height: '100%',
+      margin: 'auto',
+      // [theme.breakpoints.up('lg')]:{
+      //   margin: '0 3rem',
+    },      
+  }));
+
+  const classes = useStyles()
+
   return (
     <>
-      <h1 style={{ textAlign: "center" }}>{props.user.email}'s Wishlist</h1>
+    <Grid container item className={classes.root} spacing={3}>
+      <div id='h1' style={{ textAlign: "center", paddingTop: '21px'}}>{props.user.email}'s </div>
+      <div id='h1' style={{ textAlign: "center" }}>Wishlist</div>
       {wishlistRows.length==0 &&
       <h3 style={{textAlign: "center"}}>No games on your wishlist yet. Set a budget and add a game!</h3>
       }
       {wishlistRows.length > 0 &&
-        <TableContainer id="gameTable" component={Paper}>
-          <Table className={classes.table} style={{ margin: "auto" }} aria-label="simple table">
+        <TableContainer id="gameTable" component={Paper} className={classes.root}>
+          <Table className={classes.table} p={6} aria-label="simple table">
             <TableHead>
               <TableRow>
                 <TableCell></TableCell>
@@ -149,10 +152,10 @@ export default function GameTable(props) {
                   <TableCell id="tableCell" align="left">{row.rating}%</TableCell>
                   <TableCell id="tableCell" align="left">{row.releaseDate.substring(2,11)}</TableCell>
                   <TableCell id="tableCell" align="left">{row.purchaseDate ? `purchased on: ${row.purchaseDate}` :
-                    <Button id="purchaseBtn" variant="contained" onClick={() => verifySufficientFunds(row)}>Purchase</Button>}
+                    <Button id="purchaseBtn" variant="contained" color="primary" onClick={() => verifySufficientFunds(row)}>Purchase</Button>}
                   </TableCell>
                   {!row.purchaseDate ? <TableCell id="tableCell" align="left">
-                    <Button id="removeBtn" variant="contained" onClick={() => removeWishlistItem(row)}>Remove</Button>
+                    <Button id="removeBtn" variant="contained" color='primary' onClick={() => removeWishlistItem(row)}>Remove</Button>
                   </TableCell>
                   : <div></div>}
                 </TableRow>
@@ -162,6 +165,7 @@ export default function GameTable(props) {
           </Table>
         </TableContainer>
       }
+      </Grid>
     </>
   );
 

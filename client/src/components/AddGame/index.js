@@ -4,6 +4,7 @@ import { useState } from 'react';
 import axios from 'axios'
 import API from "../../utils/API"
 import { makeStyles } from '@material-ui/core/styles';
+import { Container, Typography } from '@material-ui/core';
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
@@ -13,24 +14,15 @@ import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
+import { spacing } from '@material-ui/system';
+
 
 export default function AddGame(props) {
 
   const [gameString, setGameString] = useState("");
   const [gameResults, setGameResults] = useState([]);
 
-  const Swal = require('sweetalert2')
-
-  const useStyles = makeStyles({
-    table: {
-      minWidth: 320,
-      maxWidth: 800,
-      backgroundColor: "#424242",
-      textAlign: "center"
-    }
-  });
-
-  const classes = useStyles()
+  const Swal = require('sweetalert2');
 
   function handleInputChange(event) {
     setGameString(event.target.value)
@@ -154,27 +146,42 @@ export default function AddGame(props) {
     return time;
   }
 
+  const useStyles = makeStyles({
+    root: {
+      textAlign: "center",
+      marginTop: '0px',
+    },
+    title: {
+      fontSize: '1.5rem',
+      fontWeight: 800,
+      paddingTop: '21px',
+    }
+  });
+
+  const classes = useStyles()
+
   return (
     <>
-      <h1 style={{textAlign: "center"}}>Search Games</h1>
-      <div id="searchInputContainer">
-        <form className={classes.root} noValidate autoComplete="off" id="gameSearchForm">
+    <Container className={classes.root}>
+      <div className={classes.title}>Search Games</div>
+      <Container id="searchInputContainer">
+        <form noValidate autoComplete="off" id="gameSearchForm">
           <TextField type="text" id="searchInput" label="Search" onChange={handleInputChange} />
-          <Button variant="contained" id="getGame" onClick={getGame}>Submit</Button>
-          <Button variant="contained" id="clearSearch" onClick={() => setGameResults([])}>Clear Search</Button>
+          <Button variant="contained" id="getGame" color='primary' onClick={getGame}>Submit</Button>
+          <Button variant="contained" id="clearSearch" color='primary' onClick={() => setGameResults([])}>Clear Search</Button>
         </form>
-      </div>
+      </Container>
       {gameResults.length > 0 &&
       <TableContainer id="resultsTable" component={Paper}>
         <Table className={classes.table} style={{margin: "auto"}} aria-label="simple table">
           <TableHead>
             <TableRow>
               <TableCell></TableCell>
-              <TableCell id="tableHeader" key="cell1" align="left">Game</TableCell>
-              <TableCell id="tableHeader" key="cell2" align="left">Price</TableCell>
-              <TableCell id="tableHeader" key="cell3" align="left">Rating</TableCell>
-              <TableCell id="tableHeader" key="cell4" align="left">Release Date</TableCell>
-              <TableCell id="tableHeader" key="cell5" align="left">Add to Wishlist</TableCell>
+              <TableCell key="cell1" align="left">Game</TableCell>
+              <TableCell key="cell2" align="left">Price</TableCell>
+              <TableCell key="cell3" align="left">Rating</TableCell>
+              <TableCell key="cell4" align="left">Release Date</TableCell>
+              <TableCell key="cell5" align="left">Add to Wishlist</TableCell>
             </TableRow>
           </TableHead>
             <TableBody>
@@ -184,12 +191,12 @@ export default function AddGame(props) {
                     <TableCell component="th" scope="row" align="left">
                       <img src={game.thumb} alt={game.title}></img>
                     </TableCell>
-                    <TableCell id="tableCell" key="title" align="left">{game.title}</TableCell>
-                    <TableCell id="tableCell" key="price" align="left">{game.normalPrice}</TableCell>
-                    <TableCell id="tableCell" key="percent" align="left">{game.steamRatingPercent}%</TableCell>
-                    <TableCell id="tableCell" key="release-date" align="left">{timeConverter(game.releaseDate).substring(0, 11)}</TableCell>
-                    <TableCell id="tableCell" key="post-game"   align="left">
-                      <Button id="addBtn" variant="contained" onClick={() => getWishlistStatus(game)}>Add</Button>
+                    <TableCell key="title" align="left">{game.title}</TableCell>
+                    <TableCell key="price" align="left">{game.normalPrice}</TableCell>
+                    <TableCell key="percent" align="left">{game.steamRatingPercent}%</TableCell>
+                    <TableCell key="release-date" align="left">{timeConverter(game.releaseDate).substring(0, 11)}</TableCell>
+                    <TableCell key="post-game" align="left">
+                      <Button key="addBtn" variant="contained" color="primary" onClick={() => getWishlistStatus(game)}>Add</Button>
                     </TableCell>
                   </TableRow>
                 ))
@@ -198,6 +205,7 @@ export default function AddGame(props) {
         </Table>
       </TableContainer>
       }
+      </Container>
     </>
   );
 }
