@@ -17,7 +17,7 @@ function WishListDetails(props) {
                     '#f26005',
                     '#66798b'
                 ],
-                data: [200, 250]
+                data: [0, 0]
             }
         ]
     };
@@ -46,14 +46,13 @@ function WishListDetails(props) {
     const loadWishlist = () => {
         API.Wishlist.getAllByUserId(props.user.id).then(res => {
             setWishlist(res.data);
-            console.log(res.data);
-            let amountSpent = 0;
+            let amountSpent = parseInt(res.data[0].totalCost);
             let lineYSet = [];
             let lineXSet = [];
             const allGames = res.data[0].WishlistItems
             allGames.sort(compare)
-            allGames.map(item => {
-                amountSpent += parseInt(item.Game.price);
+            let filteredGames = allGames.filter(game => game.purchaseDate !== null)
+            filteredGames.map(item => {
                 let date = new Date(item.purchaseDate);
                 lineXSet.push(date.toLocaleDateString('en-US'));
                 lineYSet.push(item.Game.price);
@@ -64,7 +63,6 @@ function WishListDetails(props) {
             })
             setLineMax(max)
 
-            console.log(lineYSet)
             setLineData({
                 labels: lineXSet,
                 datasets: [{
@@ -76,7 +74,6 @@ function WishListDetails(props) {
                 }],
             })
 
-            console.log(amountSpent);
             const amountRemaining = parseInt(res.data[0].budget) - amountSpent;
             setDoughnutData({
                 line: {
