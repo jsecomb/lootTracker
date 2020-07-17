@@ -4,7 +4,6 @@ import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper
 import "./style.css";
 import { useState, useEffect } from 'react';
 import API from "../../utils/API";
-import { spacing } from '@material-ui/system';
 
 export default function AddWishlist(props) {
 
