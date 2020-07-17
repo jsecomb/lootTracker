@@ -4,7 +4,7 @@ import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
 import CardMedia from '@material-ui/core/CardMedia';
 import Typography from '@material-ui/core/Typography';
-import { Grid, Container } from '@material-ui/core';
+import { Grid } from '@material-ui/core';
 import img from './logo.png';
 
 const styles = theme => ({
@@ -30,7 +30,6 @@ export const BeneCard = withStyles(styles)(({ classes }) => {
   return (
     <>
       <Grid container xs={12} className={classes.root}>
-
         <Grid item xs component={Card}>
           <CardContent className={classes.root}>
             <CardMedia

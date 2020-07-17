@@ -2,6 +2,8 @@ import { createMuiTheme } from '@material-ui/core/styles';
 import createPalette from '@material-ui/core/styles/createPalette';
 
 const theme = createMuiTheme({
+  display: 'block',
+  margin: 'auto',
   palette: createPalette({
     secondary: {
       light: '#402b2e',
@@ -21,7 +23,13 @@ const theme = createMuiTheme({
     MuiContainer: {
       disableGutters: true,
     },
+    MuiToolbar: {
+      disableGutters: true,
+      
+    }
   },
+
+  
 //   breakpoints: {
 //     keys: {
 //       0: "xs",
