@@ -28,28 +28,34 @@ function WishList(props) {
 
     const classes = useStyles()
 
-    return (
-        <>
-            <Grid container alignItems="stretch" className={classes.root} spacing={3}>
-                <Grid item xs={12} sm={6}>
-                    <Paper className={classes.paper}>
-                        <BudgetStats user={props.user} reload={reload} setReload={setReload} />
-                    </Paper>
-                </Grid>
-                <Grid item xs={12} sm={6}>
-                    <Paper className={classes.paper}>
-                        <AddWishlist user={props.user} setReload={setReload} />
-                    </Paper>
-                </Grid>
-            </Grid>
-            <Paper style={{ marginBottom: "24px" }}>
-                <AddGame user={props.user} setReload={setReload} />
-            </Paper>
-            <Paper style={{ marginBottom: "24px" }}>
-                <GameTable user={props.user} reload={reload} setReload={setReload} />
-            </Paper>
-        </>
-    )
-}
+    if (props.user) {
 
-    export default WishList;
+        return (
+            <>
+                <Grid container alignItems="stretch" className={classes.root} spacing={3}>
+                    <Grid item xs={12} sm={6}>
+                        <Paper className={classes.paper}>
+                            <BudgetStats user={props.user} reload={reload} setReload={setReload} />
+                        </Paper>
+                    </Grid>
+                    <Grid item xs={12} sm={6}>
+                        <Paper className={classes.paper}>
+                            <AddWishlist user={props.user} setReload={setReload} />
+                        </Paper>
+                    </Grid>
+                </Grid>
+                <Paper style={{ marginBottom: "24px" }}>
+                    <AddGame user={props.user} setReload={setReload} />
+                </Paper>
+                <Paper style={{ marginBottom: "24px" }}>
+                    <GameTable user={props.user} reload={reload} setReload={setReload} />
+                </Paper>
+            </>
+        )
+    } else {
+        return (
+            <div>Loading...</div>
+        )
+    }
+}
+export default WishList;
