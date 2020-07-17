@@ -6,6 +6,7 @@ import { makeStyles } from '@material-ui/core/styles';
 
 export default function ExtensionPage(props) {
 
+  const user = JSON.parse(window.localStorage.getItem('user'));
 
   const Swal = require('sweetalert2')
 
@@ -31,18 +32,8 @@ export default function ExtensionPage(props) {
       }
     })
       .then((response) => {
-          console.log(response)
         let gamesList = response.data.sort(function (a, b) { return a.steamAppID - b.steamAppID });
-        let filteredGamesList = [];
-        let steamIds = []
-        for (let i = 0; i < gamesList.length - 1; i++) {
-          if (!steamIds.includes(gamesList[i].steamAppID)) {
-            filteredGamesList.push(gamesList[i])
-            steamIds.push(gamesList[i].steamAppID)
-          }
-        }
-        filteredGamesList = filteredGamesList.filter(game => game.steamAppID);
-        getWishlistStatus(filteredGamesList[0])
+        getWishlistStatus(gamesList[0])
       })
       .catch((error) => {
         console.log(error)
@@ -93,7 +84,8 @@ export default function ExtensionPage(props) {
             newGameInfo
           ).then(function (gameData) {
             console.log(gameData);
-            API.Wishlist.getAllByUserId(props.user.id).then(function (wishlistData) {
+            console.log(props.user, user)
+            API.Wishlist.getAllByUserId(user.id).then(function (wishlistData) {
               API.WishlistItem.create(
                 {
                   GameId: gameData.data.id,
@@ -104,7 +96,8 @@ export default function ExtensionPage(props) {
           });
         }
         else {
-          API.Wishlist.getAllByUserId(props.user.id).then(function (wishlistData) {
+          API.Wishlist.getAllByUserId(user.id).then(function (wishlistData) {
+            console.log(props.user, user)
             API.WishlistItem.create(
               {
                 GameId: response.data[0].id,

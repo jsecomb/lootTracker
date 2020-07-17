@@ -19,6 +19,15 @@ function App() {
   const [user, setUser] = useState({});
   const [error, setError] = useState("")
 
+  useEffect(() => {
+    API.Auth.user_data().then(res => {
+      if(res.data) {
+        setUser(res.data)
+        console.log(res.data)
+      }
+    })
+  }, [])
+
   function loginUser(email, password) {
     const data = {
       email: email,
@@ -74,13 +83,13 @@ function App() {
                       <Home />
                     </Route>
                     <PrivateRoute exact user={user} path={["/wishlist"]}>
-                      <WishList user={user} />
+                      {user.id && <WishList user={user} />}
                     </PrivateRoute>
                     <PrivateRoute exact user={user} path={["/wishlistdetails"]}>
                       <WishListDetails user={user} />
                     </PrivateRoute>
-                    <Route exact user={JSON.parse(window.localStorage.getItem('user'))} path={["/addGame/*"]}>
-                      <ExtensionPage user={JSON.parse(window.localStorage.getItem('user'))} />
+                    <Route exact user={user} path={["/addGame/*"]}>
+                      <ExtensionPage user={user} />
                     </Route>
                     <Route exact path={["/login", "/signup"]}>
                       <Auth
