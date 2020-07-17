@@ -89,7 +89,7 @@ function App() {
                       <WishListDetails user={user} />
                     </PrivateRoute>
                     <Route exact user={user} path={["/addGame/*"]}>
-                      <ExtensionPage user={user} />
+                      {user.id && <ExtensionPage user={user} />}
                     </Route>
                     <Route exact path={["/login", "/signup"]}>
                       <Auth
