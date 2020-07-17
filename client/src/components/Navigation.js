@@ -5,13 +5,13 @@ import { MuiThemeProvider } from '@material-ui/core/styles';
 import theme from "./../theme";
 
 function Navigation(props) {
-
+  
   const { user, logoutUser } = props;
   return (
     <>
       <MuiThemeProvider theme={theme}>
-          <AppBar position="static" style={{ backgroundColor: theme.palette.primary.dark, marginTop: "40px"}}> 
-            <Toolbar style={{margin:"auto"}}>
+          <AppBar position="fixed" mt={0} mb={12} style={{ backgroundColor: theme.palette.primary.dark}}> 
+            <Toolbar mb={10} style={{margin:"auto"}}>
               <Button component={Link} to="/home" >Home</Button>
               <Button component={Link} to="/wishlist" >Wish List</Button>
               <Button component={Link} to="/wishlistdetails" >Stats</Button>

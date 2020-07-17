@@ -1,7 +1,6 @@
 #budgetSubmit{
-    color:white;
-    background-color:#C46000;
-    box-shadow: 3px 3px 3px black;
+    background-color: #c46000;
+    box-shadow: 1px 1px 1px black;
 }
 
 #budgetInput, #budgetSubmit{
@@ -17,3 +16,4 @@
 h1 {
     padding-top: 20px;
 }
+

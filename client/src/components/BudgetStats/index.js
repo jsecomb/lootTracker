@@ -4,21 +4,12 @@ import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper
 import "./style.css";
 import { useState, useEffect } from 'react';
 import API from "../../utils/API";
+import { spacing } from '@material-ui/system';
 
 export default function AddWishlist(props) {
 
     const [currentBudget, setCurrentBudget] = useState(0)
     const [currentSpend, setCurrentSpend] = useState(0)
-
-    const useStyles = makeStyles({
-        table: {
-          minWidth: 500,
-          maxWidth: 800,
-          backgroundColor: "#424242"
-        }
-    });
-    
-    const classes = useStyles()
 
     useEffect(() => {
       getBudgetStats();
@@ -38,21 +29,32 @@ export default function AddWishlist(props) {
       props.setReload(false);
     }, [props.reload])
 
+    const useStyles = makeStyles({
+      root: {
+        height: '100%'
+      },
+      table: {
+        padding: '21px',
+      },
+    });
+  
+    const classes = useStyles()
+
     return (
-    <TableContainer id="gameTable" component={Paper}>
-      <Table className={classes.table} style={{margin: "auto"}} aria-label="simple table">
+    <TableContainer className={classes.root} id="gameTable" component={Paper}spacing={3}>
+      <Table className={classes.table} aria-label="simple table">
         <TableHead>
           <TableRow>
-              <TableCell id="tableHeader" align="center">Total Budget</TableCell>
-              <TableCell id="tableHeader" align="center">Budget Spent</TableCell>
-              <TableCell id="tableHeader" align="center">Budget Remaining</TableCell>
+              <TableCell id="bud-head" align="center">Total</TableCell>
+              <TableCell id="bud-head" align="center">Spent</TableCell>
+              <TableCell id="bud-head" align="center">Remaining</TableCell>
           </TableRow>
         </TableHead>
         <TableBody>
             <TableRow>
-                <TableCell id="tableCell" align="center">${currentBudget}</TableCell>
-                <TableCell id="tableCell" align="center" style={{color: "red"}}>${currentSpend}</TableCell>
-                <TableCell id="tableCell" align="center" style={{color: "green"}}>${parseInt(currentBudget)-parseInt(currentSpend)}</TableCell>
+                <TableCell id="bud-stats" align="center">${currentBudget}</TableCell>
+                <TableCell id="bud-stats" align="center" style={{color: "red"}}>${currentSpend}</TableCell>
+                <TableCell id="bud-stats" align="center" style={{color: "green"}}>${parseInt(currentBudget)-parseInt(currentSpend)}</TableCell>
             </TableRow>
         </TableBody>
       </Table>

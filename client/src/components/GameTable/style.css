@@ -1,23 +1,22 @@
 #tableHeader{
-    color:white;
     font-weight: 600;
-    font-size: 20px;
+    font-size: 21px;
 }
 
 #tableCell{
-    color:white;
     font-size: 15px;
 }
 
 #removeBtn, #purchaseBtn {
-    color:white;
-    background-color:#C46000;
-    box-shadow: 3px 3px 3px black;
+    box-shadow: 1px 1px 1px black;
 }
 
-h1 {
-    padding-top: 20px;
+#h1 {
     padding-bottom: 10px;
+    font-size: 24px;
+    font-weight: 800;
+    justify-content: center;
+    width: 100%;
 }
 
 h3 {
