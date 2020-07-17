@@ -1,25 +1,13 @@
 import React from 'react';
-import { useState, useEffect } from 'react';
+import { useEffect } from 'react';
 import axios from 'axios'
 import API from "../utils/API"
-import { makeStyles } from '@material-ui/core/styles';
 
 export default function ExtensionPage(props) {
 
   const user = JSON.parse(window.localStorage.getItem('user'));
 
   const Swal = require('sweetalert2')
-
-  const useStyles = makeStyles({
-    table: {
-      minWidth: 320,
-      maxWidth: 800,
-      backgroundColor: "#424242",
-      textAlign: "center"
-    }
-  });
-
-  const classes = useStyles()
 
   function getGame(gameID) {
 
@@ -125,7 +113,6 @@ export default function ExtensionPage(props) {
     console.log(urlArray[4]);
     let steamId = parseInt(urlArray[4]);
     getGame(steamId);
-    
   }, [])
   
   return (

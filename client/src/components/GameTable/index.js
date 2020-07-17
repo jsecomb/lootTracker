@@ -38,7 +38,8 @@ export default function GameTable(props) {
         imgLink: gameData.imgLink,
         purchaseDate: item.purchaseDate,
         gameId: item.GameId,
-        wishlistId: item.id
+        wishlistId: item.id,
+        steamId: gameData.linkOrId
       }
       wishlistData.push(gameRowData);
     })
@@ -143,21 +144,22 @@ export default function GameTable(props) {
             </TableHead>
             <TableBody>
               {wishlistRows.map((row) => (
+                
                 <TableRow key={row.name}>
                   <TableCell component="th" scope="row" align="left">
-                    <img src={row.imgLink} alt={row.name}></img>
+                    <a href={`https://store.steampowered.com/app/${row.steamId}/`}><img src={row.imgLink} alt={row.name}></img></a>
                   </TableCell>
                   <TableCell id="tableCell" align="left">{row.name}</TableCell>
                   <TableCell id="tableCell" align="left">${row.price}</TableCell>
                   <TableCell id="tableCell" align="left">{row.rating}%</TableCell>
                   <TableCell id="tableCell" align="left">{row.releaseDate.substring(2,11)}</TableCell>
-                  <TableCell id="tableCell" align="left">{row.purchaseDate ? `purchased on: ${row.purchaseDate}` :
+                  <TableCell id="tableCell" align="left">{row.purchaseDate ? `purchased: ${row.purchaseDate}` :
                     <Button id="purchaseBtn" variant="contained" color="primary" onClick={() => verifySufficientFunds(row)}>Purchase</Button>}
                   </TableCell>
                   {!row.purchaseDate ? <TableCell id="tableCell" align="left">
                     <Button id="removeBtn" variant="contained" color='primary' onClick={() => removeWishlistItem(row)}>Remove</Button>
                   </TableCell>
-                  : <div></div>}
+                  : <></>}
                 </TableRow>
               ))
               }

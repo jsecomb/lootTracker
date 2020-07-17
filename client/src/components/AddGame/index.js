@@ -189,7 +189,7 @@ export default function AddGame(props) {
                 gameResults.map((game) => (
                   <TableRow key={(Math.random() * Math.floor(10000))}>
                     <TableCell component="th" scope="row" align="left">
-                      <img src={game.thumb} alt={game.title}></img>
+                      <a href={`https://store.steampowered.com/app/${game.steamAppID}/`}><img src={game.thumb} alt={game.title}></img></a>
                     </TableCell>
                     <TableCell key="title" align="left">{game.title}</TableCell>
                     <TableCell key="price" align="left">{game.normalPrice}</TableCell>

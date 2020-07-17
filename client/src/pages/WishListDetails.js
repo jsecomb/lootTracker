@@ -3,8 +3,7 @@ import API from "../utils/API";
 import { Doughnut, Line } from "react-chartjs-2";
 import { Grid } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
-import { borders } from '@material-ui/system';
-import { useTheme } from '@material-ui/core/styles';
+
 
 ///this function does not appear to be working to set intial datastatefor donut
 function WishListDetails(props) {
@@ -22,7 +21,6 @@ function WishListDetails(props) {
         ]
     };
 
-    const [wishlist, setWishlist] = useState({});
     const [doughnutData, setDoughnutData] = useState(initialDataState);
     const [lineData, setLineData] = useState({});
     const [lineMax, setLineMax] = useState(0);
@@ -45,7 +43,6 @@ function WishListDetails(props) {
 
     const loadWishlist = () => {
         API.Wishlist.getAllByUserId(props.user.id).then(res => {
-            setWishlist(res.data);
             let amountSpent = parseInt(res.data[0].totalCost);
             let lineYSet = [];
             let lineXSet = [];
