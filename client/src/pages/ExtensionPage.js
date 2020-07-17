@@ -84,7 +84,6 @@ export default function ExtensionPage(props) {
             newGameInfo
           ).then(function (gameData) {
             console.log(gameData);
-            console.log(props.user, user)
             API.Wishlist.getAllByUserId(user.id).then(function (wishlistData) {
               API.WishlistItem.create(
                 {
@@ -116,6 +115,8 @@ export default function ExtensionPage(props) {
       confirmButtonText: 'Aye!',
       confirmButtonColor: '#C46000',
       padding: '3em'
+    }).then(response => {
+      window.location.replace('../wishlist');
     })
   }
 
