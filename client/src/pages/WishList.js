@@ -52,4 +52,4 @@ function WishList(props) {
     )
 }
 
-export default WishList;
+    export default WishList;

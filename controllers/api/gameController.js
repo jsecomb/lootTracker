@@ -11,7 +11,7 @@ router.get("/", isAuthenticated, function (req, res) {
     .catch(err => res.status(422).json(err));
 });
 
-router.get("/findGame/:gameId", isAuthenticated, function (req, res) {
+router.get("/findGame/:gameId", function (req, res) {
   db.Game.findAll({where: {linkOrId: req.params.gameId}})
     .then(dbModel => res.json(dbModel))
     .catch(err => res.status(422).json(err));
@@ -30,10 +30,7 @@ router.get("/:id", isAuthenticated, function (req, res) {
  * Post - Create
  * Notice how we are also taking in the User Id! Important!
  */
-router.post("/", isAuthenticated,  function (req, res) {
-  if(req.user === null || req.user.id === null){
-    res.status(401).json("NOT AUTHORIZED");
-  }
+router.post("/",  function (req, res) {
   db.Game.create({
     ...req.body
   })

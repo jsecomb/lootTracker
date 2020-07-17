@@ -1,11 +1,11 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   BrowserRouter as Router,
   Switch,
   Route,
   Redirect
 } from "react-router-dom";
-import { Home, WishList, WishListDetails } from "./pages";
+import { Home, WishList, WishListDetails, ExtensionPage } from "./pages";
 import Auth from "./pages/Auth"
 import { Navigation, Error } from "./components";
 import Container from '@material-ui/core/Container';
@@ -19,13 +19,25 @@ function App() {
   const [user, setUser] = useState({});
   const [error, setError] = useState("")
 
+  useEffect(() => {
+    API.Auth.user_data().then(res => {
+      if(res.data) {
+        setUser(res.data)
+        console.log(res.data)
+      }
+    })
+  }, [])
+
   function loginUser(email, password) {
     const data = {
       email: email,
       password: password
     }
     API.Auth.login(data).then(res => {
-      setUser(res.data)
+      window.localStorage.setItem('user', JSON.stringify(res.data))
+      let userData = JSON.parse(window.localStorage.getItem('user'));
+      console.log(userData);
+      setUser(userData);
 
     })
   }
@@ -71,11 +83,14 @@ function App() {
                       <Home />
                     </Route>
                     <PrivateRoute exact user={user} path={["/wishlist"]}>
-                      <WishList user={user} />
+                      {user.id && <WishList user={user} />}
                     </PrivateRoute>
                     <PrivateRoute exact user={user} path={["/wishlistdetails"]}>
                       <WishListDetails user={user} />
                     </PrivateRoute>
+                    <Route exact user={user} path={["/addGame/*"]}>
+                      <ExtensionPage user={user} />
+                    </Route>
                     <Route exact path={["/login", "/signup"]}>
                       <Auth
                         user={user}
