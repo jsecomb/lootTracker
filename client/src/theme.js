@@ -11,9 +11,9 @@ const theme = createMuiTheme({
     },
     primary: {
       light: '#ffc049',
-      main: '#fd8f09', //orange
+      main: '#c46000', //orange
       dark: '#c46000',
-      contrastText: '#1b0004',
+      contrastText: '#fff',
     },
     type: 'dark',
   }),
@@ -21,18 +21,23 @@ const theme = createMuiTheme({
     MuiContainer: {
       disableGutters: true,
     },
-    body: {
-      margin: 0,
-    }
   },
-  breakpoints: {
-    values: {
-      tablet: 640,
-      laptop: 1024,
-      desktop: 1280,
-    },
-  },
-  darkMode: true,
+//   breakpoints: {
+//     keys: {
+//       0: "xs",
+//       1: "sm",
+//       2: "md",
+//       3: "lg",
+//       4: "xl",
+//   },
+//   values: {
+//     xs: 0,
+//     sm: 600,
+//     md: 960,
+//     lg: 1280,
+//     xl: 1920,
+//   },
+// },
 });
 
 export default theme;

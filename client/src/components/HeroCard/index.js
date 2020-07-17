@@ -3,67 +3,71 @@ import { makeStyles } from '@material-ui/core/styles';
 import CardMedia from '@material-ui/core/CardMedia';
 import { Grid, Button, Container } from '@material-ui/core';
 import { Link } from 'react-router-dom';
-import CssBaseline from '@material-ui/core/CssBaseline';
-import theme from "./../../theme";
-import { MuiThemeProvider } from '@material-ui/core/styles';
 import img from './logo.png';
 import BeneCard from "../BeneCard";
+import { useTheme } from '@material-ui/core/styles';
 import Box from '@material-ui/core/Box';
 
-const useStyles = makeStyles({
+    const useStyles = makeStyles(theme => ({
+
     root: {
         borderRadius: "borderRadius",
         textAlign: 'center',
         itemAlign: 'center',
         alignContent: 'center',
-        minWidth: 0,
         marginBottom: '3%',
         margin: 'auto',
+        //up/sm effectively means all screens unless overwritten
+        [theme.breakpoints.up('sm')]:{
+            height: 'calc(100%)',
+        },
+        //up/md is evertyhing >960
+        [theme.breakpoints.up('md')]:{
+            height: 'calc(100% - 50px)'
+        }
+
     },
     logo: {
-        [theme.breakpoints.up('laptop')]: {
-            maxWidth: '75%',
+        //up from smallest screen -- effectively all screens
+        [theme.breakpoints.between('xs', 'sm')]: {
+            maxWidth: '100%',
             margin: 'auto',
         },
-        [theme.breakpoints.up('desktop')]: {
-            maxWidth: '75%',
+        // from 900px and up
+        [theme.breakpoints.up('sm')]: {
+            maxWidth: '50%',
             margin: 'auto',
-        },
-    }
-})
+        },        
+    },
+})); 
 
 export const HeroCard = React.memo(function HeroCard() {
-    const styles = useStyles();
+    const classes = useStyles();
     return (
-        <React.Fragment>
-            <CssBaseline />
-            <MuiThemeProvider theme={theme}>
-                <Container className={styles.root}>
-                    <Box className={styles.logo}>
+        <>
+            <Grid container item className={classes.root}>
+                <Grid item xs className={classes.logo}>
                         <CardMedia
                             component="img"
                             image={img}
                         />
-                    </Box>
-                    <Box className={styles.root}>
-                        <BeneCard />
-                    </Box>
-                    <Box p={3} className={styles.root}>
-                        <Grid container item xs={12} className={styles.root}>
-                            <Grid item xs className={styles.root}></Grid>
-                            <Grid item xs={8} className={styles.root}>
-                                <Button color="primary" variant="contained" component={Link} to='./login'>
-                                    Login
-                                        </Button>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                                        <Button color="primary" variant="contained" component={Link} to="./signup">
-                                    Signup
-                                        </Button>
-                            </Grid>
-                            <Grid item xs className={styles.root}></Grid>
-                        </Grid>
-                    </Box>
-                </Container>
-            </MuiThemeProvider>
-        </React.Fragment>
+                </Grid>
+                <Box className={classes.root}>
+                    <BeneCard />
+                </Box>
+                <Grid container item className={classes.root}>
+                    <Grid item xs className={classes.root}></Grid>
+                    <Grid item xs={8} className={classes.root}>
+                        <Button color="primary" variant="contained" component={Link} to='./login'>
+                            Login
+                        </Button>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        <Button color="primary" variant="contained" component={Link} to="./signup">
+                            Signup
+                        </Button>
+                    </Grid>
+                    <Grid item xs className={classes.root}></Grid>
+                </Grid>
+            </Grid>
+        </>
     );
 });

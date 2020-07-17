@@ -1,30 +1,21 @@
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import { Button, TextField } from '@material-ui/core';
+import { Button, TextField, Container } from '@material-ui/core';
 import "./style.css";
 import { useState, useEffect } from 'react';
 import API from "../../utils/API";
+import { spacing } from '@material-ui/system';
 
 export default function AddWishlist(props) {
 
   const [formObject, setFormObject] = useState({})
   const [wishlistStatus, setWishlistStatus] = useState("Set Wishlist Budget ($)")
 
-  const Swal = require('sweetalert2')
+  const Swal = require('sweetalert2');
 
-  const useStyles = makeStyles({
-    table: {
-      minWidth: 500,
-      maxWidth: 800,
-      backgroundColor: "#424242"
-    }
-  });
-
-  const classes = useStyles()
-
-  useEffect(()=> {
+  useEffect(() => {
     getWishlistStatus()
-  },[])
+  }, [])
 
   function handleInputChange(event) {
     const { name, value } = event.target;
@@ -42,7 +33,7 @@ export default function AddWishlist(props) {
   function checkWishlistStatus(event) {
     event.preventDefault();
     API.User.getById(props.user.id).then(function (userData) {
-      if(isNaN(formObject.budget)){
+      if (isNaN(formObject.budget)) {
         Swal.fire({
           title: `You must enter a number matey.`,
           width: 600,
@@ -51,10 +42,10 @@ export default function AddWishlist(props) {
           padding: '3em'
         })
       }
-      else if(userData.data.Wishlist){
+      else if (userData.data.Wishlist) {
         modifyBudget(userData.data.Wishlist)
       }
-      else{
+      else {
         createWishlist()
       }
     })
@@ -86,13 +77,26 @@ export default function AddWishlist(props) {
     })
   }
 
+  const useStyles = makeStyles({
+    root: {
+      display: 'block',
+      margin: 'auto',
+      textAlign: 'center',
+      height: '100%', 
+    }
+  });
+
+  const classes = useStyles()
+
   return (
-    <div style={{display:"block", margin:"auto", textAlign:"center"}}>
-      <form className={classes.root} noValidate autoComplete="off" id="searchForm">
-        <TextField type="text" id="budgetInput" label={wishlistStatus} name="budget" onChange={handleInputChange}/>
-        <Button variant="contained" id="budgetSubmit" value="Submit" onClick={checkWishlistStatus}>Submit</Button>
-      </form>
-    </div>
+    <>
+      <Container>
+          <form className={classes.root} noValidate autoComplete="off" id="searchForm">
+            <TextField type="text" id="budgetInput" label={wishlistStatus} name="budget" onChange={handleInputChange} />
+            <Button variant="contained" id="budgetSubmit" value="Submit" color="primary" onClick={checkWishlistStatus}>Submit</Button>
+          </form>
+      </Container>
+    </>
   )
 
 }
