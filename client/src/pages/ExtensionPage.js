@@ -5,8 +5,6 @@ import API from "../utils/API"
 
 export default function ExtensionPage(props) {
 
-  const user = JSON.parse(window.localStorage.getItem('user'));
-
   const Swal = require('sweetalert2')
 
   function getGame(gameID) {
@@ -29,8 +27,7 @@ export default function ExtensionPage(props) {
   }
 
   function getWishlistStatus(game) {
-    let user = JSON.parse(window.localStorage.getItem('user'));
-    API.User.getById(user.id).then(function (userData) {
+    API.User.getById(props.user.id).then(function (userData) {
       if (userData.data.Wishlist) {
         postGame(game)
       }
@@ -71,9 +68,7 @@ export default function ExtensionPage(props) {
           API.Game.create(
             newGameInfo
           ).then(function (gameData) {
-            console.log(gameData);
-            console.log(props.user, user)
-            API.Wishlist.getAllByUserId(user.id).then(function (wishlistData) {
+            API.Wishlist.getAllByUserId(props.user.id).then(function (wishlistData) {
               API.WishlistItem.create(
                 {
                   GameId: gameData.data.id,
@@ -84,8 +79,7 @@ export default function ExtensionPage(props) {
           });
         }
         else {
-          API.Wishlist.getAllByUserId(user.id).then(function (wishlistData) {
-            console.log(props.user, user)
+          API.Wishlist.getAllByUserId(props.user.id).then(function (wishlistData) {
             API.WishlistItem.create(
               {
                 GameId: response.data[0].id,
