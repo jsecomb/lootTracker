@@ -116,7 +116,7 @@ export default function ExtensionPage(props) {
       confirmButtonText: 'Aye!',
       confirmButtonColor: '#C46000',
       padding: '3em'
-    })
+    }).then(() => window.location.assign("/wishlist"))
   }
 
   useEffect(() => {
@@ -127,6 +127,7 @@ export default function ExtensionPage(props) {
     getGame(steamId);
     
   }, [])
+  
   return (
     <>
     </>

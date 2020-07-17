@@ -91,7 +91,7 @@ export default function GameTable(props) {
 
   function createPurchaseDate(item) {
     let date = new Date();
-    let purchaseDate = date.toString().substring(3,15) 
+    let purchaseDate = date.toString().substring(4,15) 
 
     API.WishlistItem.update(item.wishlistId, { purchaseDate: purchaseDate }).then(res => {
       if (purchaseDate !== null) {
@@ -125,7 +125,7 @@ export default function GameTable(props) {
       <div id='h1' style={{ textAlign: "center", paddingTop: '21px'}}>{props.user.email}'s </div>
       <div id='h1' style={{ textAlign: "center" }}>Wishlist</div>
       {wishlistRows.length==0 &&
-      <h3 style={{textAlign: "center"}}>No games on your wishlist yet. Set a budget and add a game!</h3>
+      <h3 style={{justify: "center"}}>No games on your wishlist yet. Set a budget and add a game!</h3>
       }
       {wishlistRows.length > 0 &&
         <TableContainer id="gameTable" component={Paper} className={classes.root}>
