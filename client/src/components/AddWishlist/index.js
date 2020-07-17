@@ -4,7 +4,6 @@ import { Button, TextField, Container } from '@material-ui/core';
 import "./style.css";
 import { useState, useEffect } from 'react';
 import API from "../../utils/API";
-import { spacing } from '@material-ui/system';
 
 export default function AddWishlist(props) {
 

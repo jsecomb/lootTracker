@@ -68,7 +68,7 @@ export default function GameTable(props) {
     API.Wishlist.getAllByUserId(props.user.id).then(function (wishlists) {
       let currentTotalCost = parseFloat(wishlists.data[0].totalCost)
       let wishlistId = wishlists.data[0].id
-      API.Wishlist.update(wishlistId, {totalCost: currentTotalCost + gamePrice})
+      API.Wishlist.update(wishlistId, { totalCost: currentTotalCost + gamePrice })
     })
     props.setReload(true)
   }
@@ -92,7 +92,7 @@ export default function GameTable(props) {
 
   function createPurchaseDate(item) {
     let date = new Date();
-    let purchaseDate = date.toString().substring(4,15) 
+    let purchaseDate = date.toString().substring(4, 15)
 
     API.WishlistItem.update(item.wishlistId, { purchaseDate: purchaseDate }).then(res => {
       if (purchaseDate !== null) {
@@ -115,58 +115,58 @@ export default function GameTable(props) {
       margin: 'auto',
       // [theme.breakpoints.up('lg')]:{
       //   margin: '0 3rem',
-    },      
+    },
   }));
 
   const classes = useStyles()
 
   return (
     <>
-    <Grid container item className={classes.root} spacing={3}>
-      <div id='h1' style={{ textAlign: "center", paddingTop: '21px'}}>{props.user.email}'s </div>
-      <div id='h1' style={{ textAlign: "center" }}>Wishlist</div>
-      {wishlistRows.length==0 &&
-      <h3 style={{justify: "center"}}>No games on your wishlist yet. Set a budget and add a game!</h3>
-      }
-      {wishlistRows.length > 0 &&
-        <TableContainer id="gameTable" component={Paper} className={classes.root}>
-          <Table className={classes.table} p={6} aria-label="simple table">
-            <TableHead>
-              <TableRow>
-                <TableCell></TableCell>
-                <TableCell id="tableHeader" align="left">Game</TableCell>
-                <TableCell id="tableHeader" align="left">Price</TableCell>
-                <TableCell id="tableHeader" align="left">Rating</TableCell>
-                <TableCell id="tableHeader" align="left">Release</TableCell>
-                <TableCell id="tableHeader" align="left">Purchase</TableCell>
-                <TableCell id="tableHeader" align="left">Remove</TableCell>
-              </TableRow>
-            </TableHead>
-            <TableBody>
-              {wishlistRows.map((row) => (
-                
-                <TableRow key={row.name}>
-                  <TableCell component="th" scope="row" align="left">
-                    <a href={`https://store.steampowered.com/app/${row.steamId}/`}><img src={row.imgLink} alt={row.name}></img></a>
-                  </TableCell>
-                  <TableCell id="tableCell" align="left">{row.name}</TableCell>
-                  <TableCell id="tableCell" align="left">${row.price}</TableCell>
-                  <TableCell id="tableCell" align="left">{row.rating}%</TableCell>
-                  <TableCell id="tableCell" align="left">{row.releaseDate.substring(2,11)}</TableCell>
-                  <TableCell id="tableCell" align="left">{row.purchaseDate ? `purchased: ${row.purchaseDate}` :
-                    <Button id="purchaseBtn" variant="contained" color="primary" onClick={() => verifySufficientFunds(row)}>Purchase</Button>}
-                  </TableCell>
-                  {!row.purchaseDate ? <TableCell id="tableCell" align="left">
-                    <Button id="removeBtn" variant="contained" color='primary' onClick={() => removeWishlistItem(row)}>Remove</Button>
-                  </TableCell>
-                  : <></>}
+      <Grid container item className={classes.root}>
+        <div id='h1' style={{ textAlign: "center", paddingTop: '21px' }}>{props.user.email}'s </div>
+        <div id='h1' style={{ textAlign: "center" }}>Wishlist</div>
+        {wishlistRows.length == 0 &&
+          <h3 style={{ justify: "center" }}>No games on your wishlist yet. Set a budget and add a game!</h3>
+        }
+        {wishlistRows.length > 0 &&
+          <TableContainer id="gameTable" component={Paper} className={classes.root}>
+            <Table aria-label="simple table">
+              <TableHead>
+                <TableRow>
+                  <TableCell></TableCell>
+                  <TableCell id="tableHeader" align="left">Game</TableCell>
+                  <TableCell id="tableHeader" align="left">Price</TableCell>
+                  <TableCell id="tableHeader" align="left">Rating</TableCell>
+                  <TableCell id="tableHeader" align="left">Release</TableCell>
+                  <TableCell id="tableHeader" align="left">Purchase</TableCell>
+                  <TableCell id="tableHeader" align="left">Remove</TableCell>
                 </TableRow>
-              ))
-              }
-            </TableBody>
-          </Table>
-        </TableContainer>
-      }
+              </TableHead>
+              <TableBody>
+                {wishlistRows.map((row) => (
+
+                  <TableRow key={row.name}>
+                    <TableCell component="th" scope="row" align="left">
+                      <a href={`https://store.steampowered.com/app/${row.steamId}/`}><img src={row.imgLink} alt={row.name}></img></a>
+                    </TableCell>
+                    <TableCell id="tableCell" align="left">{row.name}</TableCell>
+                    <TableCell id="tableCell" align="left">${row.price}</TableCell>
+                    <TableCell id="tableCell" align="left">{row.rating}%</TableCell>
+                    <TableCell id="tableCell" align="left">{row.releaseDate.substring(2, 11)}</TableCell>
+                    <TableCell id="tableCell" align="left">{row.purchaseDate ? `purchased: ${row.purchaseDate}` :
+                      <Button id="purchaseBtn" variant="contained" color="primary" onClick={() => verifySufficientFunds(row)}>Purchase</Button>}
+                    </TableCell>
+                    {!row.purchaseDate ? <TableCell id="tableCell" align="left">
+                      <Button id="removeBtn" variant="contained" color='primary' onClick={() => removeWishlistItem(row)}>Remove</Button>
+                    </TableCell>
+                      : <></>}
+                  </TableRow>
+                ))
+                }
+              </TableBody>
+            </Table>
+          </TableContainer>
+        }
       </Grid>
     </>
   );
