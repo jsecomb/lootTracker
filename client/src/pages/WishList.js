@@ -53,7 +53,9 @@ function WishList(props) {
             </>
         )
     } else {
-        <div>Loading...</div>
+        return (
+            <div>Loading...</div>
+        )
     }
 }
-    export default WishList;
+export default WishList;
