@@ -123,13 +123,12 @@ export default function GameTable(props) {
   return (
     <>
       <Grid container item className={classes.root}>
-        <div id='h1' style={{ textAlign: "center", paddingTop: '21px' }}>{props.user.email}'s </div>
-        <div id='h1' style={{ textAlign: "center" }}>Wishlist</div>
-        {wishlistRows.length == 0 &&
-          <h3 style={{ justify: "center" }}>No games on your wishlist yet. Set a budget and add a game!</h3>
-        }
-        {wishlistRows.length > 0 &&
-          <TableContainer id="gameTable" component={Paper} className={classes.root}>
+        <TableContainer id="gameTable" component={Paper} className={classes.root}>
+          <h1 style={{ textAlign: "center", paddingTop: '21px' }}>{props.user.email}'s Wishlist</h1>
+          {wishlistRows.length == 0 &&
+            <h3 style={{ textAlign: "center" }}>No games on your wishlist yet. Set a budget and add a game!</h3>
+          }
+          {wishlistRows.length > 0 &&
             <Table aria-label="simple table">
               <TableHead>
                 <TableRow>
@@ -144,7 +143,6 @@ export default function GameTable(props) {
               </TableHead>
               <TableBody>
                 {wishlistRows.map((row) => (
-
                   <TableRow key={row.name}>
                     <TableCell component="th" scope="row" align="left">
                       <a href={`https://store.steampowered.com/app/${row.steamId}/`}><img src={row.imgLink} alt={row.name}></img></a>
@@ -165,8 +163,8 @@ export default function GameTable(props) {
                 }
               </TableBody>
             </Table>
-          </TableContainer>
-        }
+          }
+        </TableContainer>
       </Grid>
     </>
   );
