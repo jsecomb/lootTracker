@@ -49,10 +49,25 @@ function WishListDetails(props) {
             const allGames = res.data[0].WishlistItems
             allGames.sort(compare)
             let filteredGames = allGames.filter(game => game.purchaseDate !== null)
-            filteredGames.map(item => {
-                let date = new Date(item.purchaseDate);
-                lineXSet.push(date.toLocaleDateString('en-US'));
-                lineYSet.push(item.Game.price);
+
+            const dayTotals = {};
+
+            for(let j=0; j<filteredGames.length; j++){
+                let purchaseDate = filteredGames[j].purchaseDate;
+                let price = parseFloat(filteredGames[j].Game.price)
+                if (purchaseDate in dayTotals){
+                    dayTotals[purchaseDate] += price;
+                }
+                else {
+                    dayTotals[purchaseDate] = price;
+                }
+            }
+
+            let dayTotalsArray = Object.entries(dayTotals)
+
+            dayTotalsArray.map(item => {
+                lineXSet.push(item[0]);
+                lineYSet.push(item[1]);
             });
 
             let max = lineYSet.reduce(function (a, b) {
