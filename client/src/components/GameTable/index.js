@@ -162,8 +162,8 @@ export default function GameTable(props) {
                 }
               </TableBody>
             </Table>
-          }
         </TableContainer>
+        }
       </Grid>
     </>
   );
