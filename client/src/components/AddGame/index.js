@@ -15,6 +15,7 @@ import Paper from '@material-ui/core/Paper';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import { spacing } from '@material-ui/system';
+import { display } from '@material-ui/system';
 
 
 export default function AddGame(props) {
@@ -146,17 +147,18 @@ export default function AddGame(props) {
     return time;
   }
 
-  const useStyles = makeStyles({
+  const useStyles = makeStyles(theme => ({
     root: {
       textAlign: "center",
       marginTop: '0px',
+      overflow: 'hidden',
     },
     title: {
       fontSize: '1.5rem',
       fontWeight: 800,
       paddingTop: '21px',
-    }
-  });
+    },
+  })) ;
 
   const classes = useStyles()
 
@@ -164,7 +166,7 @@ export default function AddGame(props) {
     <>
     <Container className={classes.root}>
       <div className={classes.title}>Search Games</div>
-      <Container id="searchInputContainer">
+      <Container className={classes.search} id="searchInputContainer" component="div" overflow="visible">
         <form noValidate autoComplete="off" id="gameSearchForm">
           <TextField type="text" id="searchInput" label="Search" onChange={handleInputChange} />
           <Button variant="contained" id="getGame" color='primary' onClick={getGame}>Submit</Button>

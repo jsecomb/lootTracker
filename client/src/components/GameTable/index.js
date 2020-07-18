@@ -113,8 +113,6 @@ export default function GameTable(props) {
     root: {
       height: '100%',
       margin: 'auto',
-      // [theme.breakpoints.up('lg')]:{
-      //   margin: '0 3rem',
     },
   }));
 
@@ -123,12 +121,13 @@ export default function GameTable(props) {
   return (
     <>
       <Grid container item className={classes.root}>
-        <TableContainer id="gameTable" component={Paper} className={classes.root}>
-          <h1 style={{ textAlign: "center", paddingTop: '21px' }}>{props.user.email}'s Wishlist</h1>
-          {wishlistRows.length == 0 &&
-            <h3 style={{ textAlign: "center" }}>No games on your wishlist yet. Set a budget and add a game!</h3>
-          }
-          {wishlistRows.length > 0 &&
+        <div id='h1' style={{ textAlign: "center", paddingTop: '21px' }}>{props.user.email}'s </div>
+        <div id='h1' style={{ textAlign: "center" }}>Wishlist</div>
+        {wishlistRows.length == 0 &&
+          <Grid item style={{ textAlign: "center" }} color='primary' id='h2'>Set your budget above and start adding games to your Wishlist!</Grid>
+        }
+        {wishlistRows.length > 0 &&
+          <TableContainer id="gameTable" component={Paper} className={classes.root}>
             <Table aria-label="simple table">
               <TableHead>
                 <TableRow>
@@ -151,10 +150,10 @@ export default function GameTable(props) {
                     <TableCell id="tableCell" align="left">${row.price}</TableCell>
                     <TableCell id="tableCell" align="left">{row.rating}%</TableCell>
                     <TableCell id="tableCell" align="left">{row.releaseDate.substring(2, 11)}</TableCell>
-                    <TableCell id="tableCell" align="left">{row.purchaseDate ? `purchased: ${row.purchaseDate}` :
+                    <TableCell id="tableCell">{row.purchaseDate ? `purchased: ${row.purchaseDate}` :
                       <Button id="purchaseBtn" variant="contained" color="primary" onClick={() => verifySufficientFunds(row)}>Purchase</Button>}
                     </TableCell>
-                    {!row.purchaseDate ? <TableCell id="tableCell" align="left">
+                    {!row.purchaseDate ? <TableCell id="tableCell">
                       <Button id="removeBtn" variant="contained" color='primary' onClick={() => removeWishlistItem(row)}>Remove</Button>
                     </TableCell>
                       : <></>}
