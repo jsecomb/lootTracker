@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { makeStyles } from '@material-ui/core/styles';
+import { makeStyles, useStyles } from '@material-ui/core/styles';
 import { Container, Grid, Paper } from '@material-ui/core/';
 import GameTable from "../components/GameTable";
 import BudgetStats from "../components/BudgetStats";
@@ -10,7 +10,7 @@ function WishList(props) {
 
     const [reload, setReload] = useState(false);
 
-    const useStyles = makeStyles({
+const useStyles = makeStyles(theme => ({
         root: {
             display: 'flex',
             flexGrow: 1,
@@ -18,7 +18,7 @@ function WishList(props) {
             borderTop: 1,
             marginTop: '24px',
         },
-    });
+    }));
 
     const classes = useStyles()
 
@@ -38,7 +38,7 @@ function WishList(props) {
                         </Paper>
                     </Grid>
                 </Grid>
-                <Paper className={classes.root} style={{ height: '145px' }}>
+                <Paper className={classes.root }>
                     <AddGame user={props.user} setReload={setReload} />
                 </Paper>
                 <Paper className={classes.root}>

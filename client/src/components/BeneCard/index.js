@@ -24,6 +24,7 @@ const styles = theme => ({
     width: '27%',
     height: '27%',
   },
+  
 });
 
 export const BeneCard = withStyles(styles)(({ classes }) => {
