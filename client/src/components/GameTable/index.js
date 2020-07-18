@@ -142,7 +142,6 @@ export default function GameTable(props) {
               </TableHead>
               <TableBody>
                 {wishlistRows.map((row) => (
-
                   <TableRow key={row.name}>
                     <TableCell component="th" scope="row" align="left">
                       <a href={`https://store.steampowered.com/app/${row.steamId}/`}><img src={row.imgLink} alt={row.name}></img></a>
@@ -163,8 +162,8 @@ export default function GameTable(props) {
                 }
               </TableBody>
             </Table>
-          </TableContainer>
-        }
+          }
+        </TableContainer>
       </Grid>
     </>
   );

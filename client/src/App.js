@@ -5,7 +5,7 @@ import {
   Route,
   Redirect
 } from "react-router-dom";
-import { Home, WishList, WishListDetails, ExtensionPage } from "./pages";
+import { Home, WishList, WishListDetails, ExtensionPage, About } from "./pages";
 import Auth from "./pages/Auth"
 import { Navigation, Error } from "./components";
 import Container from '@material-ui/core/Container';
@@ -90,6 +90,9 @@ function App() {
                     </PrivateRoute>
                     <Route exact user={user} path={["/addGame/*"]}>
                       {user.id && <ExtensionPage user={user} />}
+                    </Route>
+                    <Route exact path={["/about"]}>
+                      <About />
                     </Route>
                     <Route exact path={["/login", "/signup"]}>
                       <Auth
