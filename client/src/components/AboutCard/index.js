@@ -39,12 +39,7 @@ const AboutCard = withStyles(styles)(({ classes }) => {
     return (
         <>
             <Container style={{ textAlign: 'center', margin: 'auto' }}>
-                <Grid item xs={12} md={10} lg={8} xl={12} style={{ margin: 'auto' }}>
-                    <CardMedia
-                        component="img"
-                        image={logo}
-                    />
-                </Grid>
+                <h1>The LootTracker Team</h1>
                 <Grid container item xs component={Card} style={{ marginTop: '21px' }} className={classes.root}>
                     <Grid item xs={12} md={6}>
                         <CardMedia
