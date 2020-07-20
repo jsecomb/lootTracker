@@ -7,7 +7,7 @@ import {
 } from "react-router-dom";
 import { Home, WishList, WishListDetails, ExtensionPage, About } from "./pages";
 import Auth from "./pages/Auth"
-import { Navigation, Error } from "./components";
+import { Navigation, Error, Footer } from "./components";
 import Container from '@material-ui/core/Container';
 import Grid from '@material-ui/core/Grid';
 import { MuiThemeProvider } from '@material-ui/core/styles';
@@ -103,6 +103,7 @@ function App() {
                     </Route>
                   </Switch>
                 </Grid>
+                <Footer user={user} logoutUser={logoutUser}/>
               </Grid>
             </Container>
           </Router>
