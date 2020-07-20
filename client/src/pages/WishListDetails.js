@@ -4,8 +4,6 @@ import { Doughnut, Line } from "react-chartjs-2";
 import { Grid } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 
-
-///this function does not appear to be working to set intial datastatefor donut
 function WishListDetails(props) {
     const initialDataState = {
         labels: ['Amount Spent', 'Amount Remaining'],
@@ -98,7 +96,7 @@ function WishListDetails(props) {
                         backgroundColor: [
                             '#c46000',
                             '#66798b',
-                        ],
+                        ],                        
                         data: [amountSpent, amountRemaining]
                     }
                 ]
@@ -137,8 +135,7 @@ function WishListDetails(props) {
         return (
             <>
                 <Grid container spacing={3} className={classes.root}>
-                    {/* <Grid item xs={false} lg={1}></Grid> */}
-                    <Grid item xs={12} lg={6} id='donutgrid' className={classes.charts}>
+                    <Grid item xs={12} id='donutgrid' className={classes.charts}>
                         <Doughnut
                             data={doughnutData}
                             options={{ maintainAspectRatio: false }}
@@ -162,7 +159,7 @@ function WishListDetails(props) {
                             }}
                         />
                     </Grid>
-                    <Grid item xs={12} lg={6} id='lineGrid' className={classes.charts}>
+                    <Grid item xs={12} id='lineGrid' className={classes.charts}>
                         <Line
                             data={lineData}
                             id='linechart'
@@ -195,9 +192,6 @@ function WishListDetails(props) {
                                             ticks: {
                                                 fontColor: '#fff',
                                             },
-                                            // labels: {
-                                            //     fontColor: '#fff',
-                                            // },
                                         }
                                     ]
                                 },
@@ -210,7 +204,6 @@ function WishListDetails(props) {
                             }}
                         />
                     </Grid>
-                    {/* <Grid item xs={false} md={1}></Grid> */}
                 </Grid>
             </>
         )

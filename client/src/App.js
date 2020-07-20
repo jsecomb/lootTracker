@@ -69,7 +69,7 @@ function App() {
       <MuiThemeProvider theme={theme}>
         <CssBaseline>
           <Router>
-            <Container>
+            <Container >
               <Grid container spacing={3}>
                 <Grid item xs={12}>
                   <Navigation user={user} logoutUser={logoutUser} />

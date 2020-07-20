@@ -81,7 +81,7 @@ export default function AddWishlist(props) {
       display: 'block',
       margin: 'auto',
       textAlign: 'center',
-      height: '100%', 
+      height: '100%',
     }
   });
 
@@ -90,10 +90,10 @@ export default function AddWishlist(props) {
   return (
     <>
       <Container>
-          <form className={classes.root} noValidate autoComplete="off" id="searchForm">
-            <TextField type="text" id="budgetInput" label={wishlistStatus} name="budget" onChange={handleInputChange} />
-            <Button variant="contained" id="budgetSubmit" value="Submit" color="primary" onClick={checkWishlistStatus}>Submit</Button>
-          </form>
+        <form className={classes.root} noValidate autoComplete="off" id="searchForm">
+          <TextField type="text" id="budgetInput" label={wishlistStatus} name="budget" onChange={handleInputChange} />
+          <Button variant="contained" id="budgetSubmit" value="Submit" color="primary" onClick={checkWishlistStatus}>Submit</Button>
+        </form>
       </Container>
     </>
   )
