@@ -1,21 +1,23 @@
 import React from 'react';
-import { makeStyles } from '@material-ui/core/styles';
-import CardMedia from '@material-ui/core/CardMedia';
-import { Grid, Button, Container } from '@material-ui/core';
 import { Link } from 'react-router-dom';
-import img from './logo.png';
+import { makeStyles } from '@material-ui/core/styles';
+import { Grid, Button, CardMedia, Box } from '@material-ui/core';
 import BeneCard from "../BeneCard";
-import Box from '@material-ui/core/Box';
+import logo from '../../assets/logo.png';
+
 
 const useStyles = makeStyles(theme => ({
 
     root: {
-        borderRadius: "borderRadius",
-        textAlign: 'center',
+        display: 'flex',
+        flexGrow: 1,
+        flexDirection: "row",
+        justifyContent: 'center',
         itemAlign: 'center',
         alignContent: 'center',
         marginBottom: '3%',
         margin: 'auto',
+        borderRadius: '2px',
         [theme.breakpoints.up('sm')]: {
             height: 'calc(100%)',
         },
@@ -23,27 +25,17 @@ const useStyles = makeStyles(theme => ({
             height: 'calc(100% - 50px)'
         }
     },
-    logo: {
-        [theme.breakpoints.between('xs', 'sm')]: {
-            maxWidth: '100%',
-            margin: 'auto',
-        },
-        [theme.breakpoints.up('sm')]: {
-            maxWidth: '60%',
-            margin: 'auto',
-        },
-    },
 }));
 
 export const HeroCard = React.memo(function HeroCard() {
     const classes = useStyles();
     return (
         <>
-            <Grid container item className={classes.root}>
-                <Grid item xs className={classes.logo}>
+            <Grid container item>
+                <Grid item xs={12} md={10} lg={8} xl={12} style={{ margin: 'auto' }}>
                     <CardMedia
                         component="img"
-                        image={img}
+                        image={logo}
                     />
                 </Grid>
                 <Box className={classes.root}>

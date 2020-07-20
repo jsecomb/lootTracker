@@ -45,7 +45,7 @@ function Navigation(props) {
               </>
             }
             <Button component={Link} to="/about" className={classes.root}>About</Button>
-           </Toolbar>
+          </Toolbar>
         </AppBar>
       </MuiThemeProvider>
     </>

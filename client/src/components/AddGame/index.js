@@ -14,9 +14,6 @@ import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
-import { spacing } from '@material-ui/system';
-import { display } from '@material-ui/system';
-
 
 export default function AddGame(props) {
 

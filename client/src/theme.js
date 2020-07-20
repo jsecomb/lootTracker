@@ -7,13 +7,13 @@ const theme = createMuiTheme({
   palette: createPalette({
     secondary: {
       light: '#402b2e',
-      main: '#1b0004', //brown
+      main: '#1b0004',      //brown
       dark: '#000000',
       contrastText: '#fff',
     },
     primary: {
       light: '#ffc049',
-      main: '#c46000', //orange
+      main: '#c46000',      //orange
       dark: '#c46000',
       contrastText: '#fff',
     },
@@ -25,7 +25,6 @@ const theme = createMuiTheme({
     },
     MuiToolbar: {
       disableGutters: true,
-      
     }
   },
 });

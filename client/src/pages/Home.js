@@ -5,7 +5,7 @@ import { HeroCard } from "../components/HeroCard";
 function Home() {
     return (
         <>
-            <Container>
+            <Container >
                 <HeroCard />
             </Container>
         </>

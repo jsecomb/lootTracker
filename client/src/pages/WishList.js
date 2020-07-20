@@ -27,12 +27,12 @@ const useStyles = makeStyles(theme => ({
         return (
             <>
                 <Grid container direction='row' spacing={3} alignContent="space-between" justify='space-between' className={classes.root} style={{paddingTop:'0px', marginTop: '12px'}} >
-                    <Grid item xs={12} sm={6}>
+                    <Grid item sm={12} md={6}>
                         <Paper className={classes.root} style={{ height: '145px' }}>
                             <BudgetStats user={props.user} reload={reload} setReload={setReload} />
                         </Paper>
                     </Grid>
-                    <Grid item xs={12} sm={6}>
+                    <Grid item sm={12} md={6}>
                         <Paper className={classes.root} style={{ height: '145px' }}>
                             <AddWishlist user={props.user} setReload={setReload} />
                         </Paper>
