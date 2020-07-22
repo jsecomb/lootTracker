@@ -103,10 +103,10 @@ function App() {
                     </Route>
                   </Switch>
                 </Grid>
-                <Footer user={user} logoutUser={logoutUser}/>
               </Grid>
             </Container>
           </Router>
+          <Footer user={user} logoutUser={logoutUser}/>
         </CssBaseline>
       </MuiThemeProvider>
     </>
