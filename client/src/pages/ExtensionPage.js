@@ -104,7 +104,6 @@ export default function ExtensionPage(props) {
   useEffect(() => {
     let urlString = window.location.href;
     const urlArray = urlString.split('/');
-    console.log(urlArray[4]);
     let steamId = parseInt(urlArray[4]);
     getGame(steamId);
   }, [])
