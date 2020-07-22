@@ -26,8 +26,15 @@ export default function AddGame(props) {
     setGameString(event.target.value)
   }
 
-  function getGame() {
+  function onKeyDown(event) {
+    if(event.key === 'Enter') {
+      event.preventDefault();
+      event.stopPropagation();
+      getGame();
+    }
+  }
 
+  function getGame() {
     axios({
       "method": "GET",
       "url": "https://www.cheapshark.com/api/1.0/deals",
@@ -48,6 +55,7 @@ export default function AddGame(props) {
         }
         filteredGamesList = filteredGamesList.filter(game => game.steamAppID)
         setGameResults(filteredGamesList);
+        document.getElementById('searchInput').value = '';
       })
       .catch((error) => {
         console.log(error)
@@ -165,7 +173,7 @@ export default function AddGame(props) {
       <div className={classes.title}>Search Games</div>
       <Container className={classes.search} id="searchInputContainer" component="div" overflow="visible">
         <form noValidate autoComplete="off" id="gameSearchForm">
-          <TextField type="text" id="searchInput" label="Search" onChange={handleInputChange} />
+          <TextField type="text" id="searchInput" label="Search" onChange={handleInputChange} onKeyDown={onKeyDown} />
           <Button variant="contained" id="getGame" color='primary' onClick={getGame}>Submit</Button>
           <Button variant="contained" id="clearSearch" color='primary' onClick={() => setGameResults([])}>Clear Search</Button>
         </form>

@@ -21,6 +21,14 @@ export default function AddWishlist(props) {
     setFormObject({ ...formObject, [name]: value })
   }
 
+  function onKeyDown(event) {
+    if(event.key === 'Enter') {
+      event.preventDefault();
+      event.stopPropagation();
+      checkWishlistStatus();
+    }
+  }
+
   function getWishlistStatus() {
     API.User.getById(props.user.id).then(function (userData) {
       if (userData.data.Wishlist) {
@@ -29,8 +37,8 @@ export default function AddWishlist(props) {
     })
   }
 
-  function checkWishlistStatus(event) {
-    event.preventDefault();
+  function checkWishlistStatus() {
+    document.getElementById("budgetInput").value = "";
     API.User.getById(props.user.id).then(function (userData) {
       if (isNaN(formObject.budget)) {
         Swal.fire({
@@ -91,7 +99,7 @@ export default function AddWishlist(props) {
     <>
       <Container>
         <form className={classes.root} noValidate autoComplete="off" id="searchForm">
-          <TextField type="text" id="budgetInput" label={wishlistStatus} name="budget" onChange={handleInputChange} />
+          <TextField type="text" id="budgetInput" label={wishlistStatus} name="budget" onChange={handleInputChange} onKeyDown={onKeyDown}/>
           <Button variant="contained" id="budgetSubmit" value="Submit" color="primary" onClick={checkWishlistStatus}>Submit</Button>
         </form>
       </Container>
