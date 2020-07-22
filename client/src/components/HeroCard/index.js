@@ -46,7 +46,7 @@ export const HeroCard = React.memo(function HeroCard() {
                     <Grid item xs={8} className={classes.root}>
                         <Button color="primary" variant="contained" component={Link} to='./login'>
                             Login
-                        </Button>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        </Button>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                         <Button color="primary" variant="contained" component={Link} to="./signup">
                             Signup
                         </Button>

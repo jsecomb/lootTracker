@@ -4,7 +4,7 @@ import { Card, CardMedia, Typography } from '@material-ui/core';
 import { Grid, Container } from '@material-ui/core';
 import img1 from '../../assets/piechart1.png';
 import img2 from '../../assets/linechart1.png';
-
+import card3 from '../../assets/extensionbutton.png';
 const styles = theme => ({
   root: {
     display: 'flex',
@@ -78,7 +78,7 @@ export const BeneCard = withStyles(styles)(({ classes }) => {
             <CardMedia
               className={classes.cover}
               component='img'
-              image={"https://i.imgur.com/y8KmYvk.png?1"}
+              image={card3}
               title="extension"
             />
           </Grid>
