@@ -15,9 +15,9 @@ directly from the Steam Store. [LootTrackerExtension](https://github.com/Saskuat
 
 ---
 
-## Demo:
+## Screenshot:
 
-![Extension Demo](https://s7.gifyu.com/images/lootTrackerDemo.gif)
+![Extension Demo](https://i.imgur.com/w2JylW7.png)
 
 ---
 
