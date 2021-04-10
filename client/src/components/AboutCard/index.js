@@ -101,7 +101,7 @@ const AboutCard = withStyles(styles)(({ classes }) => {
                                 </Typography>
                         <CardActions className={classes.links}>
                             <a href="https://github.com/bruggineer" className={classes.links}>Teresa Bruggeman's Github</a>
-                            <a href="https://bruggineer.github.io/Portfolio" className={classes.links}>Teresa Bruggeman's Portfolio</a>
+                            <a href="https://bruggineer.github.io/React-Portfolio/" className={classes.links}>Teresa Bruggeman's Portfolio</a>
                         </CardActions>
                     </Grid>
                 </Grid>
